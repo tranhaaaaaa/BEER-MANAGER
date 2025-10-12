@@ -1,0 +1,73 @@
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Thêm món ăn mới</h4>
+   
+  </div>
+
+  <div class="modal-body">
+    <form [formGroup]="productForm">
+      <div class="form-group">
+        <label for="ProductName">Tên món ăn</label>
+        <input
+          type="text"
+          class="form-control"
+          id="ProductName"
+          formControlName="ProductName"
+        />
+        <div *ngIf="productForm.get('ProductName')?.invalid && productForm.get('ProductName')?.touched" class="text-danger">
+          Tên sản phẩm là bắt buộc.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="Description">Mô tả</label>
+        <textarea
+          class="form-control"
+          id="Description"
+          formControlName="Description"
+        ></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="Price">Giá</label>
+        <input
+          type="number"
+          class="form-control"
+          id="Price"
+          formControlName="Price"
+        />
+        <div *ngIf="productForm.get('Price')?.invalid && productForm.get('Price')?.touched" class="text-danger">
+          Giá sản phẩm phải là số & bắt buộc.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="Img">Image URL</label>
+        <input
+          type="text"
+          class="form-control"
+          id="Img"
+          formControlName="Img"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="Stock">Số lượng</label>
+        <input
+          type="number"
+          class="form-control"
+          id="Stock"
+          formControlName="Stock"
+        />
+        <div *ngIf="productForm.get('Stock')?.invalid && productForm.get('Stock')?.touched" class="text-danger">
+          Số lượng là bắt buộc.
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button *ngIf="!ProductId" type="button" class="btn btn-primary" [disabled]="productForm.invalid" (click)="onSubmit(modal)">Thêm mới</button>
+    <button *ngIf="ProductId" type="button" class="btn btn-primary" [disabled]="productForm.invalid" (click)="onSubmit(modal)">Chỉnh sửa</button>
+    <button type="button" class="btn btn-secondary" (click)="closeModal(modal)">Đóng</button>
+  </div>
+</ng-template>

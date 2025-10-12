@@ -1,0 +1,1371 @@
+[
+  {
+    "ContainingType": "Microsoft.AspNetCore.OData.Routing.Controllers.MetadataController",
+    "Method": "GetServiceDocument",
+    "RelativePath": "",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "Microsoft.OData.ODataServiceDocument",
+        "MediaTypes": [
+          "application/json;odata.metadata=minimal;odata.streaming=true",
+          "application/json;odata.metadata=minimal;odata.streaming=false",
+          "application/json;odata.metadata=minimal",
+          "application/json;odata.metadata=full;odata.streaming=true",
+          "application/json;odata.metadata=full;odata.streaming=false",
+          "application/json;odata.metadata=full",
+          "application/json;odata.metadata=none;odata.streaming=true",
+          "application/json;odata.metadata=none;odata.streaming=false",
+          "application/json;odata.metadata=none",
+          "application/json;odata.streaming=true",
+          "application/json;odata.streaming=false",
+          "application/json",
+          "application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=false",
+          "application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=true",
+          "application/json;odata.metadata=minimal;odata.streaming=false;IEEE754Compatible=false",
+          "application/json;odata.metadata=minimal;odata.streaming=false;IEEE754Compatible=true",
+          "application/json;odata.metadata=minimal;IEEE754Compatible=false",
+          "application/json;odata.metadata=minimal;IEEE754Compatible=true",
+          "application/json;odata.metadata=full;odata.streaming=true;IEEE754Compatible=false",
+          "application/json;odata.metadata=full;odata.streaming=true;IEEE754Compatible=true",
+          "application/json;odata.metadata=full;odata.streaming=false;IEEE754Compatible=false",
+          "application/json;odata.metadata=full;odata.streaming=false;IEEE754Compatible=true",
+          "application/json;odata.metadata=full;IEEE754Compatible=false",
+          "application/json;odata.metadata=full;IEEE754Compatible=true",
+          "application/json;odata.metadata=none;odata.streaming=true;IEEE754Compatible=false",
+          "application/json;odata.metadata=none;odata.streaming=true;IEEE754Compatible=true",
+          "application/json;odata.metadata=none;odata.streaming=false;IEEE754Compatible=true",
+          "application/json;odata.metadata=none;odata.streaming=false;IEEE754Compatible=false",
+          "application/json;odata.metadata=none;IEEE754Compatible=false",
+          "application/json;odata.metadata=none;IEEE754Compatible=true",
+          "application/json;odata.streaming=true;IEEE754Compatible=false",
+          "application/json;odata.streaming=true;IEEE754Compatible=true",
+          "application/json;odata.streaming=false;IEEE754Compatible=false",
+          "application/json;odata.streaming=false;IEEE754Compatible=true",
+          "application/json;IEEE754Compatible=false",
+          "application/json;IEEE754Compatible=true",
+          "application/xml",
+          "application/json",
+          "text/plain",
+          "application/octet-stream",
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ],
+    "EndpointName": ""
+  },
+  {
+    "ContainingType": "Microsoft.AspNetCore.OData.Routing.Controllers.MetadataController",
+    "Method": "GetMetadata",
+    "RelativePath": "$metadata",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "Microsoft.OData.Edm.IEdmModel",
+        "MediaTypes": [
+          "application/json;odata.metadata=minimal;odata.streaming=true",
+          "application/json;odata.metadata=minimal;odata.streaming=false",
+          "application/json;odata.metadata=minimal",
+          "application/json;odata.metadata=full;odata.streaming=true",
+          "application/json;odata.metadata=full;odata.streaming=false",
+          "application/json;odata.metadata=full",
+          "application/json;odata.metadata=none;odata.streaming=true",
+          "application/json;odata.metadata=none;odata.streaming=false",
+          "application/json;odata.metadata=none",
+          "application/json;odata.streaming=true",
+          "application/json;odata.streaming=false",
+          "application/json",
+          "application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=false",
+          "application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=true",
+          "application/json;odata.metadata=minimal;odata.streaming=false;IEEE754Compatible=false",
+          "application/json;odata.metadata=minimal;odata.streaming=false;IEEE754Compatible=true",
+          "application/json;odata.metadata=minimal;IEEE754Compatible=false",
+          "application/json;odata.metadata=minimal;IEEE754Compatible=true",
+          "application/json;odata.metadata=full;odata.streaming=true;IEEE754Compatible=false",
+          "application/json;odata.metadata=full;odata.streaming=true;IEEE754Compatible=true",
+          "application/json;odata.metadata=full;odata.streaming=false;IEEE754Compatible=false",
+          "application/json;odata.metadata=full;odata.streaming=false;IEEE754Compatible=true",
+          "application/json;odata.metadata=full;IEEE754Compatible=false",
+          "application/json;odata.metadata=full;IEEE754Compatible=true",
+          "application/json;odata.metadata=none;odata.streaming=true;IEEE754Compatible=false",
+          "application/json;odata.metadata=none;odata.streaming=true;IEEE754Compatible=true",
+          "application/json;odata.metadata=none;odata.streaming=false;IEEE754Compatible=true",
+          "application/json;odata.metadata=none;odata.streaming=false;IEEE754Compatible=false",
+          "application/json;odata.metadata=none;IEEE754Compatible=false",
+          "application/json;odata.metadata=none;IEEE754Compatible=true",
+          "application/json;odata.streaming=true;IEEE754Compatible=false",
+          "application/json;odata.streaming=true;IEEE754Compatible=true",
+          "application/json;odata.streaming=false;IEEE754Compatible=false",
+          "application/json;odata.streaming=false;IEEE754Compatible=true",
+          "application/json;IEEE754Compatible=false",
+          "application/json;IEEE754Compatible=true",
+          "application/xml",
+          "application/json",
+          "text/plain",
+          "application/octet-stream",
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ],
+    "EndpointName": "$metadata"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.CustomController",
+    "Method": "Login",
+    "RelativePath": "Authentication/Login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "userLogin",
+        "Type": "BEERAPI.Controllers.UserLogin",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.OrderItem, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Get",
+    "RelativePath": "OrderItems",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [],
+    "EndpointName": "OrderItems"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.OrderItem, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Post",
+    "RelativePath": "OrderItems",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "entity",
+        "Type": "BEERAPI.Models.OrderItem",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "OrderItems"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.OrderItem, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Get",
+    "RelativePath": "OrderItems({key})",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "OrderItems({key})"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.OrderItem, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Put",
+    "RelativePath": "OrderItems({key})",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "entity",
+        "Type": "Microsoft.AspNetCore.OData.Deltas.Delta\u00601[[BEERAPI.Models.OrderItem, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "OrderItems({key})"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.OrderItem, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Patch",
+    "RelativePath": "OrderItems({key})",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "entity",
+        "Type": "Microsoft.AspNetCore.OData.Deltas.Delta\u00601[[BEERAPI.Models.OrderItem, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "OrderItems({key})"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.OrderItem, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Delete",
+    "RelativePath": "OrderItems({key})",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "OrderItems({key})"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.OrderItem, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Get",
+    "RelativePath": "OrderItems/{key}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "OrderItems/{key}"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.OrderItem, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Put",
+    "RelativePath": "OrderItems/{key}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "entity",
+        "Type": "Microsoft.AspNetCore.OData.Deltas.Delta\u00601[[BEERAPI.Models.OrderItem, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "OrderItems/{key}"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.OrderItem, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Patch",
+    "RelativePath": "OrderItems/{key}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "entity",
+        "Type": "Microsoft.AspNetCore.OData.Deltas.Delta\u00601[[BEERAPI.Models.OrderItem, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "OrderItems/{key}"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.OrderItem, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Delete",
+    "RelativePath": "OrderItems/{key}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "OrderItems/{key}"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.OrderItem, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Get",
+    "RelativePath": "OrderItems/$count",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [],
+    "EndpointName": "OrderItems/$count"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.Order, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Get",
+    "RelativePath": "Orders",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [],
+    "EndpointName": "Orders"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.Order, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Post",
+    "RelativePath": "Orders",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "entity",
+        "Type": "BEERAPI.Models.Order",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "Orders"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.Order, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Get",
+    "RelativePath": "Orders({key})",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "Orders({key})"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.Order, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Put",
+    "RelativePath": "Orders({key})",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "entity",
+        "Type": "Microsoft.AspNetCore.OData.Deltas.Delta\u00601[[BEERAPI.Models.Order, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "Orders({key})"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.Order, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Patch",
+    "RelativePath": "Orders({key})",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "entity",
+        "Type": "Microsoft.AspNetCore.OData.Deltas.Delta\u00601[[BEERAPI.Models.Order, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "Orders({key})"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.Order, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Delete",
+    "RelativePath": "Orders({key})",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "Orders({key})"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.Order, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Get",
+    "RelativePath": "Orders/{key}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "Orders/{key}"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.Order, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Put",
+    "RelativePath": "Orders/{key}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "entity",
+        "Type": "Microsoft.AspNetCore.OData.Deltas.Delta\u00601[[BEERAPI.Models.Order, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "Orders/{key}"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.Order, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Patch",
+    "RelativePath": "Orders/{key}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "entity",
+        "Type": "Microsoft.AspNetCore.OData.Deltas.Delta\u00601[[BEERAPI.Models.Order, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "Orders/{key}"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.Order, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Delete",
+    "RelativePath": "Orders/{key}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "Orders/{key}"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.Order, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Get",
+    "RelativePath": "Orders/$count",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [],
+    "EndpointName": "Orders/$count"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.Product, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Get",
+    "RelativePath": "Products",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [],
+    "EndpointName": "Products"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.Product, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Post",
+    "RelativePath": "Products",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "entity",
+        "Type": "BEERAPI.Models.Product",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "Products"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.Product, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Get",
+    "RelativePath": "Products({key})",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "Products({key})"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.Product, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Put",
+    "RelativePath": "Products({key})",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "entity",
+        "Type": "Microsoft.AspNetCore.OData.Deltas.Delta\u00601[[BEERAPI.Models.Product, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "Products({key})"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.Product, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Patch",
+    "RelativePath": "Products({key})",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "entity",
+        "Type": "Microsoft.AspNetCore.OData.Deltas.Delta\u00601[[BEERAPI.Models.Product, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "Products({key})"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.Product, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Delete",
+    "RelativePath": "Products({key})",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "Products({key})"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.Product, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Get",
+    "RelativePath": "Products/{key}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "Products/{key}"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.Product, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Put",
+    "RelativePath": "Products/{key}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "entity",
+        "Type": "Microsoft.AspNetCore.OData.Deltas.Delta\u00601[[BEERAPI.Models.Product, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "Products/{key}"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.Product, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Patch",
+    "RelativePath": "Products/{key}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "entity",
+        "Type": "Microsoft.AspNetCore.OData.Deltas.Delta\u00601[[BEERAPI.Models.Product, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "Products/{key}"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.Product, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Delete",
+    "RelativePath": "Products/{key}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "Products/{key}"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.Product, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Get",
+    "RelativePath": "Products/$count",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [],
+    "EndpointName": "Products/$count"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.Shop, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Get",
+    "RelativePath": "Shops",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [],
+    "EndpointName": "Shops"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.Shop, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Post",
+    "RelativePath": "Shops",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "entity",
+        "Type": "BEERAPI.Models.Shop",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "Shops"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.Shop, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Get",
+    "RelativePath": "Shops({key})",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "Shops({key})"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.Shop, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Put",
+    "RelativePath": "Shops({key})",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "entity",
+        "Type": "Microsoft.AspNetCore.OData.Deltas.Delta\u00601[[BEERAPI.Models.Shop, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "Shops({key})"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.Shop, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Patch",
+    "RelativePath": "Shops({key})",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "entity",
+        "Type": "Microsoft.AspNetCore.OData.Deltas.Delta\u00601[[BEERAPI.Models.Shop, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "Shops({key})"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.Shop, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Delete",
+    "RelativePath": "Shops({key})",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "Shops({key})"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.Shop, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Get",
+    "RelativePath": "Shops/{key}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "Shops/{key}"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.Shop, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Put",
+    "RelativePath": "Shops/{key}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "entity",
+        "Type": "Microsoft.AspNetCore.OData.Deltas.Delta\u00601[[BEERAPI.Models.Shop, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "Shops/{key}"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.Shop, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Patch",
+    "RelativePath": "Shops/{key}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "entity",
+        "Type": "Microsoft.AspNetCore.OData.Deltas.Delta\u00601[[BEERAPI.Models.Shop, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "Shops/{key}"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.Shop, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Delete",
+    "RelativePath": "Shops/{key}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "Shops/{key}"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.Shop, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Get",
+    "RelativePath": "Shops/$count",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [],
+    "EndpointName": "Shops/$count"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.Table, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Get",
+    "RelativePath": "Tables",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [],
+    "EndpointName": "Tables"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.Table, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Post",
+    "RelativePath": "Tables",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "entity",
+        "Type": "BEERAPI.Models.Table",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "Tables"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.Table, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Get",
+    "RelativePath": "Tables({key})",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "Tables({key})"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.Table, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Put",
+    "RelativePath": "Tables({key})",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "entity",
+        "Type": "Microsoft.AspNetCore.OData.Deltas.Delta\u00601[[BEERAPI.Models.Table, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "Tables({key})"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.Table, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Patch",
+    "RelativePath": "Tables({key})",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "entity",
+        "Type": "Microsoft.AspNetCore.OData.Deltas.Delta\u00601[[BEERAPI.Models.Table, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "Tables({key})"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.Table, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Delete",
+    "RelativePath": "Tables({key})",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "Tables({key})"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.Table, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Get",
+    "RelativePath": "Tables/{key}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "Tables/{key}"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.Table, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Put",
+    "RelativePath": "Tables/{key}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "entity",
+        "Type": "Microsoft.AspNetCore.OData.Deltas.Delta\u00601[[BEERAPI.Models.Table, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "Tables/{key}"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.Table, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Patch",
+    "RelativePath": "Tables/{key}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "entity",
+        "Type": "Microsoft.AspNetCore.OData.Deltas.Delta\u00601[[BEERAPI.Models.Table, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "Tables/{key}"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.Table, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Delete",
+    "RelativePath": "Tables/{key}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "Tables/{key}"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.Table, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Get",
+    "RelativePath": "Tables/$count",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [],
+    "EndpointName": "Tables/$count"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.User, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Get",
+    "RelativePath": "Users",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [],
+    "EndpointName": "Users"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.User, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Post",
+    "RelativePath": "Users",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "entity",
+        "Type": "BEERAPI.Models.User",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "Users"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.User, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Get",
+    "RelativePath": "Users({key})",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "Users({key})"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.User, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Put",
+    "RelativePath": "Users({key})",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "entity",
+        "Type": "Microsoft.AspNetCore.OData.Deltas.Delta\u00601[[BEERAPI.Models.User, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "Users({key})"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.User, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Patch",
+    "RelativePath": "Users({key})",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "entity",
+        "Type": "Microsoft.AspNetCore.OData.Deltas.Delta\u00601[[BEERAPI.Models.User, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "Users({key})"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.User, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Delete",
+    "RelativePath": "Users({key})",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "Users({key})"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.User, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Get",
+    "RelativePath": "Users/{key}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "Users/{key}"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.User, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Put",
+    "RelativePath": "Users/{key}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "entity",
+        "Type": "Microsoft.AspNetCore.OData.Deltas.Delta\u00601[[BEERAPI.Models.User, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "Users/{key}"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.User, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Patch",
+    "RelativePath": "Users/{key}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "entity",
+        "Type": "Microsoft.AspNetCore.OData.Deltas.Delta\u00601[[BEERAPI.Models.User, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "Users/{key}"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.User, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Delete",
+    "RelativePath": "Users/{key}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "key",
+        "Type": "System.Guid",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [],
+    "EndpointName": "Users/{key}"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.BaseController\u00601[[BEERAPI.Models.User, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+    "Method": "Get",
+    "RelativePath": "Users/$count",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [],
+    "EndpointName": "Users/$count"
+  },
+  {
+    "ContainingType": "BEERAPI.Controllers.WeatherForecastController",
+    "Method": "Get",
+    "RelativePath": "WeatherForecast",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[BEERAPI.WeatherForecast, BEERAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "application/json;odata.metadata=minimal;odata.streaming=true",
+          "application/json;odata.metadata=minimal;odata.streaming=false",
+          "application/json;odata.metadata=minimal",
+          "application/json;odata.metadata=full;odata.streaming=true",
+          "application/json;odata.metadata=full;odata.streaming=false",
+          "application/json;odata.metadata=full",
+          "application/json;odata.metadata=none;odata.streaming=true",
+          "application/json;odata.metadata=none;odata.streaming=false",
+          "application/json;odata.metadata=none",
+          "application/json;odata.streaming=true",
+          "application/json;odata.streaming=false",
+          "application/json",
+          "application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=false",
+          "application/json;odata.metadata=minimal;odata.streaming=true;IEEE754Compatible=true",
+          "application/json;odata.metadata=minimal;odata.streaming=false;IEEE754Compatible=false",
+          "application/json;odata.metadata=minimal;odata.streaming=false;IEEE754Compatible=true",
+          "application/json;odata.metadata=minimal;IEEE754Compatible=false",
+          "application/json;odata.metadata=minimal;IEEE754Compatible=true",
+          "application/json;odata.metadata=full;odata.streaming=true;IEEE754Compatible=false",
+          "application/json;odata.metadata=full;odata.streaming=true;IEEE754Compatible=true",
+          "application/json;odata.metadata=full;odata.streaming=false;IEEE754Compatible=false",
+          "application/json;odata.metadata=full;odata.streaming=false;IEEE754Compatible=true",
+          "application/json;odata.metadata=full;IEEE754Compatible=false",
+          "application/json;odata.metadata=full;IEEE754Compatible=true",
+          "application/json;odata.metadata=none;odata.streaming=true;IEEE754Compatible=false",
+          "application/json;odata.metadata=none;odata.streaming=true;IEEE754Compatible=true",
+          "application/json;odata.metadata=none;odata.streaming=false;IEEE754Compatible=true",
+          "application/json;odata.metadata=none;odata.streaming=false;IEEE754Compatible=false",
+          "application/json;odata.metadata=none;IEEE754Compatible=false",
+          "application/json;odata.metadata=none;IEEE754Compatible=true",
+          "application/json;odata.streaming=true;IEEE754Compatible=false",
+          "application/json;odata.streaming=true;IEEE754Compatible=true",
+          "application/json;odata.streaming=false;IEEE754Compatible=false",
+          "application/json;odata.streaming=false;IEEE754Compatible=true",
+          "application/json;IEEE754Compatible=false",
+          "application/json;IEEE754Compatible=true",
+          "application/xml",
+          "application/json",
+          "text/plain",
+          "application/octet-stream",
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ],
+    "EndpointName": "GetWeatherForecast"
+  }
+]

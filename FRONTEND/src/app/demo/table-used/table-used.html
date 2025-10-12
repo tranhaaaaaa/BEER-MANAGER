@@ -1,0 +1,191 @@
+<div class="card">
+  <div class="card-header">
+    <h5 class="card-title mb-0"><b>Danh sách bàn</b></h5>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title mb-0" style="color: red">
+      <b><h3>Trong quán</h3></b>
+    </h5>
+
+    <div class="row">
+      <div class="col-md-4">
+        <div
+          class="card mb-6 max-w-sm mx-auto rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105"
+          [ngClass]="dau_phai.Status === 0 ? 'bg-white' : 'bg-blue-300'"
+        >
+          <div class="card-body p-6">
+            <h4 class="card-title text-xl font-semibold text-gray-800 mb-4">{{ dau_phai.Name }}</h4>
+
+            <p class="card-text text-gray-600 mb-4"></p>
+
+            <div class="d-flex justify-content-end">
+              <button class="btn btn-primary m-2">Thêm sản phẩm</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div
+          class="card mb-6 max-w-sm mx-auto rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105"
+          [ngClass]="giua_phai.Status === 0 ? 'bg-white' : 'bg-blue-300'"
+        >
+          <div class="card-body">
+            <h5 class="card-title">{{ giua_phai.Name }}</h5>
+            <p class="card-text"></p>
+            <div class="d-flex justify-content-end">
+              <button class="btn btn-primary m-2">Thêm sản phẩm</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div
+          class="card mb-6 max-w-sm mx-auto rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105"
+          [ngClass]="cuoi_phai.Status === 0 ? 'bg-white' : 'bg-blue-300'"
+        >
+          <div class="card-body">
+            <h5 class="card-title">{{ cuoi_phai.Name }}</h5>
+            <p class="card-text"></p>
+            <div class="d-flex justify-content-end">
+              <button class="btn btn-primary m-2">Thêm sản phẩm</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div
+          class="card mb-6 max-w-sm mx-auto rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105"
+          [ngClass]="dau_trai.Status === 0 ? 'bg-white' : 'bg-blue-300'"
+        >
+          <div class="card-body">
+            <h5 class="card-title">{{ dau_trai.Name }}</h5>
+            <p class="card-text"></p>
+            <div class="d-flex justify-content-end">
+              <button class="btn btn-primary m-2">Thêm sản phẩm</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div
+          class="card mb-6 max-w-sm mx-auto rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105"
+          [ngClass]="giua_trai.Status === 0 ? 'bg-white' : 'bg-blue-300'"
+        >
+          <div class="card-body">
+            <h5 class="card-title">{{ giua_trai.Name }}</h5>
+            <p class="card-text"></p>
+            <div class="d-flex justify-content-end">
+              <button class="btn btn-primary m-2">Thêm sản phẩm</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div
+          class="card mb-6 max-w-sm mx-auto rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105"
+          [ngClass]="cuoi_trai.Status === 0 ? 'bg-white' : 'bg-blue-300'"
+        >
+          <div class="card-body">
+            <h5 class="card-title">{{ cuoi_trai.Name }}</h5>
+            <p class="card-text"></p>
+            <div class="d-flex justify-content-end">
+              <button class="btn btn-primary m-2">Thêm sản phẩm</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title mb-0" style="color: red">
+      <b><h3>Ngoài ao</h3></b>
+    </h5>
+
+    <div class="row">
+      <div class="col-md-4">
+        <div
+          class="card mb-6 max-w-sm mx-auto rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105"
+          [ngClass]="dau_ao_phai.Status === 0 ? 'bg-white' : 'bg-blue-300'"
+        >
+          <div class="card-body">
+            <h5 class="card-title">{{dau_ao_phai.Name }}</h5>
+            <p class="card-text"></p>
+            <div class="d-flex justify-content-end">
+              <button class="btn btn-primary m-2">Thêm sản phẩm</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div
+          class="card mb-6 max-w-sm mx-auto rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105"
+          [ngClass]="giua_ao_phai.Status === 0 ? 'bg-white' : 'bg-blue-300'"
+        >
+          <div class="card-body">
+            <h5 class="card-title">{{ giua_ao_phai.Name }}</h5>
+            <p class="card-text"></p>
+            <div class="d-flex justify-content-end">
+              <button class="btn btn-primary m-2">Thêm sản phẩm</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div
+          class="card mb-6 max-w-sm mx-auto rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105"
+          [ngClass]="cuoi_ao_phai.Status === 0 ? 'bg-white' : 'bg-blue-300'"
+        >
+          <div class="card-body">
+            <h5 class="card-title">{{ cuoi_ao_phai.Name }}</h5>
+            <p class="card-text"></p>
+            <div class="d-flex justify-content-end">
+              <button class="btn btn-primary m-2">Thêm sản phẩm</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div
+          class="card mb-6 max-w-sm mx-auto rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105"
+          [ngClass]="dau_ao_trai.Status === 0 ? 'bg-white' : 'bg-blue-300'"
+        >
+          <div class="card-body">
+            <h5 class="card-title">{{ dau_ao_trai.Name }}</h5>
+            <p class="card-text"></p>
+            <div class="d-flex justify-content-end">
+              <button class="btn btn-primary m-2">Thêm sản phẩm</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div
+          class="card mb-6 max-w-sm mx-auto rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105"
+          [ngClass]="giua_ao_trai.Status === 0 ? 'bg-white' : 'bg-blue-300'"
+        >
+          <div class="card-body">
+            <h5 class="card-title">{{ giua_ao_trai.Name }}</h5>
+            <p class="card-text"></p>
+            <div class="d-flex justify-content-end">
+              <button class="btn btn-primary m-2">Thêm sản phẩm</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div
+          class="card mb-6 max-w-sm mx-auto rounded-lg shadow-lg overflow-hidden transition-transform transform hover:scale-105"
+          [ngClass]="cuoi_ao_trai.Status === 0 ? 'bg-white' : 'bg-blue-300'"
+        >
+          <div class="card-body">
+            <h5 class="card-title">{{ cuoi_ao_trai.Name }}</h5>
+            <p class="card-text"></p>
+            <div class="d-flex justify-content-end">
+              <button class="btn btn-primary m-2">Thêm sản phẩm</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
