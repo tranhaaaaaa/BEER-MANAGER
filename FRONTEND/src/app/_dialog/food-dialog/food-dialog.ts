@@ -77,7 +77,7 @@ export class FoodDialog implements  OnInit, OnChanges{
         });
       }
     } else {
-      console.log('Form is not valid!');
+      console.log('Form is not valid! hihi');
     }
   }
 
