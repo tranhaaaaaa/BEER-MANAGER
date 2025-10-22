@@ -3,19 +3,17 @@ using System.Collections.Generic;
 
 namespace BEERAPI.Models;
 
-public partial class OrderItem
+public partial class Orderitem
 {
-    public Guid OrderItemUid { get; set; }
+    public Guid Orderitemuid { get; set; }
 
-    public Guid OrderUid { get; set; }
+    public Guid Orderuid { get; set; }
 
-    public Guid ProductUid { get; set; }
+    public Guid? Productuid { get; set; }
 
-    public int Quantity { get; set; }
+    public string? Name { get; set; }
 
-    public decimal UnitPrice { get; set; }
+    public decimal? Unitprice { get; set; }
 
-    public decimal? Name { get; set; }
-
-    public virtual Order OrderU { get; set; } = null!;
+    public virtual Order Orderu { get; set; } = null!;
 }

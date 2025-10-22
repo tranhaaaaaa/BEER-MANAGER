@@ -38,7 +38,7 @@ namespace BEERAPI.Controllers
         }
 
     }
-    public class OrderItemsController : BaseController<OrderItem>
+    public class OrderItemsController : BaseController<Orderitem>
     {
 
         public OrderItemsController(IOrderItemService service) : base(service)
@@ -83,8 +83,8 @@ namespace BEERAPI.Controllers
     }
     public class UserLogin
     {
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public int UserId { get; set; }
+        public string? Username { get; set; }
+        public string? Password { get; set; }
+        public int? UserId { get; set; }
     }
 }

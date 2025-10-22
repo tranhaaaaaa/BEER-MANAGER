@@ -5,25 +5,25 @@ namespace BEERAPI.Models;
 
 public partial class Product
 {
-    public Guid ProductUid { get; set; }
+    public Guid Productuid { get; set; }
 
-    public Guid ShopUid { get; set; }
-
-    public string ProductName { get; set; } = null!;
+    public string? Productname { get; set; }
 
     public string? Description { get; set; }
 
-    public decimal Price { get; set; }
+    public string? Img { get; set; }
+
+    public decimal? Price { get; set; }
+
+    public decimal? Priceconfig { get; set; }
 
     public int? Stock { get; set; }
 
     public int? Type { get; set; }
 
-    public DateTime? CreatedAt { get; set; }
+    public DateTime? Createdat { get; set; }
 
-    public decimal? PriceConfig { get; set; }
+    public Guid Shopuid { get; set; }
 
-    public string? Img { get; set; }
-
-    public virtual Shop ShopU { get; set; } = null!;
+    public virtual Shop Shopu { get; set; } = null!;
 }

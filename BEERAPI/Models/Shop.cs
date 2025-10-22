@@ -5,17 +5,17 @@ namespace BEERAPI.Models;
 
 public partial class Shop
 {
-    public Guid ShopUid { get; set; }
+    public Guid Shopuid { get; set; }
 
-    public string ShopName { get; set; } = null!;
+    public string? Shopname { get; set; }
 
     public string? Username { get; set; }
 
     public string? Password { get; set; }
 
-    public DateTime? CreatedAt { get; set; }
-
     public string? Img { get; set; }
+
+    public DateTime? Createdat { get; set; }
 
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 

@@ -34,7 +34,7 @@ namespace BEERAPI.Services.Impl
         {
         }
     }
-    public class OrderItemService : BaseServices<OrderItem>, IOrderItemService
+    public class OrderItemService : BaseServices<Orderitem>, IOrderItemService
     {
         public OrderItemService(EcommerceDbContext context, IMemoryCache cache, IConfiguration configuration) : base(context, cache, configuration)
         {
@@ -73,7 +73,7 @@ namespace BEERAPI.Services.Impl
             {
                 token = GenerateToken(user),
                 username = user.Username,
-                userid = user.ShopUid,
+                userid = user.Shopuid,
             };
         }
         private string GenerateToken(Shop shop)
@@ -86,7 +86,7 @@ namespace BEERAPI.Services.Impl
             var claims = new[]
             {
                 new Claim("UserName",shop.Username),
-                new Claim("Id",shop.ShopUid.ToString()),
+                new Claim("Id",shop.Shopuid.ToString()),
 
             };
             var token = new JwtSecurityToken(config["Jwt.Issuer"],

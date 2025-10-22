@@ -5,21 +5,19 @@ namespace BEERAPI.Models;
 
 public partial class Logging
 {
-    public Guid LogUid { get; set; }
+    public Guid Loguid { get; set; }
 
-    public Guid? UserUid { get; set; }
-
-    public string Action { get; set; } = null!;
-
-    public string? TableName { get; set; }
+    public string? Action { get; set; }
 
     public string? Level { get; set; }
 
-    public Guid? RecordUid { get; set; }
+    public string? Tablename { get; set; }
 
-    public string? Message { get; set; }
+    public Guid? Recorduid { get; set; }
 
-    public DateTime? CreatedAt { get; set; }
+    public Guid? Useruid { get; set; }
 
-    public virtual User? UserU { get; set; }
+    public DateTime? Createdat { get; set; }
+
+    public virtual User? Useru { get; set; }
 }

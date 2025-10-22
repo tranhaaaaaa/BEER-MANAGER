@@ -5,11 +5,9 @@ namespace BEERAPI.Models;
 
 public partial class Table
 {
-    public Guid TableId { get; set; }
+    public Guid Tableid { get; set; }
 
     public string? Name { get; set; }
 
-    public Guid? OrderId { get; set; }
-
-    public int? Status { get; set; }
+    public Guid? Orderid { get; set; }
 }

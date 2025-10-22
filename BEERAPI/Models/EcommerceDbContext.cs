@@ -19,7 +19,7 @@ public partial class EcommerceDbContext : DbContext
 
     public virtual DbSet<Order> Orders { get; set; }
 
-    public virtual DbSet<OrderItem> OrderItems { get; set; }
+    public virtual DbSet<Orderitem> Orderitems { get; set; }
 
     public virtual DbSet<Product> Products { get; set; }
 
@@ -29,168 +29,245 @@ public partial class EcommerceDbContext : DbContext
 
     public virtual DbSet<User> Users { get; set; }
 
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("server=DESKTOP-TPS0JEE\\SQLEXPRESS;database=ECommerceDB;user=sa;password=123;TrustServerCertificate=true;");
+       => optionsBuilder.UseNpgsql("Host=ep-blue-leaf-a487163d-pooler.us-east-1.aws.neon.tech;Database=EcommerceDb;Username=neondb_owner;Password=npg_dUAX0g7aZxvJ;SSL Mode=VerifyFull;Trust Server Certificate=true");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.HasPostgresExtension("pg_session_jwt");
+
         modelBuilder.Entity<Logging>(entity =>
         {
-            entity.HasKey(e => e.LogUid).HasName("PK__Logging__D12CCB367042FDA1");
+            entity.HasKey(e => e.Loguid).HasName("logging_pkey");
 
-            entity.ToTable("Logging");
+            entity.ToTable("logging");
 
-            entity.Property(e => e.LogUid)
-                .HasDefaultValueSql("(newid())")
-                .HasColumnName("LogUID");
-            entity.Property(e => e.Action).HasMaxLength(100);
-            entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
-            entity.Property(e => e.Level).HasMaxLength(100);
-            entity.Property(e => e.RecordUid).HasColumnName("RecordUID");
-            entity.Property(e => e.TableName).HasMaxLength(100);
-            entity.Property(e => e.UserUid).HasColumnName("UserUID");
+            entity.Property(e => e.Loguid)
+                .HasDefaultValueSql("gen_random_uuid()")
+                .HasColumnName("loguid");
+            entity.Property(e => e.Action)
+                .HasMaxLength(100)
+                .HasColumnName("action");
+            entity.Property(e => e.Createdat)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("createdat");
+            entity.Property(e => e.Level)
+                .HasMaxLength(100)
+                .HasColumnName("level");
+            entity.Property(e => e.Recorduid).HasColumnName("recorduid");
+            entity.Property(e => e.Tablename)
+                .HasMaxLength(100)
+                .HasColumnName("tablename");
+            entity.Property(e => e.Useruid).HasColumnName("useruid");
 
-            entity.HasOne(d => d.UserU).WithMany(p => p.Loggings)
-                .HasForeignKey(d => d.UserUid)
-                .HasConstraintName("FK__Logging__UserUID__71D1E811");
+            entity.HasOne(d => d.Useru).WithMany(p => p.Loggings)
+                .HasForeignKey(d => d.Useruid)
+                .HasConstraintName("fk_logging_user");
         });
 
         modelBuilder.Entity<Order>(entity =>
         {
-            entity.HasKey(e => e.OrderUid).HasName("PK__Order__EF45ED22EF65FC3F");
+            entity.HasKey(e => e.Orderuid).HasName("Order_pkey");
 
             entity.ToTable("Order");
 
-            entity.Property(e => e.OrderUid)
-                .HasDefaultValueSql("(newid())")
-                .HasColumnName("OrderUID");
-            entity.Property(e => e.Name).HasMaxLength(1);
-            entity.Property(e => e.OrderDate)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
-            entity.Property(e => e.ShopUid).HasColumnName("ShopUID");
-            entity.Property(e => e.TotalAmount)
-                .HasDefaultValue(0m)
-                .HasColumnType("decimal(18, 2)");
-            entity.Property(e => e.Type).HasMaxLength(1);
-            entity.Property(e => e.UserUid).HasColumnName("UserUID");
+            entity.Property(e => e.Orderuid)
+                .HasDefaultValueSql("gen_random_uuid()")
+                .HasColumnName("orderuid");
+            entity.Property(e => e.Name)
+                .HasMaxLength(100)
+                .HasColumnName("name");
+            entity.Property(e => e.Orderdate)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("orderdate");
+            entity.Property(e => e.Shopuid).HasColumnName("shopuid");
+            entity.Property(e => e.Totalamount)
+                .HasPrecision(18, 2)
+                .HasDefaultValueSql("0")
+                .HasColumnName("totalamount");
+            entity.Property(e => e.Type)
+                .HasMaxLength(50)
+                .HasColumnName("type");
+            entity.Property(e => e.Useruid).HasColumnName("useruid");
 
-            entity.HasOne(d => d.ShopU).WithMany(p => p.Orders)
-                .HasForeignKey(d => d.ShopUid)
+            entity.HasOne(d => d.Shopu).WithMany(p => p.Orders)
+                .HasForeignKey(d => d.Shopuid)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Order__ShopUID__656C112C");
+                .HasConstraintName("fk_order_shop");
 
-            entity.HasOne(d => d.UserU).WithMany(p => p.Orders)
-                .HasForeignKey(d => d.UserUid)
+            entity.HasOne(d => d.Useru).WithMany(p => p.Orders)
+                .HasForeignKey(d => d.Useruid)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Order__UserUID__66603565");
+                .HasConstraintName("fk_order_user");
         });
 
-        modelBuilder.Entity<OrderItem>(entity =>
+        modelBuilder.Entity<Orderitem>(entity =>
         {
-            entity.HasKey(e => e.OrderItemUid).HasName("PK__OrderIte__7A70AEA3A156B1BD");
+            entity.HasKey(e => e.Orderitemuid).HasName("orderitem_pkey");
 
-            entity.ToTable("OrderItem");
+            entity.ToTable("orderitem");
 
-            entity.Property(e => e.OrderItemUid)
-                .HasDefaultValueSql("(newid())")
-                .HasColumnName("OrderItemUID");
-            entity.Property(e => e.Name).HasColumnType("decimal(18, 2)");
-            entity.Property(e => e.OrderUid).HasColumnName("OrderUID");
-            entity.Property(e => e.ProductUid).HasColumnName("ProductUID");
-            entity.Property(e => e.UnitPrice).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.Orderitemuid)
+                .HasDefaultValueSql("gen_random_uuid()")
+                .HasColumnName("orderitemuid");
+            entity.Property(e => e.Name)
+                .HasMaxLength(150)
+                .HasColumnName("name");
+            entity.Property(e => e.Orderuid).HasColumnName("orderuid");
+            entity.Property(e => e.Productuid).HasColumnName("productuid");
+            entity.Property(e => e.Unitprice)
+                .HasPrecision(18, 2)
+                .HasColumnName("unitprice");
 
-            entity.HasOne(d => d.OrderU).WithMany(p => p.OrderItems)
-                .HasForeignKey(d => d.OrderUid)
+            entity.HasOne(d => d.Orderu).WithMany(p => p.Orderitems)
+                .HasForeignKey(d => d.Orderuid)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__OrderItem__Order__6A30C649");
+                .HasConstraintName("fk_orderitem_order");
         });
 
         modelBuilder.Entity<Product>(entity =>
         {
-            entity.HasKey(e => e.ProductUid).HasName("PK__Product__ADC6EB5B72584E7C");
+            entity.HasKey(e => e.Productuid).HasName("product_pkey");
 
-            entity.ToTable("Product");
+            entity.ToTable("product");
 
-            entity.Property(e => e.ProductUid)
-                .HasDefaultValueSql("(newid())")
-                .HasColumnName("ProductUID");
-            entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
-            entity.Property(e => e.Description).HasMaxLength(500);
+            entity.Property(e => e.Productuid)
+                .HasDefaultValueSql("gen_random_uuid()")
+                .HasColumnName("productuid");
+            entity.Property(e => e.Createdat)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("createdat");
+            entity.Property(e => e.Description)
+                .HasMaxLength(500)
+                .HasColumnName("description");
             entity.Property(e => e.Img)
                 .HasMaxLength(1000)
-                .IsFixedLength();
-            entity.Property(e => e.Price).HasColumnType("decimal(18, 2)");
-            entity.Property(e => e.PriceConfig).HasColumnType("decimal(18, 2)");
-            entity.Property(e => e.ProductName).HasMaxLength(150);
-            entity.Property(e => e.ShopUid).HasColumnName("ShopUID");
-            entity.Property(e => e.Stock).HasDefaultValue(0);
-            entity.Property(e => e.Type).HasDefaultValue(0);
+                .HasColumnName("img");
+            entity.Property(e => e.Price)
+                .HasPrecision(18, 2)
+                .HasColumnName("price");
+            entity.Property(e => e.Priceconfig)
+                .HasPrecision(18, 2)
+                .HasColumnName("priceconfig");
+            entity.Property(e => e.Productname)
+                .HasMaxLength(150)
+                .HasColumnName("productname");
+            entity.Property(e => e.Shopuid).HasColumnName("shopuid");
+            entity.Property(e => e.Stock)
+                .HasDefaultValue(0)
+                .HasColumnName("stock");
+            entity.Property(e => e.Type)
+                .HasDefaultValue(0)
+                .HasColumnName("type");
 
-            entity.HasOne(d => d.ShopU).WithMany(p => p.Products)
-                .HasForeignKey(d => d.ShopUid)
+            entity.HasOne(d => d.Shopu).WithMany(p => p.Products)
+                .HasForeignKey(d => d.Shopuid)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Product__ShopUID__5FB337D6");
+                .HasConstraintName("fk_product_shop");
         });
 
         modelBuilder.Entity<Shop>(entity =>
         {
-            entity.HasKey(e => e.ShopUid).HasName("PK__Shop__5DD995CC9AA24EB6");
+            entity.HasKey(e => e.Shopuid).HasName("shop_pkey");
 
-            entity.ToTable("Shop");
+            entity.ToTable("shop");
 
-            entity.Property(e => e.ShopUid)
-                .HasDefaultValueSql("(newid())")
-                .HasColumnName("ShopUID");
-            entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
-            entity.Property(e => e.Img).HasMaxLength(2000);
-            entity.Property(e => e.Password).HasMaxLength(2000);
-            entity.Property(e => e.ShopName).HasMaxLength(150);
-            entity.Property(e => e.Username).HasMaxLength(200);
+            entity.Property(e => e.Shopuid)
+                .HasDefaultValueSql("gen_random_uuid()")
+                .HasColumnName("shopuid");
+            entity.Property(e => e.Createdat)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("createdat");
+            entity.Property(e => e.Img)
+                .HasMaxLength(2000)
+                .HasColumnName("img");
+            entity.Property(e => e.Password)
+                .HasMaxLength(2000)
+                .HasColumnName("password");
+            entity.Property(e => e.Shopname)
+                .HasMaxLength(150)
+                .HasColumnName("shopname");
+            entity.Property(e => e.Username)
+                .HasMaxLength(200)
+                .HasColumnName("username");
         });
 
         modelBuilder.Entity<Table>(entity =>
         {
-            entity.HasKey(e => e.TableId).HasName("PK__Table__7D5F018E3756B032");
+            entity.HasKey(e => e.Tableid).HasName("Table_pkey");
 
             entity.ToTable("Table");
 
-            entity.Property(e => e.TableId)
-                .HasDefaultValueSql("(newid())")
-                .HasColumnName("TableID");
-            entity.Property(e => e.Name).HasMaxLength(200);
-            entity.Property(e => e.OrderId).HasColumnName("OrderID");
+            entity.Property(e => e.Tableid)
+                .HasDefaultValueSql("gen_random_uuid()")
+                .HasColumnName("tableid");
+            entity.Property(e => e.Name)
+                .HasMaxLength(200)
+                .HasColumnName("name");
+            entity.Property(e => e.Orderid).HasColumnName("orderid");
         });
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.Uid).HasName("PK__User__C5B1960282B28074");
+            entity.HasKey(e => e.Uid).HasName("User_pkey");
 
             entity.ToTable("User");
 
             entity.Property(e => e.Uid)
-                .HasDefaultValueSql("(newid())")
-                .HasColumnName("UID");
-            entity.Property(e => e.Address).HasMaxLength(2000);
-            entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
-            entity.Property(e => e.Name).HasMaxLength(100);
-            entity.Property(e => e.Phone).HasMaxLength(20);
-            entity.Property(e => e.ShopUid).HasColumnName("ShopUID");
+                .HasDefaultValueSql("gen_random_uuid()")
+                .HasColumnName("uid");
+            entity.Property(e => e.Address)
+                .HasMaxLength(2000)
+                .HasColumnName("address");
+            entity.Property(e => e.Createdat)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnType("timestamp without time zone")
+                .HasColumnName("createdat");
+            entity.Property(e => e.Name)
+                .HasMaxLength(100)
+                .HasColumnName("name");
+            entity.Property(e => e.Phone)
+                .HasMaxLength(20)
+                .HasColumnName("phone");
+            entity.Property(e => e.Shopuid).HasColumnName("shopuid");
 
-            entity.HasOne(d => d.ShopU).WithMany(p => p.Users)
-                .HasForeignKey(d => d.ShopUid)
+            entity.HasOne(d => d.Shopu).WithMany(p => p.Users)
+                .HasForeignKey(d => d.Shopuid)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__User__ShopUID__534D60F1");
+                .HasConstraintName("fk_user_shop");
         });
+
+        // modelBuilder.Entity<UsersSync>(entity =>
+        // {
+        //     entity.HasKey(e => e.Id).HasName("users_sync_pkey");
+
+        //     entity.ToTable("users_sync", "neon_auth");
+
+        //     entity.HasIndex(e => e.DeletedAt, "users_sync_deleted_at_idx");
+
+        //     entity.Property(e => e.Id)
+        //         .HasComputedColumnSql("(raw_json ->> 'id'::text)", true)
+        //         .HasColumnName("id");
+        //     entity.Property(e => e.CreatedAt)
+        //         .HasComputedColumnSql("to_timestamp((trunc((((raw_json ->> 'signed_up_at_millis'::text))::bigint)::double precision) / (1000)::double precision))", true)
+        //         .HasColumnName("created_at");
+        //     entity.Property(e => e.DeletedAt).HasColumnName("deleted_at");
+        //     entity.Property(e => e.Email)
+        //         .HasComputedColumnSql("(raw_json ->> 'primary_email'::text)", true)
+        //         .HasColumnName("email");
+        //     entity.Property(e => e.Name)
+        //         .HasComputedColumnSql("(raw_json ->> 'display_name'::text)", true)
+        //         .HasColumnName("name");
+        //     entity.Property(e => e.RawJson)
+        //         .HasColumnType("jsonb")
+        //         .HasColumnName("raw_json");
+        //     entity.Property(e => e.UpdatedAt).HasColumnName("updated_at");
+        // });
 
         OnModelCreatingPartial(modelBuilder);
     }

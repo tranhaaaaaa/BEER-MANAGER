@@ -7,16 +7,24 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.20" />
-    <PackageReference Include="Microsoft.AspNetCore.OData" Version="9.4.0" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.20">
+    <!-- EF Core + PostgreSQL đồng bộ version -->
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.20" />
-    <PackageReference Include="Microsoft.OData.Edm" Version="8.4.0" />
-    <PackageReference Include="Microsoft.OData.ModelBuilder" Version="2.0.0" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.4" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4" />
+
+    <!-- OData 8.x chuẩn cho .NET 8 -->
+    <PackageReference Include="Microsoft.AspNetCore.OData" Version="8.0.12" />
+    <PackageReference Include="Microsoft.OData.Core" Version="7.12.5" />
+    <PackageReference Include="Microsoft.OData.Edm" Version="7.12.5" />
+    <PackageReference Include="Microsoft.OData.ModelBuilder" Version="1.0.8" />
+    <PackageReference Include="Microsoft.Spatial" Version="7.12.5" />
+
+    <!-- JWT + Swagger -->
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.4" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 

@@ -13,7 +13,8 @@ namespace BEERAPI.Services
     }
     public interface IOrderService : IServices<Order>
     {
-    public interface IOrderItemService : IServices<OrderItem>
+    }
+    public interface IOrderItemService : IServices<Orderitem>
     {
     }
     public interface ILoggingService : IServices<Logging>
@@ -22,5 +23,5 @@ namespace BEERAPI.Services
         public interface ITableService : IServices<Table>
         {
         }
-    }
+    
 }

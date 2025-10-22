@@ -5,27 +5,23 @@ namespace BEERAPI.Models;
 
 public partial class Order
 {
-    public Guid OrderUid { get; set; }
+    public Guid Orderuid { get; set; }
 
-    public Guid UserUid { get; set; }
-
-    public DateTime? OrderDate { get; set; }
-
-    public int Status { get; set; }
-
-    public decimal? TotalAmount { get; set; }
-
-    public int PaymentType { get; set; }
-
-    public Guid ShopUid { get; set; }
-
-    public string Name { get; set; } = null!;
+    public string? Name { get; set; }
 
     public string? Type { get; set; }
 
-    public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
+    public decimal? Totalamount { get; set; }
 
-    public virtual Shop ShopU { get; set; } = null!;
+    public DateTime? Orderdate { get; set; }
 
-    public virtual User UserU { get; set; } = null!;
+    public Guid Shopuid { get; set; }
+
+    public Guid Useruid { get; set; }
+
+    public virtual ICollection<Orderitem> Orderitems { get; set; } = new List<Orderitem>();
+
+    public virtual Shop Shopu { get; set; } = null!;
+
+    public virtual User Useru { get; set; } = null!;
 }
