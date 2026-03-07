@@ -22,6 +22,8 @@ jobs:
       - name: Install dependencies
         run: npm install --legacy-peer-deps
 
+      - name: Build Angular
+        run: npm run build
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
 
