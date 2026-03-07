@@ -90,7 +90,7 @@ c-modal {
 }
 
 c-modal-body {
-  height: calc(100vh - 160px);
+  height: calc(100vh - 200px);
   overflow-y: auto;
 }
 
