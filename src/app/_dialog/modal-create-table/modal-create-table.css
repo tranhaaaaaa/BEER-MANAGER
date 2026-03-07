@@ -1,0 +1,103 @@
+.food-card {
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.food-card:hover {
+  transform: scale(1.05);
+  background: #f8f9fa;
+}
+
+/* danh sách món đã chọn */
+.order-list {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+/* mỗi dòng món */
+.order-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* tên món */
+.food-name {
+  flex: 1;
+  min-width: 140px;
+  font-weight: 600;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* giá */
+.food-price {
+  width: 90px;
+}
+
+/* khu vực tăng giảm */
+.qty-control {
+  width: 130px;
+}
+
+/* input số lượng */
+.qty-input {
+  width: 55px;
+  text-align: center;
+}
+
+/* tổng tiền */
+.food-total {
+  width: 110px;
+  text-align: right;
+  font-weight: 600;
+}
+.food-img{
+  height:120px;
+  object-fit:cover;
+}
+
+@media (max-width: 992px) {
+
+  .food-name {
+    min-width: 75px;
+    font-size: 14px;
+  }
+
+  .food-price {
+    width: 80px;
+    font-size: 14px;
+  }
+
+  .qty-control {
+    width: 110px;
+  }
+
+  .qty-input {
+    width: 45px;
+  }
+
+  .food-total {
+    width: 100px;
+    font-size: 14px;
+  }
+
+}
+c-modal {
+  height: 100vh;
+}
+
+c-modal-body {
+  height: calc(100vh - 160px);
+  overflow-y: auto;
+}
+
+.order-list {
+  max-height: 80vh;
+  overflow-y: auto;
+}
+c-modal-footer{
+    background-color: white;
+}

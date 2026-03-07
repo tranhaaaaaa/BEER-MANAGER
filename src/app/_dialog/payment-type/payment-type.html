@@ -1,0 +1,37 @@
+<c-modal
+  alignment="center"
+  [visible]="visible"
+  (visibleChange)="visible = $event"
+>
+
+ <c-modal-header>
+    <h5 cModalTitle>Phương thức thanh toán</h5>
+    <button cButtonClose (click)="closeModal()"></button>
+  </c-modal-header>
+  <c-modal-body>
+
+  <div class="d-flex gap-3">
+
+    <!-- Tiền mặt -->
+    <button 
+      cButton 
+      color="success"
+      class="flex-fill py-3"
+      (click)="selectPayment('cash')">
+
+      💵 Tiền mặt
+
+    </button>
+    <button 
+      cButton 
+      color="primary"
+      class="flex-fill py-3"
+      (click)="selectPayment('bank')">
+      🏦 Chuyển khoản
+    </button>
+  </div>
+</c-modal-body>
+  <c-modal-footer>
+    <button cButton color="info" (click)="closeModal()">Đóng</button>
+  </c-modal-footer>
+</c-modal>

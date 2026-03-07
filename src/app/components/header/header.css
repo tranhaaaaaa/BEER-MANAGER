@@ -1,0 +1,48 @@
+.logo-wrapper {
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+}
+.logo-main {
+  position: relative;
+  display: inline-block;
+  font-size: 40px;
+    font-weight: 700;
+  line-height: 1;
+  letter-spacing: 6px;
+}
+
+.logo-main span {
+  display: inline-block;
+}
+
+.logo-main .h {
+  margin-left: -10px;
+}
+.orbit {
+  position: absolute;
+  top: 30%;
+  left: -30%;
+  width: 160%;
+  height: 80px;
+  border-top: 4px solid black;
+  border-radius: 50%;
+  transform: rotate(-10deg);
+}
+.logo-sub {
+    margin-top: 2px;
+    font-size: 18px;
+    letter-spacing: 3px;
+  font-weight: 500;
+}
+header {
+  background: #e30031;
+  box-shadow: 0 4px 20px rgba(212, 164, 55, 0.25);
+}
+
+.toggle-btn {
+  font-size: 20px;
+  margin-right: 20px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}

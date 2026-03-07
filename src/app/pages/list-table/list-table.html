@@ -1,0 +1,42 @@
+<div class="container mt-4">
+
+  <div class="d-flex justify-content-between mb-3">
+    <h4>Danh sách bàn</h4>
+    <button class="btn btn-primary" (click)="openAdd()">+ Thêm bàn</button>
+  </div>
+
+  <div class="row">
+
+    <div class="col-md-3 mb-3" *ngFor="let table of tables; let i = index">
+      <div class="card table-card shadow-sm">
+
+        <div class="card-body">
+
+          <h5 class="card-title">{{table.name}}</h5>
+
+          <p class="total">
+            {{table.total | number}} đ
+          </p>
+
+          <div class="actions">
+
+            <button class="btn btn-warning btn-sm me-2" (click)="editTable(i)">
+              Sửa
+            </button>
+
+            <button class="btn btn-danger btn-sm" (click)="deleteTable(i)">
+              Xóa
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<app-modal-create-table></app-modal-create-table>

@@ -1,0 +1,29 @@
+<div class="sidebar" [class.collapsed]="!collapsed">
+
+  <div class="sidebar-title">
+    Quản lý bán hàng
+  </div>
+  <ul class="menu">
+    <li *ngFor="let item of menu; let i = index">
+      <div class="menu-item" [class.open]="openedMenus.includes(i)" (click)="onClick()"
+        [routerLink]="!item.children ? item.link : null" routerLinkActive="active">
+        <div class="left">
+          <i [class]="item.icon"></i>
+          <span class="title">
+            {{item.title}}
+          </span>
+          <span *ngIf="item.badge" class="badge">
+            {{item.badge}}
+          </span>
+        </div>
+        <i *ngIf="item.children" class="bi bi-chevron-down arrow" [class.rotate]="openedMenus.includes(i)">
+        </i>
+      </div>
+      <ul *ngIf="item.children && openedMenus.includes(i)" class="submenu">
+        <li *ngFor="let child of item.children" [routerLink]="child.link" routerLinkActive="active">
+          {{child.title}}
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>

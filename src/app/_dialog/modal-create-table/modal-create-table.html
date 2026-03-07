@@ -1,0 +1,168 @@
+<c-modal [visible]="visible" [fullscreen]="true" class="p-0" (visibleChange)="visible = $event">
+  <form [formGroup]="form">
+    <c-modal-header>
+      <h5 cModalTitle><b>Thêm bàn / Gọi món</b></h5>
+    </c-modal-header>
+    <c-modal-body>
+      <div class="container-fluid h-100">
+        <div class="row h-100">
+          <div class="col-md-4 border-end">
+            <h5>Thông tin bàn</h5>
+            <div class="mb-3">
+              <label class="form-label">Tên bàn</label>
+              <input type="text" class="form-control" formControlName="name" />
+            </div>
+            <hr />
+            <h5>Món đã chọn</h5>
+            <div class="order-list">
+              <div
+                class="order-item d-flex align-items-center mb-2"
+                *ngFor="let item of listOrder.controls; let i = index"
+                [formGroup]="getOrderGroup(item)"
+              >
+                <div class="food-name">
+                  {{ item.value.name }}
+                </div>
+                <div class="food-price text-muted">{{ item.value.price | number }} đ</div>
+                <div class="qty-control d-flex align-items-center">
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-outline-secondary"
+                    (click)="decreaseQty(i)"
+                  > - </button>
+                  <input type="number" class="form-control mx-2 qty-input" formControlName="qty" />
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-outline-secondary"
+                    (click)="increaseQty(i)"
+                  >+</button>
+                </div>
+                <div class="food-total text-success">
+                  {{ item.value.price * item.value.qty | number }} đ
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-8 p-3">
+            <h5>Danh sách món ăn</h5>
+            <div class="row">
+              <c-modal
+                [visible]="visible"
+                [fullscreen]="true"
+                fullscreen="xxl"
+                class="p-0"
+                (visibleChange)="visible = $event">
+                <form [formGroup]="form">
+                  <c-modal-header>
+                    <h5 cModalTitle><b>Thêm bàn / Gọi món</b></h5>
+                  </c-modal-header>
+                  <c-modal-body class="p-0">
+                    <div class="container-fluid h-100">
+                      <div class="row h-100">
+                        <div class="col-md-4 border-end p-3">
+                          <div class="mb-3">
+                            <label class="form-label">Tên bàn</label>
+                            <input type="text" class="form-control" formControlName="name" />
+                          </div>
+                          <hr />
+                          <h5>Món đã chọn</h5>
+                          <div class="order-list">
+                            <div
+                              class="order-item d-flex align-items-center mb-2"
+                              *ngFor="let item of listOrder.controls; let i = index"
+                              [formGroup]="getOrderGroup(item)"
+                            >
+                              <div class="food-name">
+                                {{ item.value.name }}
+                              </div>
+                              <div class="food-price text-muted">
+                                {{ item.value.price | number }} đ
+                              </div>
+                              <div class="qty-control d-flex align-items-center">
+                                <button
+                                  type="button"
+                                  class="btn btn-sm btn-outline-secondary"
+                                  (click)="decreaseQty(i)"
+                                >-</button>
+                                <input
+                                  type="number"
+                                  class="form-control mx-2 qty-input"
+                                  formControlName="qty"
+                                />
+                                <button
+                                  type="button"
+                                  class="btn btn-sm btn-outline-secondary"
+                                  (click)="increaseQty(i)"
+                                >+</button>
+                              </div>
+                              <div class="food-total text-success">
+                                {{ item.value.price * item.value.qty | number }} đ
+                              </div>
+                            </div>
+                          </div>
+                          <hr />
+                        </div>
+                        <div class="col-md-8 p-3">
+                          <h5>Danh sách món ăn</h5>
+                          <div class="row">
+                            <div class="col-md-3 col-6 col-4 mb-3" *ngFor="let food of foods">
+                              <div class="card food-card h-100" (click)="addFood(food)">
+                                <img
+                                  [src]="food.image"
+                                  class="card-img-top food-img"
+                                  alt="{{ food.name }}"
+                                />
+                                <div
+                                  class="card-body text-center d-flex flex-column align-items-center"
+                                >
+                                  <div class="food-name">
+                                    {{ food.name }}
+                                  </div>
+                                  <div class="food-price text-success">
+                                    {{ food.price | number }} đ
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </c-modal-body>
+                  <c-modal-footer class="d-flex justify-content-between">
+                    <h5>
+                      Tổng tiền:
+                      <span class="text-success"> {{ total | number }} đ </span>
+                    </h5>
+                    <div>
+                      <button type="button" class="btn btn-secondary me-2" (click)="close()">
+                        Hủy
+                      </button>
+                      <button type="button" class="btn btn-warning me-2" (click)="save()">
+                        Lưu
+                      </button>
+                      <button type="button" class="btn btn-success" (click)="checkout()">
+                        Thanh toán
+                      </button>
+                    </div>
+                  </c-modal-footer>
+                </form>
+              </c-modal>
+            </div>
+          </div>
+        </div>
+      </div>
+    </c-modal-body>
+    <c-modal-footer class="d-flex justify-content-between">
+      <h5>
+        Tổng tiền:
+        <span class="text-success"> {{ total | number }} đ </span>
+      </h5>
+      <div>
+        <button type="button" class="btn btn-secondary me-2" (click)="close()">Hủy</button>
+        <button type="button" class="btn btn-warning me-2" (click)="save()">Lưu</button>
+        <button type="button" class="btn btn-success" (click)="checkout()">Thanh toán</button>
+      </div>
+    </c-modal-footer>
+  </form>
+</c-modal>

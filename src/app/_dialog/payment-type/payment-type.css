@@ -1,0 +1,32 @@
+.payment-list{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.payment-item{
+
+  padding:14px;
+  border-radius:10px;
+  border:none;
+
+  font-size:16px;
+  font-weight:600;
+
+  cursor:pointer;
+
+}
+
+.cash{
+  background:#4caf50;
+  color:white;
+}
+
+.bank{
+  background:#1976d2;
+  color:white;
+}
+
+.payment-item:hover{
+  opacity:0.9;
+}
