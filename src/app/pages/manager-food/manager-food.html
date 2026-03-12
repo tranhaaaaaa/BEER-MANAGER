@@ -17,18 +17,18 @@
     <div class="food-grid">
 
       <div class="food-card"
-           *ngFor="let food of filteredFoods">
+           *ngFor="let food of filteredProducts">
 
-        <img [src]="food.image" class="food-img">
+        <img [src]="food.Img" class="food-img">
 
         <div class="food-body">
 
           <div class="food-name">
-            {{food.name}}
+            {{food.ProductName}}
           </div>
 
           <div class="food-price">
-            {{food.price | number}} đ
+            {{food.Price| number}} đ
           </div>
 
           <button class="btn-add"
@@ -59,21 +59,25 @@
 
     <div class="order-list" *ngIf="showDesktopOrder">
 
-      <div class="order-item"
+   <div class="order-item"
      *ngFor="let item of orderItems">
 
   <div class="order-name">
-    {{item.name}}
+    {{item.ProductName}}
   </div>
 
   <div class="order-qty">
+
     <button (click)="decrease(item)">-</button>
+
     {{item.quantity}}
+
     <button (click)="increase(item)">+</button>
+
   </div>
 
   <div class="order-price">
-    {{item.price * item.quantity | number}} đ
+    {{item.Price * item.quantity | number}} đ
   </div>
 
 </div>
@@ -116,7 +120,7 @@
        *ngFor="let item of orderItems">
 
     <div class="order-name">
-      {{item.name}}
+      {{item.ProductName}}
     </div>
 
     <div class="order-qty">
@@ -126,7 +130,7 @@
     </div>
 
     <div class="order-price">
-      {{item.price * item.quantity | number}} đ
+      {{item.Price * item.quantity | number}} đ
     </div>
 
   </div>
@@ -173,5 +177,5 @@
   </div>
 
 </div>
-<app-payment-type></app-payment-type>
+<app-payment-type [amount]="totalPrice"></app-payment-type>
 <app-modal-create-table [ordersInput]="orderItems"></app-modal-create-table>

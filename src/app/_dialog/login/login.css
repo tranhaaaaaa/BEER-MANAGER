@@ -1,0 +1,15 @@
+.form-control{
+  border-radius:8px;
+}
+
+.btn{
+  min-width:100px;
+}
+
+c-modal-header{
+  background:#f8f9fa;
+}
+
+c-modal-footer{
+  background:#f8f9fa;
+}

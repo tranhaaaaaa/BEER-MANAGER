@@ -1,8 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, ViewChild, ViewChildren } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewChildren } from '@angular/core';
 import { PRODUCT } from './constant';
 import { PaymentType } from '../../_dialog/payment-type/payment-type';
 import { ModalCreateTable } from "../../_dialog/modal-create-table/modal-create-table";
+import { Products } from '../../_services/products';
+import { Product } from '../../_models/db.model';
 
 @Component({
   selector: 'app-manager-food',
@@ -10,46 +12,76 @@ import { ModalCreateTable } from "../../_dialog/modal-create-table/modal-create-
   templateUrl: './manager-food.html',
   styleUrl: './manager-food.css',
 })
-export class ManagerFood {
-
-categories = ["Tất cả","Đồ khô","Đồ mặn","Đồ nhậu"];
-
+export class ManagerFood implements OnInit{
+categories = ["Tất cả","Đồ khô","Đồ mặn"];
 foods = PRODUCT;
-
+listProduct : Product[]=[];
 orderItems:any[] = [];
-
 activeCategory = "Tất cả";
-
 showMobileOrder = false;
 showDesktopOrder = true;
 @ViewChild(ModalCreateTable) modalCreateTable! : ModalCreateTable;
 @ViewChild(PaymentType) modal! : PaymentType;
+constructor(private service : Products){}
+  ngOnInit(): void {
+   this.onGetData();
+  }
+  onGetData(){
+    this.service.getAllProduct().subscribe((data) =>{
+      this.listProduct= data.value;
+      console.log("this.listproduct", this.listProduct);
+    })
+  }
 toggleDesktopOrder(){
   this.showDesktopOrder = !this.showDesktopOrder;
 }
 onOpen(){
   this.modal.openModal();
 }
-get filteredFoods(){
+get filteredProducts(){
+
   if(this.activeCategory === "Tất cả"){
-    return this.foods;
+    return this.listProduct;
   }
-  return this.foods.filter(f => f.category === this.activeCategory);
+
+  return this.listProduct.filter(p =>
+    p.Type === this.mapCategory(this.activeCategory)
+  );
+
+}
+mapCategory(name:string){
+
+  if(name === "Đồ khô") return 1;
+  if(name === "Đồ mặn") return 2;
+  // if(name === "Đồ nhậu") return 3;
+
+  return 0;
+
 }
 createOrder(){
   this.modalCreateTable.open();
 }
-addToOrder(food:any){
-  const exist = this.orderItems.find(x => x.id === food.id);
+addToOrder(product: Product){
+
+  const exist = this.orderItems
+    .find(x => x.ProductUid === product.ProductUid);
 
   if(exist){
+
     exist.quantity += 1;
+
   }else{
+
     this.orderItems.push({
-      ...food,
-      quantity:1
+      ProductUid: product.ProductUid,
+      ProductName: product.ProductName,
+      Price: product.Price,
+      Img: product.Img,
+      quantity: 1
     });
+
   }
+
 }
 increase(item:any){
   item.quantity++;
@@ -66,7 +98,10 @@ toggleMobileOrder(){
   this.showMobileOrder = !this.showMobileOrder;
 }
 get totalPrice(){
-  return this.orderItems
-  .reduce((sum,i)=>sum + i.price*i.quantity,0);
+
+  return this.orderItems.reduce(
+    (sum, item) => sum + item.Price * item.quantity,
+    0
+  );
 }
 }

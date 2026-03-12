@@ -18,6 +18,9 @@
 .logo-main .h {
   margin-left: -10px;
 }
+.fs-11{
+  font-size: 15px !important;
+}
 .orbit {
   position: absolute;
   top: 30%;

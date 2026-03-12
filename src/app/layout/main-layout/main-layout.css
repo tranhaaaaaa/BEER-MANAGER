@@ -1,6 +1,6 @@
 .layout {
   display: flex;
-  min-height: 100vh;
+  min-height: 92vh;
   background: #f4f6f9;
   overflow-x: hidden;
 }

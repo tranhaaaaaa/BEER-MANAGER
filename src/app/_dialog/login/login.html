@@ -1,0 +1,65 @@
+<c-modal
+  alignment="center"
+  [visible]="visible"
+  (visibleChange)="visible = $event"
+>
+
+  <c-modal-header>
+    <h5 cModalTitle>Đăng nhập hệ thống</h5>
+  </c-modal-header>
+
+  <c-modal-body>
+
+    <form [formGroup]="form">
+
+      <div class="mb-3">
+        <label class="form-label">Tên đăng nhập</label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="username"
+          placeholder="Nhập tên đăng nhập"
+        />
+
+        <div class="text-danger mt-1"
+          *ngIf="form.get('username')?.invalid && form.get('username')?.touched">
+          Vui lòng nhập tên đăng nhập
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Mật khẩu</label>
+        <input
+          type="password"
+          class="form-control"
+          formControlName="password"
+          placeholder="Nhập mật khẩu"
+        />
+
+        <div class="text-danger mt-1"
+          *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
+          Vui lòng nhập mật khẩu
+        </div>
+      </div>
+
+    </form>
+
+  </c-modal-body>
+
+  <c-modal-footer>
+
+    <button
+      class="btn btn-secondary"
+      (click)="close()">
+      Hủy
+    </button>
+
+    <button
+      class="btn btn-primary"
+      (click)="login()">
+      Đăng nhập
+    </button>
+
+  </c-modal-footer>
+
+</c-modal>

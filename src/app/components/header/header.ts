@@ -1,14 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { ButtonDirective } from '@coreui/angular';
+import { Login } from "../../_dialog/login/login";
 
 @Component({
   selector: 'app-header',
-  imports: [ButtonDirective,CommonModule],
+  imports: [ButtonDirective, CommonModule, Login],
   templateUrl: './header.html',
   styleUrl: './header.css',
 })
 export class Header {
+  @ViewChild(Login) modal! : Login;
   isMobile : boolean = false;
  @Output() toggleSidebar = new EventEmitter<void>();
  constructor(){
@@ -17,5 +19,8 @@ export class Header {
   }else{
     this.isMobile = true;
   }
+ }
+ onLogin(){
+  this.modal.open();
  }
 }

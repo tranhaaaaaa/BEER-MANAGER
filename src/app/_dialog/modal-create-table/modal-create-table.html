@@ -1,17 +1,28 @@
 <c-modal [visible]="visible" [fullscreen]="true" class="p-0" (visibleChange)="visible = $event">
   <form [formGroup]="form">
-    <c-modal-header>
+    <!-- <c-modal-header>
       <h5 cModalTitle><b>Thêm bàn / Gọi món</b></h5>
-    </c-modal-header>
+    </c-modal-header> -->
     <c-modal-body>
       <div class="container-fluid h-100">
         <div class="row h-100">
           <div class="col-md-4 border-end">
             <h5>Thông tin bàn</h5>
             <div class="mb-3">
-              <label class="form-label">Tên bàn</label>
-              <input type="text" class="form-control" formControlName="name" />
+              <label class="form-label">Tên bàn1</label>
+
+              <input
+                type="text"
+                class="form-control"
+                formControlName="name"
+                [class.is-invalid]="nameControl?.invalid && nameControl?.touched"
+              />
+
+              <div class="invalid-feedback" *ngIf="nameControl?.invalid && nameControl?.touched">
+                Vui lòng nhập tên bàn
+              </div>
             </div>
+           
             <hr />
             <h5>Món đã chọn</h5>
             <div class="order-list">
@@ -29,13 +40,17 @@
                     type="button"
                     class="btn btn-sm btn-outline-secondary"
                     (click)="decreaseQty(i)"
-                  > - </button>
+                  >
+                    -
+                  </button>
                   <input type="number" class="form-control mx-2 qty-input" formControlName="qty" />
                   <button
                     type="button"
                     class="btn btn-sm btn-outline-secondary"
                     (click)="increaseQty(i)"
-                  >+</button>
+                  >
+                    +
+                  </button>
                 </div>
                 <div class="food-total text-success">
                   {{ item.value.price * item.value.qty | number }} đ
@@ -51,7 +66,8 @@
                 [fullscreen]="true"
                 fullscreen="xxl"
                 class="p-0"
-                (visibleChange)="visible = $event">
+                (visibleChange)="visible = $event"
+              >
                 <form [formGroup]="form">
                   <c-modal-header>
                     <h5 cModalTitle><b>Thêm bàn / Gọi món</b></h5>
@@ -59,10 +75,19 @@
                   <c-modal-body class="p-0">
                     <div class="container-fluid h-100">
                       <div class="row h-100">
-                        <div class="col-md-6  border-end p-3">
+                        <div class="col-md-6 border-end p-3">
                           <div class="mb-3">
                             <label class="form-label">Tên bàn</label>
-                            <input type="text" class="form-control" formControlName="name" />
+                              <input
+                                    type="text"
+                                    class="form-control"
+                                    formControlName="name"
+                                    [class.is-invalid]="nameControl?.invalid && nameControl?.touched"
+                                  />
+
+                                  <div class="invalid-feedback" *ngIf="nameControl?.invalid && nameControl?.touched">
+                                    Vui lòng nhập tên bàn
+                                  </div>
                           </div>
                           <hr />
                           <h5>Món đã chọn</h5>
@@ -83,7 +108,9 @@
                                   type="button"
                                   class="btn btn-sm btn-outline-secondary"
                                   (click)="decreaseQty(i)"
-                                >-</button>
+                                >
+                                  -
+                                </button>
                                 <input
                                   type="number"
                                   class="form-control mx-2 qty-input"
@@ -93,7 +120,9 @@
                                   type="button"
                                   class="btn btn-sm btn-outline-secondary"
                                   (click)="increaseQty(i)"
-                                >+</button>
+                                >
+                                  +
+                                </button>
                               </div>
                               <div class="food-total text-success">
                                 {{ item.value.price * item.value.qty | number }} đ
@@ -105,21 +134,24 @@
                         <div class="col-md-6 p-3">
                           <h5>Danh sách món ăn</h5>
                           <div class="row">
-                            <div class="col-md-4 col-6 col-4 mb-3" *ngFor="let food of foods">
+                            <div
+                              class="col-md-4 col-6 col-4 mb-3"
+                              *ngFor="let food of listProducts"
+                            >
                               <div class="card food-card h-100" (click)="addFood(food)">
                                 <img
-                                  [src]="food.image"
+                                  [src]="food.Img"
                                   class="card-img-top food-img"
-                                  alt="{{ food.name }}"
+                                  alt="{{ food.ProductName }}"
                                 />
                                 <div
                                   class="card-body text-center d-flex flex-column align-items-center"
                                 >
                                   <div class="food-name">
-                                    {{ food.name }}
+                                    {{ food.ProductName }}
                                   </div>
                                   <div class="food-price text-success">
-                                    {{ food.price | number }} đ
+                                    {{ food.Price | number }} đ
                                   </div>
                                 </div>
                               </div>
@@ -141,7 +173,7 @@
                       <button type="button" class="btn btn-warning me-2" (click)="save()">
                         Lưu
                       </button>
-                      <button type="button" class="btn btn-success" (click)="checkout()">
+                      <button type="button" class="btn btn-success" (click)="onOpenModal()">
                         Thanh toán
                       </button>
                     </div>
@@ -166,3 +198,5 @@
     </c-modal-footer>
   </form>
 </c-modal>
+
+<app-payment-type [amount]="total"></app-payment-type>
