@@ -1,0 +1,40 @@
+<c-modal
+  alignment="center"
+  [visible]="visible"
+  (visibleChange)="visible = $event"
+>
+
+  <c-modal-header>
+    <h5 cModalTitle>Thanh toán chuyển khoản</h5>
+    <button cButtonClose (click)="closeModal()"></button>
+  </c-modal-header>
+
+  <c-modal-body class="text-center">
+
+    <h4 class="mb-3">
+      {{amount | number}} đ
+    </h4>
+
+    <img
+      [src]="generateQR()"
+      width="260"
+      class="mb-3"
+    />
+
+
+
+
+
+  </c-modal-body>
+
+  <c-modal-footer>
+    <button
+      cButton
+      color="secondary"
+      (click)="closeModal()"
+    >
+      Đóng
+    </button>
+  </c-modal-footer>
+
+</c-modal>

@@ -33,7 +33,7 @@ export class Sidebar {
   @HostListener('window:resize')
   onResize() {
     if (window.innerWidth >= 1400) {
-      this.collapsed = false;
+      this.collapsed = true;
     }
   }
   onClick(){

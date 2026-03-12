@@ -1,38 +1,51 @@
 <div class="container mt-4">
 
-  <div class="d-flex justify-content-between mb-3">
-    <h4>Danh sách bàn</h4>
-    <button class="btn btn-primary" (click)="openAdd()">+ Thêm bàn</button>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h4 class="fw-bold">Danh sách bàn</h4>
+    <button class="btn btn-success" (click)="openAdd()">
+      + Thêm bàn
+    </button>
   </div>
-
   <div class="row">
-
-    <div class="col-md-3 mb-3" *ngFor="let table of tables; let i = index">
-      <div class="card table-card shadow-sm">
-
-        <div class="card-body">
-
-          <h5 class="card-title">{{table.name}}</h5>
-
-          <p class="total">
-            {{table.total | number}} đ
-          </p>
-
-          <div class="actions">
-
-            <button class="btn btn-warning btn-sm me-2" (click)="editTable(i)">
-              Sửa
-            </button>
-
-            <button class="btn btn-danger btn-sm" (click)="deleteTable(i)">
-              Xóa
-            </button>
-
+    <div class="col-lg-3 col-md-4 col-sm-6 mb-4"
+         *ngFor="let table of tables; let i = index">
+      <div class="table-card">
+        <div class="table-header">
+          <div class="table-name">
+            {{table.name}}
           </div>
+          <div
+            class="table-status"
+            [ngClass]="table.total > 0 ? 'busy' : 'empty'">
+            {{ table.total > 0 ? 'Đang phục vụ' : 'Trống' }}
+          </div>
+        </div>
+        <div class="table-body">
+          <div class="table-money">
+            {{table.total | number}} đ
+          </div>
+        </div>
+        <div class="table-actions">
+          <button
+            class="btn btn-sm btn-outline-warning" (click)="openAdd()">
+            Chi tiết
+          </button> 
+          <button
+            class="btn btn-sm btn-outline-danger"
+            (click)="deleteTable(i)">
+            Xóa
+          </button>
+
+          <button
+            class="btn btn-sm btn-success"
+             (click)="openModalPayment(table.total)">
+            Thanh toán
+          </button>
 
         </div>
 
       </div>
+
     </div>
 
   </div>
@@ -40,3 +53,4 @@
 </div>
 
 <app-modal-create-table></app-modal-create-table>
+<app-payment-type [amount]="amount"></app-payment-type>

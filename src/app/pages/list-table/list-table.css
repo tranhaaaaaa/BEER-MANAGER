@@ -1,0 +1,76 @@
+.table-card {
+
+  background: white;
+  border-radius: 14px;
+  padding: 16px;
+  transition: 0.2s;
+  border: 1px solid #eee;
+
+}
+
+.table-card:hover {
+
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+
+}
+
+.table-header {
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+
+}
+
+.table-name {
+
+  font-size: 18px;
+  font-weight: 600;
+
+}
+
+.table-status {
+
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 20px;
+
+}
+
+.table-status.empty {
+
+  background: #e6f9f0;
+  color: #1fa971;
+
+}
+
+.table-status.busy {
+
+  background: #fff4e5;
+  color: #f59e0b;
+
+}
+
+.table-body {
+
+  text-align: center;
+  margin: 20px 0;
+
+}
+
+.table-money {
+
+  font-size: 24px;
+  font-weight: 700;
+  color: #333;
+
+}
+
+.table-actions {
+
+  display: flex;
+  justify-content: space-between;
+
+}

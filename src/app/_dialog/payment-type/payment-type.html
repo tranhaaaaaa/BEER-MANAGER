@@ -2,36 +2,71 @@
   alignment="center"
   [visible]="visible"
   (visibleChange)="visible = $event"
+  class="payment-modal"
 >
 
- <c-modal-header>
+  <c-modal-header class="payment-header">
     <h5 cModalTitle>Phương thức thanh toán</h5>
     <button cButtonClose (click)="closeModal()"></button>
   </c-modal-header>
+
   <c-modal-body>
 
-  <div class="d-flex gap-3">
+    <div class="payment-grid">
 
-    <!-- Tiền mặt -->
-    <button 
-      cButton 
-      color="success"
-      class="flex-fill py-3"
-      (click)="selectPayment('cash')">
+      <!-- Tiền mặt -->
 
-      💵 Tiền mặt
+      <div
+        class="payment-card cash"
+        (click)="selectPayment('cash')"
+      >
+        <div class="payment-icon">
+          💵
+        </div>
 
+        <div class="payment-info">
+          <div class="payment-title">
+            Tiền mặt
+          </div>
+
+          <!-- <div class="payment-desc">
+            Thanh toán trực tiếp tại quầy
+          </div> -->
+        </div>
+      </div>
+
+      <!-- Chuyển khoản -->
+
+      <div
+        class="payment-card bank"
+        (click)="selectPayment('bank')"
+      >
+
+        <div class="payment-icon">
+          🏦
+        </div>
+
+        <div class="payment-info">
+          <div class="payment-title">
+            Chuyển khoản
+          </div>
+
+          <!-- <div class="payment-desc">
+            Thanh toán bằng QR / ngân hàng
+          </div> -->
+        </div>
+
+      </div>
+
+    </div>
+
+  </c-modal-body>
+
+  <c-modal-footer class="payment-footer">
+    <button cButton color="primary" variant="outline" (click)="closeModal()">
+      Đóng
     </button>
-    <button 
-      cButton 
-      color="primary"
-      class="flex-fill py-3"
-      (click)="selectPayment('bank')">
-      🏦 Chuyển khoản
-    </button>
-  </div>
-</c-modal-body>
-  <c-modal-footer>
-    <button cButton color="info" (click)="closeModal()">Đóng</button>
   </c-modal-footer>
+
 </c-modal>
+<app-modal-qr [amount]="amount"></app-modal-qr>
