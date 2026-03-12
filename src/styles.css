@@ -1,6 +1,8 @@
 body {
-    font-family: Bookman;
+    font-family: 'OverusedGrotesk', system-ui, sans-serif;
+    background-color: #ffff !important;
 }
+
 .fs-12 {
     font-size: 12px;
 }

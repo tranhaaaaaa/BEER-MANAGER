@@ -1,0 +1,83 @@
+@font-face {
+  font-family: 'OverusedGrotesk';
+  src: url('OverusedGrotesk-Light.otf') format('opentype');
+  font-weight: 450;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'OverusedGrotesk';
+  src: url('OverusedGrotesk-LightItalic.otf') format('opentype');
+  font-weight: 450;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'OverusedGrotesk';
+  src: url('OverusedGrotesk-Roman.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'OverusedGrotesk';
+  src: url('OverusedGrotesk-BookItalic.otf') format('opentype');
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'OverusedGrotesk';
+  src: url('OverusedGrotesk-Medium.otf') format('opentype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'OverusedGrotesk';
+  src: url('OverusedGrotesk-MediumItalic.otf') format('opentype');
+  font-weight: 500;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'OverusedGrotesk';
+  src: url('OverusedGrotesk-SemiBold.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'OverusedGrotesk';
+  src: url('OverusedGrotesk-SemiBoldItalic.otf') format('opentype');
+  font-weight: 600;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'OverusedGrotesk';
+  src: url('OverusedGrotesk-Bold.otf') format('opentype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'OverusedGrotesk';
+  src: url('OverusedGrotesk-BoldItalic.otf') format('opentype');
+  font-weight: 700;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'OverusedGrotesk';
+  src: url('OverusedGrotesk-Black.otf') format('opentype');
+  font-weight: 900;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'OverusedGrotesk';
+  src: url('OverusedGrotesk-BlackItalic.otf') format('opentype');
+  font-weight: 900;
+  font-style: italic;
+}
