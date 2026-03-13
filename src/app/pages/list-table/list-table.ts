@@ -45,5 +45,5 @@ export class ListTable {
   deleteTable(index: number) {
     this.tables.splice(index, 1);
   }
-
+  
 }

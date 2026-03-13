@@ -6,6 +6,9 @@ import { PRODUCT } from '../../pages/manager-food/constant';
 import { Product } from '../../_models/db.model';
 import { Products } from '../../_services/products';
 import { PaymentType } from "../payment-type/payment-type";
+import { TableService } from '../../_services/table.service';
+import { OrderService } from '../../_services/order.service';
+import { OrderItemService } from '../../_services/order-item.service';
 @Component({
   selector: 'app-modal-create-table',
   imports: [ModalComponent, ModalFooterComponent, ModalModule, ReactiveFormsModule, PaymentType,FormsModule,CommonModule],
@@ -24,7 +27,10 @@ listProducts : Product[]=[];
   };
 orders:any[] = [];
 @ViewChild(PaymentType) modal! : PaymentType;
-constructor(private fb: FormBuilder,private service : Products) {
+constructor(private fb: FormBuilder,private service : Products,
+  private tableService : TableService,private orderService : OrderService,
+  private orderItemService: OrderItemService
+) {
   this.form = this.fb.group({
     name: ['',Validators.required],
     orders: this.fb.array([])
@@ -50,7 +56,8 @@ loadOrders() {
       this.fb.group({
         name: o.ProductName,
         price: o.Price,
-        qty: o.quantity   
+        qty: o.quantity  ,
+        id:o.ProductUid 
       })
     );
   });
@@ -91,7 +98,8 @@ get listOrder(): FormArray {
       this.fb.group({
         name: food.ProductName,
         price: food.Price,
-        qty: 1
+        qty: 1,
+        id : food.ProductUid
       })
     );
   }
@@ -128,7 +136,39 @@ save() {
   }
 
   console.log("Lưu bàn", this.form.value);
+  // return
+  let formOrder= {
+    Name: this.form.value.name,
+    Totalamount:this.total,
+    Shopuid: "e6b56cbf-9561-45e2-b4b7-6dbee2111d70",
+    Useruid: "a1c48796-bb84-47b1-ae2a-6643e0cbc12b",
+    Orderdate: new Date()
+  }
+  console.log("formOrder",formOrder);
+  this.orderService.CreateOrder(formOrder).subscribe((data: any) =>{
+    console.log("data",data.Orderuid);
+    let formTable = {
+      Name : this.form.value.name,
+      Orderid : data.Orderuid
+    }
+    this.tableService.CreateTable(formTable).subscribe((table:any) => {
+      console.log("table",table);
+      this.form.value.orders.forEach((element: any) => {
 
+            let formItems = {
+              Orderuid: data.Orderuid,
+              Productuid: element.id,
+              Quantity: element.qty,
+              Unitprice: element.price,
+              Name: element.name
+            };
+
+            this.orderItemService.CreateOrderItem(formItems).subscribe(()=>{
+              console.log("tao dơn thành cong")
+            });
+          });
+    })
+  })
 }
 checkout(){
   console.log("Thanh toán",this.total)
