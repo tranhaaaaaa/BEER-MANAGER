@@ -67,6 +67,8 @@ services.AddTransient<IOrderService, OrderService>();
 services.AddTransient<IOrderItemService, OrderItemService>();
 services.AddTransient<ILoggingService, LoggingService>();
 services.AddTransient<ITableService, TableService>();
+services.AddTransient<ICreateOrderServices, CreateOrderService>();
+
 
 services.AddSwaggerGen(c =>
 {
