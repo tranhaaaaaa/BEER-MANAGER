@@ -6,60 +6,7 @@
     <c-modal-body>
       <div class="container-fluid h-100">
         <div class="row h-100">
-          <div class="col-md-4 border-end">
-            <h5>Thông tin bàn</h5>
-            <div class="mb-3">
-              <label class="form-label">Tên bàn1</label>
-
-              <input
-                type="text"
-                class="form-control"
-                formControlName="name"
-                [class.is-invalid]="nameControl?.invalid && nameControl?.touched"
-              />
-
-              <div class="invalid-feedback" *ngIf="nameControl?.invalid && nameControl?.touched">
-                Vui lòng nhập tên bàn
-              </div>
-            </div>
-           
-            <hr />
-            <h5>Món đã chọn</h5>
-            <div class="order-list">
-              <div
-                class="order-item d-flex align-items-center mb-2"
-                *ngFor="let item of listOrder.controls; let i = index"
-                [formGroup]="getOrderGroup(item)"
-              >
-                <div class="food-name">
-                  {{ item.value.name }}
-                </div>
-                <div class="food-price text-muted">{{ item.value.price | number }} đ</div>
-                <div class="qty-control d-flex align-items-center">
-                  <button
-                    type="button"
-                    class="btn btn-sm btn-outline-secondary"
-                    (click)="decreaseQty(i)"
-                  >
-                    -
-                  </button>
-                  <input type="number" class="form-control mx-2 qty-input" formControlName="qty" />
-                  <button
-                    type="button"
-                    class="btn btn-sm btn-outline-secondary"
-                    (click)="increaseQty(i)"
-                  >
-                    +
-                  </button>
-                </div>
-                <div class="food-total text-success">
-                  {{ item.value.price * item.value.qty | number }} đ
-                </div>
-              </div>
-            </div>
-          </div>
           <div class="col-md-8 p-3">
-            <h5>Danh sách món ăn</h5>
             <div class="row">
               <c-modal
                 [visible]="visible"
@@ -78,20 +25,41 @@
                         <div class="col-md-6 border-end p-3">
                           <div class="mb-3">
                             <label class="form-label">Tên bàn</label>
-                              <input
-                                    type="text"
-                                    class="form-control"
-                                    formControlName="name"
-                                    [class.is-invalid]="nameControl?.invalid && nameControl?.touched"
-                                  />
+                            <input
+                              type="text"
+                              class="form-control"
+                              formControlName="Name"
+                              [class.is-invalid]="nameControl?.invalid && nameControl?.touched"
+                            />
 
-                                  <div class="invalid-feedback" *ngIf="nameControl?.invalid && nameControl?.touched">
-                                    Vui lòng nhập tên bàn
-                                  </div>
+                            <div
+                              class="invalid-feedback"
+                              *ngIf="nameControl?.invalid && nameControl?.touched"
+                            >
+                              Vui lòng nhập tên bàn!
+                            </div>
+                          </div>
+                          <select
+                            class="form-select form-select-sm"
+                            aria-label=".form-select-sm example"
+                            formControlName="Type"
+                            [class.is-invalid]="typeControl?.invalid && typeControl?.touched"
+                          >
+                            <option value="" selected>Chọn vị trí bàn ăn</option>
+
+                            <option *ngFor="let item of listCategory" [value]="item.Id">
+                              {{ item.Name }}
+                            </option>
+                          </select>
+                          <div
+                            class="invalid-feedback"
+                            *ngIf="typeControl?.invalid && typeControl?.touched"
+                          >
+                            Vui lòng chọn vị trí bàn!
                           </div>
                           <hr />
                           <h5>Món đã chọn</h5>
-                          <div class="order-list">
+                          <div class="order-list" formArrayName="ProductInfoDTOs">
                             <div
                               class="order-item d-flex align-items-center mb-2"
                               *ngFor="let item of listOrder.controls; let i = index"
@@ -135,7 +103,7 @@
                           <h5>Danh sách món ăn</h5>
                           <div class="row">
                             <div
-                              class="col-md-4 col-6 col-4 mb-3"
+                              class="col-md-4 col-6 mb-3"
                               *ngFor="let food of listProducts"
                             >
                               <div class="card food-card h-100" (click)="addFood(food)">
@@ -173,9 +141,10 @@
                       <button type="button" class="btn btn-warning me-2" (click)="save()">
                         Lưu
                       </button>
-                      <button type="button" class="btn btn-success" (click)="onOpenModal()">
+                      <button type="button" class="btn btn-success me-2" (click)="onOpenModal()">
                         Thanh toán
                       </button>
+                      <button type="button" class="btn btn-danger" *ngIf="ORDER_ID" (click)="debtOrder()">Ký nợ</button>
                     </div>
                   </c-modal-footer>
                 </form>
@@ -190,13 +159,16 @@
         Tổng tiền:
         <span class="text-success"> {{ total | number }} đ </span>
       </h5>
-      <div>
+      <!-- <div>
         <button type="button" class="btn btn-secondary me-2" (click)="close()">Hủy</button>
         <button type="button" class="btn btn-warning me-2" (click)="save()">Lưu</button>
-        <button type="button" class="btn btn-success" (click)="checkout()">Thanh toán</button>
-      </div>
+        <button type="button" class="btn btn-success me-2" (click)="checkout()">Thanh toán</button>
+        <button type="button" class="btn btn-error" variant="outline" *ngIf="!ORDER_ID">Ký nợ</button>
+
+      </div> -->
     </c-modal-footer>
   </form>
 </c-modal>
 
-<app-payment-type [amount]="total"></app-payment-type>
+<app-payment-type></app-payment-type>
+<app-modal-debt></app-modal-debt>

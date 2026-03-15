@@ -4,19 +4,19 @@ import { HttpClient } from '@angular/common/http';
 import { JsonConvert } from 'json2typescript';
 import { ODataResponse } from '../_models/data-response.model';
 import { catchError, map, Observable, throwError } from 'rxjs';
-import { Order } from '../_models/db.model';
+import { Category } from '../_models/db.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class OrderService extends Api {
+export class CategoryService extends Api {
   constructor(protected override http: HttpClient) {
     super(http);
     this.jsonConvert = new JsonConvert();
   }
 
-  getAllOrder(): Observable<ODataResponse> {
-    let url = '/Orders';
+  getAllCategories(): Observable<ODataResponse> {
+    let url = '/Categories';
     return super.get(url).pipe(
       catchError((err) => throwError(() => new Error(err))),
 
@@ -25,9 +25,9 @@ export class OrderService extends Api {
           res,
           ODataResponse
         );
-        let value: Array<Order> = this.jsonConvert.deserializeArray(
+        let value: Array<Category> = this.jsonConvert.deserializeArray(
           odataRes.value,
-          Order
+          Category
         );
         odataRes.value = value;
 
@@ -36,10 +36,8 @@ export class OrderService extends Api {
     );
   }
 
-  getOrderById(Id: any): Observable<ODataResponse> {
-    let url = `/Orders?$filter=Id eq ${Id}&$expand=OrderItems
-&$expand=ShopU
-&$expand=UserU
+  getCategoriesById(Id: any): Observable<ODataResponse> {
+    let url = `/Categories?$filter=Id eq ${Id}
 `;
     return super.get(url).pipe(
       catchError((err) => throwError(() => new Error(err))),
@@ -48,9 +46,9 @@ export class OrderService extends Api {
           res,
           ODataResponse
         );
-        let value: Array<Order> = this.jsonConvert.deserializeArray(
+        let value: Array<Category> = this.jsonConvert.deserializeArray(
           odateRes.value,
-          Order
+          Category
         );
         odateRes.value = value;
         return odateRes;
@@ -58,8 +56,8 @@ export class OrderService extends Api {
     );
   }
 
-  CreateOrder(formData: any): Observable<any> {
-    let url = `/api/CustomApi/create-table-order`;
+  CreateCategories(formData: any): Observable<Category> {
+    let url = `/Categories`;
     return super.postEntity(url, formData).pipe(
       catchError((err) => throwError(() => new Error(err))),
       map((res) => {
@@ -68,17 +66,8 @@ export class OrderService extends Api {
     );
   }
 
-  UpdateOrder(formData: any, Id: any): Observable<Order> {
-    let url = `/api/customapi/update-order`;
-  return super.putEntity(url, Id, formData).pipe(
-    catchError((err) => throwError(() => new Error(err))),
-    map((res) => {
-      return res;
-    })
-  );
-  }
-  UpdateOrderStatus(formData: any, Id: any): Observable<Order> {
-    let url = `/Orders`;
+  UpdateCategories(formData: any, Id: any): Observable<Category> {
+    let url = `/Categories`;
   return super.patchEntity(url, Id, formData).pipe(
     catchError((err) => throwError(() => new Error(err))),
     map((res) => {
@@ -86,16 +75,17 @@ export class OrderService extends Api {
     })
   );
   }
-  DeleteOrder(id: any): Observable<Order> {
-    return super.deleteEntity('/Orders', id).pipe(
+
+  DeleteCategories(id: any): Observable<Category> {
+    return super.deleteEntity('/Categories', id).pipe(
       catchError((err) => {
         return throwError(() => err);
       })
     );
   }
 
-  getOrderByQuery(queryParams?: string): Observable<ODataResponse> {
-    let url = `/Orders?${queryParams}`;
+  getCategoriesByQuery(queryParams?: string): Observable<ODataResponse> {
+    let url = `/Categories?${queryParams}`;
     return super.get(url).pipe(
       catchError((err) => throwError(() => new Error(err))),
       map((res) => {
@@ -103,9 +93,9 @@ export class OrderService extends Api {
           res,
           ODataResponse
         );
-        let value: Array<Order> = this.jsonConvert.deserializeArray(
+        let value: Array<Category> = this.jsonConvert.deserializeArray(
           odataRes.value,
-          Order
+          Category
         );
         odataRes.value = value;
         return odataRes;

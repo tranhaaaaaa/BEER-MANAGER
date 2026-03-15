@@ -5,57 +5,63 @@ import { PaymentType } from '../../_dialog/payment-type/payment-type';
 import { ModalCreateTable } from "../../_dialog/modal-create-table/modal-create-table";
 import { Products } from '../../_services/products';
 import { Product } from '../../_models/db.model';
+import { Category } from '../../_models/db.model';
+import { CategoryService } from '../../_services/category.service';
+import { ModalFood } from '../../_dialog/modal-food/modal-food';
+import { Footer } from "../../components/footer/footer";
+import { ModalDebt } from '../../_dialog/modal-debt/modal-debt';
 
 @Component({
   selector: 'app-manager-food',
-  imports: [CommonModule, PaymentType, ModalCreateTable],
+  imports: [CommonModule, PaymentType, ModalCreateTable, ModalFood],
   templateUrl: './manager-food.html',
   styleUrl: './manager-food.css',
 })
 export class ManagerFood implements OnInit{
-categories = ["Tất cả","Đồ khô","Đồ mặn"];
+categories : Category[]=[];
+  currentCategory: string | null = null;
 foods = PRODUCT;
 listProduct : Product[]=[];
 orderItems:any[] = [];
-activeCategory = "Tất cả";
+activeCategory : string | "all" = "all";
 showMobileOrder = false;
 showDesktopOrder = true;
 @ViewChild(ModalCreateTable) modalCreateTable! : ModalCreateTable;
 @ViewChild(PaymentType) modal! : PaymentType;
-constructor(private service : Products){}
+@ViewChild(ModalFood) modalAddFood!: ModalFood;
+constructor(private service : Products,
+  private categoryService : CategoryService
+){}
   ngOnInit(): void {
    this.onGetData();
   }
   onGetData(){
     this.service.getAllProduct().subscribe((data) =>{
       this.listProduct= data.value;
-      console.log("this.listproduct", this.listProduct);
+    });
+    this.categoryService.getAllCategories().subscribe((data) =>{
+      this.categories = data.value.filter((x:any) => x.Type == 2 )
     })
   }
+
 toggleDesktopOrder(){
   this.showDesktopOrder = !this.showDesktopOrder;
+}
+openAddFood(){
+  this.modalAddFood.open();
 }
 onOpen(){
   this.modal.openModal();
 }
 get filteredProducts(){
 
-  if(this.activeCategory === "Tất cả"){
+  if(this.activeCategory === "all"){
     return this.listProduct;
   }
 
-  return this.listProduct.filter(p =>
-    p.Type === this.mapCategory(this.activeCategory)
+  return this.listProduct.filter(
+    p => p.Category === this.activeCategory
   );
-
-}
-mapCategory(name:string){
-
-  if(name === "Đồ khô") return 1;
-  if(name === "Đồ mặn") return 2;
-  // if(name === "Đồ nhậu") return 3;
-
-  return 0;
 
 }
 createOrder(){

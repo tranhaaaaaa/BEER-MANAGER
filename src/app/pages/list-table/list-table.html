@@ -1,56 +1,43 @@
-<div class="container mt-4">
-
-  <div class="d-flex justify-content-between align-items-center mb-4">
-    <h4 class="fw-bold">Danh sách bàn</h4>
-    <button class="btn btn-success" (click)="openAdd()">
-      + Thêm bàn
-    </button>
-  </div>
-  <div class="row">
-    <div class="col-lg-3 col-md-4 col-sm-6 mb-4"
-         *ngFor="let table of tables; let i = index">
-      <div class="table-card">
-        <div class="table-header">
-          <div class="table-name">
-            {{table.name}}
-          </div>
-          <div
-            class="table-status"
-            [ngClass]="table.total > 0 ? 'busy' : 'empty'">
-            {{ table.total > 0 ? 'Đang phục vụ' : 'Trống' }}
-          </div>
-        </div>
-        <div class="table-body">
-          <div class="table-money">
-            {{table.total | number}} đ
-          </div>
-        </div>
-        <div class="table-actions">
-          <button
-            class="btn btn-sm btn-outline-warning" (click)="openAdd()">
-            Chi tiết
-          </button> 
-          <button
-            class="btn btn-sm btn-outline-danger"
-            (click)="deleteTable(i)">
-            Xóa
-          </button>
-
-          <button
-            class="btn btn-sm btn-success"
-             (click)="openModalPayment(table.total)">
-            Thanh toán
-          </button>
-
-        </div>
-
-      </div>
-
+<div class="pos-container">
+  <div class="table-panel">
+    <div class="table-filter">
+      <button class="filter-btn" [class.active]="!currentCategory" (click)="filterTable()">
+        Tất cả
+      </button>
+      <button
+        class="filter-btn"
+        *ngFor="let cate of categories"
+        [class.active]="currentCategory === cate.Id"
+        (click)="filterTable(cate)"
+      >
+        {{ cate.Name }}
+      </button>
     </div>
+    <div class="table-grid">
+      <div class="table-box" *ngFor="let table of filteredOrders" (click)="openAdd(table.OrderUid)">
+        <div class="table-card" [class.busy]="table.TotalAmount > 0">
+           <p class="status-badge-custom status-created mb-1 mt-1">{{table.OrderDate | date: 'dd/MM/yyyy HH:mm:ss'}}</p>
+            <span class="status-badge"
+        [ngClass]="{
+          'status-unpaid': table.Status == 0,
+          'status-debt': table.Status == -1,
+          'status-paid': table.Status == 1
+        }">
 
+    {{ table.Status == 0 ? 'Chưa thanh toán' :
+       table.Status == -1 ? 'Ký nợ' :
+       table.Status == 1 ? 'Đã thanh toán' : '' }}
+
+  </span>
+ 
+          <div class="table-number">
+            {{ table.Name }}
+          </div>
+          <div class="table-price">{{ table.TotalAmount | number }} đ</div>
+        </div>
+      </div>
+    </div>
   </div>
-
 </div>
-
-<app-modal-create-table></app-modal-create-table>
-<app-payment-type [amount]="amount"></app-payment-type>
+<app-modal-create-table [ORDER_ID]="orderId"></app-modal-create-table>
+<app-payment-type></app-payment-type>

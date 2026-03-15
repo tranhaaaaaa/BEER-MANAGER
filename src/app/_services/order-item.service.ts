@@ -85,22 +85,9 @@ export class OrderItemService extends Api {
     );
   }
 
-  getOrderItemByQuery(queryParams?: string): Observable<ODataResponse> {
-    let url = `/OrderItems?${queryParams}`;
-    return super.get(url).pipe(
-      catchError((err) => throwError(() => new Error(err))),
-      map((res) => {
-        const odataRes: ODataResponse = this.jsonConvert.deserializeObject(
-          res,
-          ODataResponse
-        );
-        let value: Array<OrderItem> = this.jsonConvert.deserializeArray(
-          odataRes.value,
-          OrderItem
-        );
-        odataRes.value = value;
-        return odataRes;
-      })
-    );
-  }
+getOrderItemByQuery(url: string): Observable<any> {
+  return super.get(url).pipe(
+    catchError((err) => throwError(() => new Error(err)))
+  );
+}
 }

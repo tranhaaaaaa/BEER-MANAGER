@@ -2,6 +2,9 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ModalModule } from '@coreui/angular';
+import { AuthenService } from '../../_services/authen.service';
+import { ToastrService } from 'ngx-toastr';
+import { UserLogged } from '../../_helper/userLogged';
 
 @Component({
   selector: 'app-login',
@@ -14,10 +17,13 @@ export class Login {
 
   form!: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder,
+    private authService : AuthenService,
+    private toastService : ToastrService
+  ) {
     this.form = this.fb.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required]
+      Username: ['', Validators.required],
+      Password: ['', Validators.required]
     });
   }
 
@@ -34,8 +40,14 @@ export class Login {
       this.form.markAllAsTouched();
       return;
     }
-
-    console.log("Login data", this.form.value);
+    this.authService.Login(this.form.value).subscribe((data : any) => {
+        this.toastService.success("Dang nhap thanh cong")
+          let userLogged: UserLogged = new UserLogged();
+          userLogged.setCurrentUser(data.token,data.username,data.shopId);
+           window.location.href = '/';
+           console.log("Login data", this.form.value);
+    })
+    
 
   }
 

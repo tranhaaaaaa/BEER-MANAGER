@@ -1,0 +1,53 @@
+<div class="modal-backdrop" *ngIf="visible">
+
+  <div class="modal-container">
+
+    <div class="modal-header">
+      <h3>Thêm món ăn</h3>
+      <span class="close-btn" (click)="close()">✕</span>
+    </div>
+
+<form [formGroup]="foodForm">
+
+    <div class="modal-body">
+
+      <label>Loại món ăn</label>
+
+      <select formControlName="Category">
+
+        <option value="">Chọn loại</option>
+
+        <option *ngFor="let c of categories" [value]="c.Id">
+          {{c.Name}}
+        </option>
+      </select>
+      <label>Tên món ăn</label>
+
+      <input
+        type="text"
+        placeholder="Nhập tên món"
+        formControlName="ProductName">
+      <label>Hình ảnh (URL)</label>
+      <input
+        type="text"
+        placeholder="Nhập đường dẫn ảnh"
+        formControlName="Img">
+      <label>Giá</label>
+      <input
+        type="number"
+        placeholder="Nhập giá"
+        formControlName="Price">
+    </div>
+</form>
+    <div class="modal-footer">
+      <button class="btn-cancel" (click)="close()">
+        Hủy
+      </button>
+      <button class="btn-save" (click)="save()">
+        Lưu
+      </button>
+    </div>
+
+  </div>
+
+</div>

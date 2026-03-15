@@ -17,12 +17,12 @@
         <input
           type="text"
           class="form-control"
-          formControlName="username"
+          formControlName="Username"
           placeholder="Nhập tên đăng nhập"
         />
 
         <div class="text-danger mt-1"
-          *ngIf="form.get('username')?.invalid && form.get('username')?.touched">
+          *ngIf="form.get('Username')?.invalid && form.get('Username')?.touched">
           Vui lòng nhập tên đăng nhập
         </div>
       </div>
@@ -32,12 +32,12 @@
         <input
           type="password"
           class="form-control"
-          formControlName="password"
+          formControlName="Password"
           placeholder="Nhập mật khẩu"
         />
-
+        <img src="/assets/images/eye.svg">
         <div class="text-danger mt-1"
-          *ngIf="form.get('password')?.invalid && form.get('password')?.touched">
+          *ngIf="form.get('Password')?.invalid && form.get('Password')?.touched">
           Vui lòng nhập mật khẩu
         </div>
       </div>

@@ -4,19 +4,19 @@ import { HttpClient } from '@angular/common/http';
 import { JsonConvert } from 'json2typescript';
 import { ODataResponse } from '../_models/data-response.model';
 import { catchError, map, Observable, throwError } from 'rxjs';
-import { Order } from '../_models/db.model';
+import { User } from '../_models/db.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class OrderService extends Api {
+export class UserService extends Api {
   constructor(protected override http: HttpClient) {
     super(http);
     this.jsonConvert = new JsonConvert();
   }
 
-  getAllOrder(): Observable<ODataResponse> {
-    let url = '/Orders';
+  getAllUser(): Observable<ODataResponse> {
+    let url = '/Users';
     return super.get(url).pipe(
       catchError((err) => throwError(() => new Error(err))),
 
@@ -25,9 +25,9 @@ export class OrderService extends Api {
           res,
           ODataResponse
         );
-        let value: Array<Order> = this.jsonConvert.deserializeArray(
+        let value: Array<User> = this.jsonConvert.deserializeArray(
           odataRes.value,
-          Order
+          User
         );
         odataRes.value = value;
 
@@ -36,10 +36,10 @@ export class OrderService extends Api {
     );
   }
 
-  getOrderById(Id: any): Observable<ODataResponse> {
-    let url = `/Orders?$filter=Id eq ${Id}&$expand=OrderItems
+  getUserById(Id: any): Observable<ODataResponse> {
+    let url = `/Users?$filter=Id eq ${Id}&$expand=Loggings
+&$expand=Orders
 &$expand=ShopU
-&$expand=UserU
 `;
     return super.get(url).pipe(
       catchError((err) => throwError(() => new Error(err))),
@@ -48,9 +48,9 @@ export class OrderService extends Api {
           res,
           ODataResponse
         );
-        let value: Array<Order> = this.jsonConvert.deserializeArray(
+        let value: Array<User> = this.jsonConvert.deserializeArray(
           odateRes.value,
-          Order
+          User
         );
         odateRes.value = value;
         return odateRes;
@@ -58,8 +58,8 @@ export class OrderService extends Api {
     );
   }
 
-  CreateOrder(formData: any): Observable<any> {
-    let url = `/api/CustomApi/create-table-order`;
+  CreateUser(formData: any): Observable<User> {
+    let url = `/api/customapi/create-user`;
     return super.postEntity(url, formData).pipe(
       catchError((err) => throwError(() => new Error(err))),
       map((res) => {
@@ -68,17 +68,8 @@ export class OrderService extends Api {
     );
   }
 
-  UpdateOrder(formData: any, Id: any): Observable<Order> {
-    let url = `/api/customapi/update-order`;
-  return super.putEntity(url, Id, formData).pipe(
-    catchError((err) => throwError(() => new Error(err))),
-    map((res) => {
-      return res;
-    })
-  );
-  }
-  UpdateOrderStatus(formData: any, Id: any): Observable<Order> {
-    let url = `/Orders`;
+  UpdateUser(formData: any, Id: any): Observable<User> {
+    let url = `/Users`;
   return super.patchEntity(url, Id, formData).pipe(
     catchError((err) => throwError(() => new Error(err))),
     map((res) => {
@@ -86,16 +77,17 @@ export class OrderService extends Api {
     })
   );
   }
-  DeleteOrder(id: any): Observable<Order> {
-    return super.deleteEntity('/Orders', id).pipe(
+
+  DeleteUser(id: any): Observable<User> {
+    return super.deleteEntity('/Users', id).pipe(
       catchError((err) => {
         return throwError(() => err);
       })
     );
   }
 
-  getOrderByQuery(queryParams?: string): Observable<ODataResponse> {
-    let url = `/Orders?${queryParams}`;
+  getUserByQuery(queryParams?: string): Observable<ODataResponse> {
+    let url = `/Users?${queryParams}`;
     return super.get(url).pipe(
       catchError((err) => throwError(() => new Error(err))),
       map((res) => {
@@ -103,9 +95,9 @@ export class OrderService extends Api {
           res,
           ODataResponse
         );
-        let value: Array<Order> = this.jsonConvert.deserializeArray(
+        let value: Array<User> = this.jsonConvert.deserializeArray(
           odataRes.value,
-          Order
+          User
         );
         odataRes.value = value;
         return odataRes;

@@ -20,6 +20,11 @@ export const routes: Routes = [
                 path: "list-table",
                 loadChildren: () =>
                     import("./pages/list-table/routes").then((m) => m.routes),
+            },
+            {
+                path: "category",
+                loadChildren: () =>
+                    import("./pages/category/routes").then((m) => m.routes),
             }
         ]
     }

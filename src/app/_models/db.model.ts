@@ -256,13 +256,13 @@ export class Shop {
 @JsonObject('Product')
 export class Product {
 
-    @JsonProperty('Productuid', StringConverter, true)
+    @JsonProperty('ProductUid', StringConverter, true)
     ProductUid: string = undefined as any;
 
-    @JsonProperty('Shopuid', StringConverter, true)
+    @JsonProperty('ShopUid', StringConverter, true)
     ShopUid: string = undefined as any;
 
-    @JsonProperty('Productname', StringConverter, true)
+    @JsonProperty('ProductName', StringConverter, true)
     ProductName: string = undefined as any;
 
     @JsonProperty('Description', StringConverter, true)
@@ -277,10 +277,10 @@ export class Product {
     @JsonProperty('Type', NumberConverter, true)
     Type: number = undefined as any;
 
-    @JsonProperty('Createdat', DateTimeConverter, true)
+    @JsonProperty('CreatedAt', DateTimeConverter, true)
     CreatedAt: Date = undefined as any;
 
-    @JsonProperty('Priceconfig', NumberConverter, true)
+    @JsonProperty('PriceConfig', NumberConverter, true)
     PriceConfig: number = undefined as any;
 
     @JsonProperty('Img', StringConverter, true)
@@ -288,6 +288,9 @@ export class Product {
 
     @JsonProperty('ShopU', ShopConverter, true)
     ShopU: Shop = undefined as any;
+
+    @JsonProperty('Category', StringConverter, true)
+    Category: string = undefined as any;
 
     @JsonProperty('OrderItems', OrderItemArrayConverter, true)
     OrderItems: OrderItem[] = [] as any;
@@ -409,4 +412,20 @@ export class Table {
 
     @JsonProperty('CreatedAt', DateTimeConverter, true)
     CreatedAt: Date = undefined as any;
+}
+@JsonObject("Category")
+export class Category {
+
+  @JsonProperty("Id", StringConverter, true)
+  Id: string = undefined as any;
+
+  @JsonProperty("Name", StringConverter, true)
+  Name: string = undefined as any;
+
+  @JsonProperty("Type", NumberConverter, true)
+  Type: number = undefined as any;
+
+  @JsonProperty("Description", StringConverter, true)
+  Description: string = undefined as any;
+
 }

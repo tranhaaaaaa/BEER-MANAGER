@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { ButtonDirective } from '@coreui/angular';
 import { Login } from "../../_dialog/login/login";
+import { UserLogged } from '../../_helper/userLogged';
 
 @Component({
   selector: 'app-header',
@@ -12,6 +13,7 @@ import { Login } from "../../_dialog/login/login";
 export class Header {
   @ViewChild(Login) modal! : Login;
   isMobile : boolean = false;
+  userLogged = new UserLogged();
  @Output() toggleSidebar = new EventEmitter<void>();
  constructor(){
   if(window.screen.width >= 992){

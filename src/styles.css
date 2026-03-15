@@ -1,3 +1,4 @@
+@import "../node_modules/ngx-toastr/toastr.css";
 body {
     font-family: 'OverusedGrotesk', system-ui, sans-serif;
     background-color: #ffff !important;

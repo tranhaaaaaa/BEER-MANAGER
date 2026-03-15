@@ -13,7 +13,7 @@ import { ModalQr } from "../modal-qr/modal-qr";
 })
 export class PaymentType {
   visible = false;
-@Input() amount:number = 0; 
+@Input() ORDER_ID :any; 
 @ViewChild(ModalQr) modal! : ModalQr;
   paymentType: string | null = null;
 

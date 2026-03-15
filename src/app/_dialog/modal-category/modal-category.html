@@ -1,0 +1,72 @@
+<c-modal
+  [visible]="visible"
+  alignment="center"
+  (visibleChange)="visible = $event"
+>
+
+  <c-modal-header>
+    <h5 cModalTitle>
+
+      {{form.Type == 1 ? 'Thêm khu vực bàn' : 'Thêm danh mục món ăn'}}
+
+    </h5>
+  </c-modal-header>
+
+
+  <c-modal-body>
+
+    <div class="mb-3">
+
+      <label class="form-label">
+        Tên danh mục
+      </label>
+
+      <input
+        class="form-control"
+        [(ngModel)]="form.Name"
+        placeholder="Nhập tên danh mục"
+      />
+
+    </div>
+
+
+    <div class="mb-3">
+
+      <label class="form-label">
+        Mô tả
+      </label>
+
+      <textarea
+        class="form-control"
+        rows="3"
+        [(ngModel)]="form.Description">
+      </textarea>
+
+    </div>
+
+  </c-modal-body>
+
+
+  <c-modal-footer>
+
+    <button
+      cButton
+      color="secondary"
+      (click)="close()">
+
+      Hủy
+
+    </button>
+
+    <button
+      cButton
+      color="success"
+      (click)="save()">
+
+      Lưu
+
+    </button>
+
+  </c-modal-footer>
+
+</c-modal>

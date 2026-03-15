@@ -3,5 +3,5 @@ export const environment = {
 };
 
 export const API_SERVICE = {
-     BASE_URL: 'https://beer-manager.onrender.com',
+     BASE_URL: 'https://localhost:44373',
 }

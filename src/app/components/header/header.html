@@ -15,7 +15,8 @@
         </div>
       </div>
       <div class="col-4 py-3 px-4 align-items-center d-flex justify-content-end">
-       <button cButton class="fs-11" color="secondary" (click)="onLogin()">Đăng nhập</button>
+       <button cButton class="fs-11" color="secondary" (click)="onLogin()" *ngIf="!userLogged.isLogged()">Đăng nhập</button>
+        <button cButton class="fs-11" color="secondary" (click)="userLogged.logout()" *ngIf="userLogged.isLogged()">Đăng xuất</button>
       </div>
     </div>
   </div>

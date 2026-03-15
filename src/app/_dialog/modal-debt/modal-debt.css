@@ -1,0 +1,42 @@
+.customer-select-card{
+  background:#f8fafc;
+  padding:20px;
+  border-radius:12px;
+  border:1px solid #e6e8ec;
+}
+
+.create-user-card{
+  background:white;
+  border-radius:12px;
+  padding:20px;
+  border:1px solid #e6e8ec;
+  box-shadow:0 5px 20px rgba(0,0,0,0.05);
+}
+
+.form-label{
+  font-size:14px;
+}
+
+input[cFormControl]{
+  border-radius:8px;
+}
+
+button[cButton]{
+  border-radius:8px;
+}
+
+c-modal-body{
+  padding-top:10px;
+}
+.form-select{
+    font-size: 15px;
+}
+.modal-overlay{
+  position: fixed;
+  inset:0;
+  background: rgba(0,0,0,0.55);
+  z-index: 1055;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}

@@ -23,10 +23,19 @@ export const menuItems = [
     // ]
   },
   {
-    title: 'Tạo đơn',
+    title: 'Danh sách bàn',
     icon: 'bi bi-box',
     badge: '',
     link: '/list-table'
+    // children: [
+    //   { title: 'Tạo đơn sử dụng địa chỉ ID', link: '/create-id' },
+    //   { title: 'Tạo đơn sử dụng địa chỉ chi tiết', link: '/create-detail' }
+    // ]
+  }, {
+    title: 'Danh mục',
+    icon: 'bi bi-box',
+    badge: '',
+    link: '/category'
     // children: [
     //   { title: 'Tạo đơn sử dụng địa chỉ ID', link: '/create-id' },
     //   { title: 'Tạo đơn sử dụng địa chỉ chi tiết', link: '/create-detail' }

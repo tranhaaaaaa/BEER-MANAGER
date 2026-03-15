@@ -1,181 +1,127 @@
 <div class="pos-container">
-
   <!-- LEFT : CATEGORY + FOODS -->
   <div class="pos-left">
-
     <!-- CATEGORY -->
     <div class="category-bar">
+      <span (click)="activeCategory = 'all'" [class.active]="activeCategory === 'all'">
+        Tất cả
+      </span>
+
       <span
         *ngFor="let c of categories"
-        (click)="activeCategory = c"
-        [class.active]="activeCategory === c">
-        {{c}}
+        (click)="activeCategory = c.Id"
+        [class.active]="activeCategory === c.Id"
+      >
+        {{ c.Name }}
       </span>
+     
     </div>
-
-    <!-- FOOD GRID -->
+  <button class="btn-add-food mt-2 mb-3" (click)="openAddFood()">
+    + Thêm món
+  </button>
     <div class="food-grid">
-
-      <div class="food-card"
-           *ngFor="let food of filteredProducts">
-
-        <img [src]="food.Img" class="food-img">
+      <div class="food-card" *ngFor="let food of filteredProducts">
+        <img [src]="food.Img" class="food-img" />
 
         <div class="food-body">
-
           <div class="food-name">
-            {{food.ProductName}}
+            {{ food.ProductName }}
           </div>
 
-          <div class="food-price">
-            {{food.Price| number}} đ
-          </div>
+          <div class="food-price">{{ food.Price | number }} đ</div>
 
-          <button class="btn-add"
-                  (click)="addToOrder(food)">
-            + Thêm
-          </button>
-
+          <button class="btn-add" (click)="addToOrder(food)">+ Thêm</button>
         </div>
-
       </div>
-
     </div>
-
   </div>
 
-  <div class="pos-right d-none d-md-flex"
-       [class.collapsed]="!showDesktopOrder">
-
-    <div class="order-title cursor-pointer"  (click)="toggleDesktopOrder()">
+  <div class="pos-right d-none d-md-flex" [class.collapsed]="!showDesktopOrder">
+    <div class="order-title cursor-pointer" (click)="toggleDesktopOrder()">
       Đơn hàng
 
-      <span class="toggle-btn"
-           >
-        {{showDesktopOrder ? '❯' : '❮'}}
+      <span class="toggle-btn">
+        {{ showDesktopOrder ? '❯' : '❮' }}
       </span>
-
     </div>
 
     <div class="order-list" *ngIf="showDesktopOrder">
+      <div class="order-item" *ngFor="let item of orderItems">
+        <div class="order-name">
+          {{ item.ProductName }}
+        </div>
 
-   <div class="order-item"
-     *ngFor="let item of orderItems">
+        <div class="order-qty">
+          <button (click)="decrease(item)">-</button>
 
-  <div class="order-name">
-    {{item.ProductName}}
-  </div>
+          {{ item.quantity }}
 
-  <div class="order-qty">
+          <button (click)="increase(item)">+</button>
+        </div>
 
-    <button (click)="decrease(item)">-</button>
-
-    {{item.quantity}}
-
-    <button (click)="increase(item)">+</button>
-
-  </div>
-
-  <div class="order-price">
-    {{item.Price * item.quantity | number}} đ
-  </div>
-
-</div>
-
+        <div class="order-price">{{ item.Price * item.quantity | number }} đ</div>
+      </div>
     </div>
 
-  <div class="order-footer" *ngIf="showDesktopOrder">
+    <div class="order-footer" *ngIf="showDesktopOrder">
+      <div class="total">
+        Tổng tiền:
+        <span>{{ totalPrice | number }} đ</span>
+      </div>
 
-  <div class="total">
-    Tổng tiền:
-    <span>{{totalPrice | number}} đ</span>
+      <div class="order-actions">
+        <button class="btn-create" (click)="createOrder()">Tạo đơn</button>
+
+        <button class="btn-pay" (click)="onOpen()">Thanh toán</button>
+      </div>
+    </div>
   </div>
 
-  <div class="order-actions">
-
-    <button class="btn-create" (click)="createOrder()">
-      Tạo đơn
-    </button>
-
-    <button class="btn-pay" (click)="onOpen()">
-      Thanh toán
-    </button>
-
-  </div>
-
-</div>
-
-  </div>
-
-  <div class="mobile-order d-flex d-md-none"
-       [class.open]="showMobileOrder">
+  <div class="mobile-order d-flex d-md-none" [class.open]="showMobileOrder">
     <div class="order-title">
       Đơn hàng
-      <span class="close-btn"
-            (click)="showMobileOrder=false">✕</span>
+      <span class="close-btn" (click)="showMobileOrder = false">✕</span>
     </div>
     <div class="order-list">
+      <div class="order-item" *ngFor="let item of orderItems">
+        <div class="order-name">
+          {{ item.ProductName }}
+        </div>
 
-  <div class="order-item"
-       *ngFor="let item of orderItems">
+        <div class="order-qty">
+          <button (click)="decrease(item)">-</button>
+          {{ item.quantity }}
+          <button (click)="increase(item)">+</button>
+        </div>
 
-    <div class="order-name">
-      {{item.ProductName}}
+        <div class="order-price">{{ item.Price * item.quantity | number }} đ</div>
+      </div>
     </div>
 
-    <div class="order-qty">
-      <button (click)="decrease(item)">-</button>
-      {{item.quantity}}
-      <button (click)="increase(item)">+</button>
-    </div>
+    <!-- FOOTER -->
+    <div class="order-footer">
+      <div class="total">
+        Tổng tiền:
+        <span>{{ totalPrice | number }} đ</span>
+      </div>
 
-    <div class="order-price">
-      {{item.Price * item.quantity | number}} đ
-    </div>
+      <div class="order-actions">
+        <button class="btn-create" (click)="createOrder()">Tạo đơn</button>
 
+        <button class="btn-pay" (click)="onOpen()">Thanh toán</button>
+      </div>
+    </div>
   </div>
+  <div
+    class="mobile-total-bar d-flex d-md-none"
+    (click)="toggleMobileOrder()"
+    *ngIf="orderItems.length"
+  >
+    <div>Tổng tiền</div>
 
+    <div class="price">{{ totalPrice | number }} đ</div>
+  </div>
 </div>
-
-
-<!-- FOOTER -->
-<div class="order-footer">
-
-  <div class="total">
-    Tổng tiền:
-    <span>{{totalPrice | number}} đ</span>
-  </div>
-
-  <div class="order-actions">
-
-    <button class="btn-create"
-            (click)="createOrder()">
-      Tạo đơn
-    </button>
-
-    <button class="btn-pay"
-            (click)="onOpen()">
-      Thanh toán
-    </button>
-
-  </div>
-
-</div>
-  </div>
-  <div class="mobile-total-bar d-flex d-md-none"
-       (click)="toggleMobileOrder()"
-       *ngIf="orderItems.length">
-
-    <div>
-      Tổng tiền
-    </div>
-
-    <div class="price">
-      {{totalPrice | number}} đ
-    </div>
-
-  </div>
-
-</div>
-<app-payment-type [amount]="totalPrice"></app-payment-type>
+<app-payment-type></app-payment-type>
 <app-modal-create-table [ordersInput]="orderItems"></app-modal-create-table>
+<app-modal-food></app-modal-food>

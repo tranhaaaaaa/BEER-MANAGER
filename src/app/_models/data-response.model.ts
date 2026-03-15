@@ -6,8 +6,8 @@ import {
 
 @JsonObject('ODataResponse')
 export class ODataResponse {
-  @JsonProperty('@odata.context', String, true)
-  context: String = undefined as any;
+  @JsonProperty('Status', Number, true)
+  status: number = undefined as any;
 
   @JsonProperty('@odata.etag', String, true)
   etag: String = undefined as any;
@@ -18,6 +18,6 @@ export class ODataResponse {
   @JsonProperty('@odata.count', Number, true)
   count: number = undefined as any;
 
-  @JsonProperty('value', Any, true)
+  @JsonProperty('Data', Any, true)
   value: any = undefined;
 }
