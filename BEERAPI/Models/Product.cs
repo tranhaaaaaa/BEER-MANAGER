@@ -25,5 +25,7 @@ public partial class Product
 
     public string? Img { get; set; }
 
+    public Guid? Category { get; set; }
+
     public virtual Shop ShopU { get; set; } = null!;
 }

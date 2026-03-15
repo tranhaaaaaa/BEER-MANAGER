@@ -1,6 +1,7 @@
 ﻿using BEERAPI.Models;
 using BEERAPI.Services;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
 using static BEERAPI.Services.IOrderService;
 
@@ -62,14 +63,21 @@ namespace BEERAPI.Controllers
         }
 
     }
+    public class CategoriesController : BaseController<Category>
+    {
+        public CategoriesController(ICategoryService service) : base(service)
+        {
+
+        }
+    }
     public class CustomController : Controller
     {
         private IUserService userService;
-        private IAuthenticationService authenticationService;
+        private IAuthenService authenticationService;
 
-        public CustomController(IUserService _userService, IAuthenticationService _authenticationService)
+        public CustomController(IUserService _userService, IAuthenService _authenticationService)
         {
-            this.authenticationService = _authenticationService;
+            authenticationService = _authenticationService;
             this.userService = _userService;
         }
         [AllowAnonymous]
@@ -79,7 +87,12 @@ namespace BEERAPI.Controllers
         {
             return Ok(authenticationService.Login(userLogin.Username, userLogin.Password));
         }
-       
+        [HttpPost("register")]
+        public IActionResult Register([FromBody] UserLogin req)
+        {
+            var result = authenticationService.Register(req.Username, req.Password);
+            return Ok(result);
+        }
     }
     public class UserLogin
     {

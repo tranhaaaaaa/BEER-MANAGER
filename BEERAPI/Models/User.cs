@@ -17,9 +17,9 @@ public partial class User
 
     public Guid ShopUid { get; set; }
 
-    public virtual ICollection<Logging> Loggings { get; set; } = new List<Logging>();
+    public virtual ICollection<Logging>? Loggings { get; set; } = new List<Logging>();
 
-    public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
+    public virtual ICollection<Order>? Orders { get; set; } = new List<Order>();
 
-    public virtual Shop ShopU { get; set; } = null!;
+    public virtual Shop? ShopU { get; set; } = null!;
 }

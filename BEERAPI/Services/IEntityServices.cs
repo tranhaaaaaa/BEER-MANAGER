@@ -19,6 +19,9 @@ namespace BEERAPI.Services
     public interface ILoggingService : IServices<Logging>
     {
     }
+        public interface ICategoryService : IServices<Category>
+        {
+        }
         public interface ITableService : IServices<Table>
         {
         }

@@ -35,12 +35,12 @@ builder.WebHost.ConfigureKestrel(serverOptions =>
 {
     serverOptions.Limits.MaxRequestBodySize = int.MaxValue;
 });
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+var connectionString = builder.Configuration.GetConnectionString("value");
 
 builder.Services.AddDbContext<EcommerceDbContext>(options =>
 {
     options.UseSqlServer(connectionString);
-    options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
+    //options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 });
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -67,7 +67,9 @@ services.AddTransient<IOrderService, OrderService>();
 services.AddTransient<IOrderItemService, OrderItemService>();
 services.AddTransient<ILoggingService, LoggingService>();
 services.AddTransient<ITableService, TableService>();
-services.AddTransient<ICreateOrderServices, CreateOrderService>();
+services.AddTransient<ICreateOrderService, CreateOrderService>();
+services.AddTransient<ICategoryService, CategoryService>();
+services.AddTransient<IAuthenService, AuthenService>();
 
 
 services.AddSwaggerGen(c =>
@@ -113,6 +115,7 @@ IEdmModel GetEdmModel()
     odataBuilder.EntitySet<Order>("Orders").EntityType.HasKey(x => x.OrderUid).Expand(5).Count().Page(100, 100);
     odataBuilder.EntitySet<OrderItem>("OrderItems").EntityType.HasKey(x => x.OrderItemUid).Expand(5).Count().Page(100, 100);
     odataBuilder.EntitySet<Logging>("Logs").EntityType.HasKey(x => x.LogUid).Expand(5).Count().Page(100, 100);
+    odataBuilder.EntitySet<Category>("Categories").EntityType.HasKey(x => x.Id).Expand(5).Count().Page(100, 100);
     odataBuilder.EntitySet<BEERAPI.Models.Table>("Tables").EntityType.HasKey(x => x.TableId).Expand(5).Count().Page(100, 100);
 
     return odataBuilder.GetEdmModel();

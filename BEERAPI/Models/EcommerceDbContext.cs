@@ -15,6 +15,8 @@ public partial class EcommerceDbContext : DbContext
     {
     }
 
+    public virtual DbSet<Category> Categories { get; set; }
+
     public virtual DbSet<Logging> Loggings { get; set; }
 
     public virtual DbSet<Order> Orders { get; set; }
@@ -35,6 +37,17 @@ public partial class EcommerceDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Category>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__Category__3214EC07C123412E");
+
+            entity.ToTable("Category");
+
+            entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
+            entity.Property(e => e.Description).HasMaxLength(500);
+            entity.Property(e => e.Name).HasMaxLength(255);
+        });
+
         modelBuilder.Entity<Logging>(entity =>
         {
             entity.HasKey(e => e.LogUid).HasName("PK__Logging__D12CCB367042FDA1");
@@ -67,7 +80,7 @@ public partial class EcommerceDbContext : DbContext
             entity.Property(e => e.OrderUid)
                 .HasDefaultValueSql("(newid())")
                 .HasColumnName("OrderUID");
-            entity.Property(e => e.Name).HasMaxLength(1);
+            entity.Property(e => e.Name).HasMaxLength(255);
             entity.Property(e => e.OrderDate)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
@@ -75,7 +88,6 @@ public partial class EcommerceDbContext : DbContext
             entity.Property(e => e.TotalAmount)
                 .HasDefaultValue(0m)
                 .HasColumnType("decimal(18, 2)");
-            entity.Property(e => e.Type).HasMaxLength(1);
             entity.Property(e => e.UserUid).HasColumnName("UserUID");
 
             entity.HasOne(d => d.ShopU).WithMany(p => p.Orders)
@@ -85,7 +97,6 @@ public partial class EcommerceDbContext : DbContext
 
             entity.HasOne(d => d.UserU).WithMany(p => p.Orders)
                 .HasForeignKey(d => d.UserUid)
-                .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__Order__UserUID__66603565");
         });
 
@@ -98,7 +109,7 @@ public partial class EcommerceDbContext : DbContext
             entity.Property(e => e.OrderItemUid)
                 .HasDefaultValueSql("(newid())")
                 .HasColumnName("OrderItemUID");
-            entity.Property(e => e.Name).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.Name).HasMaxLength(255);
             entity.Property(e => e.OrderUid).HasColumnName("OrderUID");
             entity.Property(e => e.ProductUid).HasColumnName("ProductUID");
             entity.Property(e => e.UnitPrice).HasColumnType("decimal(18, 2)");
@@ -158,7 +169,7 @@ public partial class EcommerceDbContext : DbContext
 
         modelBuilder.Entity<Table>(entity =>
         {
-            entity.HasKey(e => e.TableId).HasName("PK__Table__7D5F018E3756B032");
+            entity.HasKey(e => e.TableId).HasName("PK__Table__7D5F018E1216FD52");
 
             entity.ToTable("Table");
 

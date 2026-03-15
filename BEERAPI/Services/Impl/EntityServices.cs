@@ -52,56 +52,11 @@ namespace BEERAPI.Services.Impl
         {
         }
     }
-    public class AuthenticationService : IAuthenticationService
+    public class CategoryService : BaseServices<Category>, ICategoryService
     {
-        private EcommerceDbContext _context;
-        public AuthenticationService(EcommerceDbContext context)
+        public CategoryService(EcommerceDbContext context, IMemoryCache cache, IConfiguration configuration) : base(context, cache, configuration)
         {
-            _context = context;
         }
-
-        public object Login(string username, string password)
-        {
-            var user = GetUser(username, password);
-            if (user == null)
-            {
-                return null;
-            }
-            List<object> roles = null;
-
-            return new
-            {
-                token = GenerateToken(user),
-                username = user.Username,
-                userid = user.ShopUid,
-            };
-        }
-        private string GenerateToken(Shop shop)
-        {
-            var config = ConfigurationHelper.config;
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["Jwt.Key"]));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-            //var roles = user.UserRoles.Select(c => c.Role).ToList();
-          
-            var claims = new[]
-            {
-                new Claim("UserName",shop.Username),
-                new Claim("Id",shop.ShopUid.ToString()),
-
-            };
-            var token = new JwtSecurityToken(config["Jwt.Issuer"],
-                config["Jwt.Audience"],
-                claims,
-                expires: DateTime.Now.AddMinutes(int.Parse(config["TokenExpries"])),
-                signingCredentials: credentials);
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
-
-        }
-        private Shop GetUser(string username, string password)
-        {
-            var hashPassword = Unity.Md5Hash(password);
-            return _context.Shops.Where(c => c.Username.ToLower() == username.ToLower() && c.Password == hashPassword).FirstOrDefault();
-        }
-    }
+    } 
+   
 }
