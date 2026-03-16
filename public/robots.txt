@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://beer-manager-776d4.web.app
+Sitemap: https://beer-manager-776d4.web.app/sitemap.xml
