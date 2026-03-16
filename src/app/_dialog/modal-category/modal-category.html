@@ -1,72 +1,49 @@
 <c-modal
   [visible]="visible"
   alignment="center"
+  class="category-modal"
   (visibleChange)="visible = $event"
 >
-
-  <c-modal-header>
+  <c-modal-header class="modal-header-custom">
     <h5 cModalTitle>
-
-      {{form.Type == 1 ? 'Thêm khu vực bàn' : 'Thêm danh mục món ăn'}}
-
+      {{ form.Type == 1 ? 'Thêm khu vực bàn' : 'Thêm danh mục món ăn' }}
     </h5>
   </c-modal-header>
 
-
   <c-modal-body>
-
+    <!-- Tên danh mục -->
     <div class="mb-3">
-
-      <label class="form-label">
-        Tên danh mục
-      </label>
+      <label class="form-label"> Tên danh mục <span class="text-danger">*</span> </label>
 
       <input
-        class="form-control"
+        class="form-control input-custom"
         [(ngModel)]="form.Name"
+        name="Name"
+        autofocus 
         placeholder="Nhập tên danh mục"
       />
 
+      <div class="text-danger small mt-1" *ngIf="!form.Name">Vui lòng nhập tên danh mục</div>
     </div>
 
-
+    <!-- Mô tả -->
     <div class="mb-3">
-
-      <label class="form-label">
-        Mô tả
-      </label>
+      <label class="form-label"> Mô tả </label>
 
       <textarea
-        class="form-control"
+        class="form-control input-custom"
         rows="3"
-        [(ngModel)]="form.Description">
-      </textarea>
-
+        [(ngModel)]="form.Description"
+        name="Description"
+        placeholder="Nhập mô tả danh mục"
+      ></textarea>
     </div>
 
+    <!-- BUTTON ACTION -->
+    <div class="d-flex justify-content-end gap-2 mt-4">
+      <button class="btn btn-light border" (click)="close()">Hủy</button>
+
+      <button class="btn btn-success" [disabled]="!form.Name" (click)="save()">Lưu</button>
+    </div>
   </c-modal-body>
-
-
-  <c-modal-footer>
-
-    <button
-      cButton
-      color="secondary"
-      (click)="close()">
-
-      Hủy
-
-    </button>
-
-    <button
-      cButton
-      color="success"
-      (click)="save()">
-
-      Lưu
-
-    </button>
-
-  </c-modal-footer>
-
 </c-modal>

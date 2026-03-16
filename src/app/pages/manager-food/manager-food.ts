@@ -8,8 +8,6 @@ import { Product } from '../../_models/db.model';
 import { Category } from '../../_models/db.model';
 import { CategoryService } from '../../_services/category.service';
 import { ModalFood } from '../../_dialog/modal-food/modal-food';
-import { Footer } from "../../components/footer/footer";
-import { ModalDebt } from '../../_dialog/modal-debt/modal-debt';
 
 @Component({
   selector: 'app-manager-food',

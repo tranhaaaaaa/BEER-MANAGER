@@ -1,4 +1,6 @@
-<div class="modal-backdrop" *ngIf="visible">
+
+<div class="modal-overlay" *ngIf="visible">
+  <div class="modal-backdrop" *ngIf="visible">
 
   <div class="modal-container">
 
@@ -9,35 +11,65 @@
 
 <form [formGroup]="foodForm">
 
-    <div class="modal-body">
+  <div class="modal-body">
 
-      <label>Loại món ăn</label>
+<label>Loại món ăn</label>
 
-      <select formControlName="Category">
+<select formControlName="Category">
+  <option value="">Chọn loại</option>
 
-        <option value="">Chọn loại</option>
+  <option *ngFor="let c of categories" [value]="c.Id">
+    {{c.Name}}
+  </option>
+</select>
 
-        <option *ngFor="let c of categories" [value]="c.Id">
-          {{c.Name}}
-        </option>
-      </select>
-      <label>Tên món ăn</label>
+<div class="error"
+ *ngIf="foodForm.get('Category')?.touched && foodForm.get('Category')?.invalid">
+  Vui lòng chọn loại món ăn
+</div>
 
-      <input
-        type="text"
-        placeholder="Nhập tên món"
-        formControlName="ProductName">
-      <label>Hình ảnh (URL)</label>
-      <input
-        type="text"
-        placeholder="Nhập đường dẫn ảnh"
-        formControlName="Img">
-      <label>Giá</label>
-      <input
-        type="number"
-        placeholder="Nhập giá"
-        formControlName="Price">
-    </div>
+
+<label>Tên món ăn</label>
+
+<input
+type="text"
+placeholder="Nhập tên món"
+formControlName="ProductName">
+
+<div class="error"
+ *ngIf="foodForm.get('ProductName')?.touched && foodForm.get('ProductName')?.invalid">
+  Vui lòng nhập tên món ăn
+</div>
+
+
+<label>Hình ảnh (URL)</label>
+
+<input
+type="text"
+placeholder="Nhập đường dẫn ảnh"
+formControlName="Img">
+
+
+<label>Giá</label>
+
+<input
+placeholder="Nhập giá"
+formControlName="Price" appMoneyFormat>
+
+<div class="error"
+ *ngIf="foodForm.get('Price')?.touched && foodForm.get('Price')?.errors">
+
+  <span *ngIf="foodForm.get('Price')?.errors?.['required']">
+    Vui lòng nhập giá
+  </span>
+
+  <span *ngIf="foodForm.get('Price')?.errors?.['min']">
+    Giá phải lớn hơn 1000
+  </span>
+
+</div>
+
+</div>
 </form>
     <div class="modal-footer">
       <button class="btn-cancel" (click)="close()">
@@ -50,4 +82,5 @@
 
   </div>
 
+</div>
 </div>

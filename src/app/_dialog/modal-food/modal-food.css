@@ -5,62 +5,213 @@
   right:0;
   bottom:0;
 
-  background: rgba(0,0,0,0.4);
+  background: rgba(0,0,0,0.35);
 
   display:flex;
   justify-content:center;
   align-items:center;
+
+  backdrop-filter: blur(3px);
 }
+
+/* container */
 
 .modal-container{
-  width:400px;
+
+  width:520px;
+
   background:white;
-  border-radius:10px;
-  padding:20px;
+
+  border-radius:14px;
+
+  padding:25px;
+
+  box-shadow:
+  0 15px 40px rgba(0,0,0,0.15);
+
+  animation:modalFade .25s ease;
 }
 
+/* animation */
+
+@keyframes modalFade{
+
+  from{
+    transform:translateY(20px);
+    opacity:0;
+  }
+
+  to{
+    transform:translateY(0);
+    opacity:1;
+  }
+
+}
+
+/* header */
+
 .modal-header{
+
   display:flex;
   justify-content:space-between;
   align-items:center;
+
+  padding-bottom:10px;
+
+  border-bottom:1px solid #eee;
 }
 
+.modal-header h3{
+
+  font-size:20px;
+
+  font-weight:600;
+
+  color:#333;
+}
+
+/* close */
+
+.close-btn{
+
+  font-size:20px;
+
+  cursor:pointer;
+
+  color:#888;
+
+  transition:.2s;
+}
+
+.close-btn:hover{
+  color:#ff4d4f;
+}
+
+/* body */
+
 .modal-body{
+
   display:flex;
   flex-direction:column;
-  gap:10px;
-  margin-top:10px;
+
+  gap:12px;
+
+  margin-top:15px;
 }
+
+/* label */
+
+.modal-body label{
+
+  font-size:14px;
+
+  color:#555;
+
+  font-weight:500;
+}
+
+/* input */
 
 .modal-body input,
 .modal-body select{
-  padding:8px;
+
+  padding:10px 12px;
+
   border:1px solid #ddd;
-  border-radius:6px;
+
+  border-radius:8px;
+
+  font-size:14px;
+
+  transition:.2s;
+
+  background:#fafafa;
 }
+
+.modal-body input:focus,
+.modal-body select:focus{
+
+  outline:none;
+
+  border-color:#ff6b00;
+
+  background:white;
+
+  box-shadow:
+  0 0 0 3px rgba(255,107,0,0.15);
+}
+
+/* footer */
 
 .modal-footer{
-  margin-top:15px;
+
+  margin-top:20px;
+
   display:flex;
+
   justify-content:flex-end;
+
   gap:10px;
+
+  border-top:1px solid #eee;
+
+  padding-top:15px;
 }
 
+/* buttons */
+
 .btn-save{
+
   background:#ff6b00;
+
   color:white;
+
   border:none;
-  padding:8px 15px;
-  border-radius:6px;
+
+  padding:9px 18px;
+
+  border-radius:8px;
+
+  font-weight:600;
+
+  transition:.2s;
+}
+
+.btn-save:hover{
+
+  background:#e55e00;
+
+  transform:translateY(-1px);
 }
 
 .btn-cancel{
-  background:#ccc;
+
+  background:#f1f1f1;
+
   border:none;
-  padding:8px 15px;
-  border-radius:6px;
+
+  padding:9px 18px;
+
+  border-radius:8px;
+
+  color:#444;
+
+  font-weight:500;
+
+  transition:.2s;
 }
 
-.close-btn{
-  cursor:pointer;
+.btn-cancel:hover{
+
+  background:#e5e5e5;
+}
+.error{
+
+  color:#ff4d4f;
+
+  font-size:13px;
+
+  margin-top:-6px;
+
+  margin-bottom:5px;
 }

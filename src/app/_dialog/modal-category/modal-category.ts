@@ -21,9 +21,7 @@ import { ToastrService } from 'ngx-toastr';
     FormsModule,
     ModalComponent,
     ModalHeaderComponent,
-    ModalBodyComponent,
-    ModalFooterComponent,
-    ButtonDirective
+    ModalBodyComponent
   ],
   templateUrl: './modal-category.html',
 })

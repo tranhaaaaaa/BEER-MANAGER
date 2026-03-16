@@ -1,0 +1,34 @@
+.category-modal .modal-dialog {
+  max-width: 500px;
+}
+.modal-header-custom {
+  background: #fafafa;
+  border-bottom: 1px solid #eee;
+}
+.modal-header-custom h5 {
+  font-weight: 600;
+  color: #333;
+}
+.input-custom {
+  border-radius: 8px;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  transition: 0.2s;
+}
+.input-custom:focus {
+  border-color: #198754;
+  box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.15);
+}
+.modal-footer-custom {
+  background: #fafafa;
+  border-top: 1px solid #eee;
+}
+.btn-save {
+  padding: 8px 18px;
+  font-weight: 600;
+  border-radius: 8px;
+}
+.btn-cancel {
+  padding: 8px 18px;
+  border-radius: 8px;
+}

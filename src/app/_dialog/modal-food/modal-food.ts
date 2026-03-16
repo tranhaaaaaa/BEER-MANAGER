@@ -5,9 +5,10 @@ import { Category } from '../../_models/db.model';
 import { CategoryService } from '../../_services/category.service';
 import { Products } from '../../_services/products';
 import { ToastrService } from 'ngx-toastr';
+import { MoneyFormatDirective } from '../../_directives/money-format.directive';
 @Component({
   selector: 'app-modal-food',
-  imports: [ReactiveFormsModule,FormsModule,CommonModule],
+  imports: [ReactiveFormsModule,FormsModule,CommonModule,MoneyFormatDirective],
   templateUrl: './modal-food.html',
   styleUrl: './modal-food.css',
 })
