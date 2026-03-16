@@ -32,7 +32,7 @@ export class ModalFood implements OnInit{
       Img: [''],
        CreatedAt: [null],
        ShopUid:['B9D44344-AFA5-4B76-A84D-2730FF637644'],
-      Price: [0, [Validators.required, Validators.min(1000)]]
+      Price: [ , [Validators.required, Validators.min(1000)]]
     });
   }
   ngOnInit(): void {
