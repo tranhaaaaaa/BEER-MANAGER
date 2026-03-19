@@ -15,6 +15,8 @@ public partial class EcommerceDbContext : DbContext
     {
     }
 
+    public virtual DbSet<BankTransaction> BankTransactions { get; set; }
+
     public virtual DbSet<Category> Categories { get; set; }
 
     public virtual DbSet<Logging> Loggings { get; set; }
@@ -37,6 +39,29 @@ public partial class EcommerceDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<BankTransaction>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("PK__BankTran__3214EC078A315079");
+
+            entity.ToTable("BankTransaction");
+
+            entity.Property(e => e.Id).ValueGeneratedNever();
+            entity.Property(e => e.AccountNumber).HasMaxLength(50);
+            entity.Property(e => e.Accumulated).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(getdate())")
+                .HasColumnType("datetime");
+            entity.Property(e => e.ExtractedOrderCode).HasMaxLength(100);
+            entity.Property(e => e.Gateway).HasMaxLength(50);
+            entity.Property(e => e.OrderId).HasColumnName("OrderID");
+            entity.Property(e => e.ReferenceCode).HasMaxLength(100);
+            entity.Property(e => e.Status).HasDefaultValue(0);
+            entity.Property(e => e.SubAccount).HasMaxLength(50);
+            entity.Property(e => e.TransactionDate).HasColumnType("datetime");
+            entity.Property(e => e.TransferAmount).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.TransferType).HasMaxLength(10);
+        });
+
         modelBuilder.Entity<Category>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("PK__Category__3214EC07C123412E");

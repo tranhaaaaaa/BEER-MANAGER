@@ -1,3 +1,4 @@
+using BEERAPI.HubTransactions;
 using BEERAPI.Models;
 using BEERAPI.Models.Helper;
 using BEERAPI.Services;
@@ -22,7 +23,7 @@ IConfiguration configuration = new ConfigurationBuilder()
                             .Build();
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddSignalR();
 builder.Services.AddRazorPages();
 IServiceCollection services = builder.Services;
 services.AddControllers().AddJsonOptions(x =>
@@ -71,17 +72,29 @@ services.AddTransient<ICreateOrderService, CreateOrderService>();
 services.AddTransient<ICategoryService, CategoryService>();
 services.AddTransient<IAuthenService, AuthenService>();
 
-
 services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Mirror API", Version = "v1", Description = "Version: 1.0.0" });
 
 });
 
-
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngular", policy =>
+    {
+        policy
+            .SetIsOriginAllowed(origin =>
+                origin == "http://localhost:4200" ||
+                origin.StartsWith("https://0f83-171-229-218-238.ngrok-free.app") // thêm URL ngrok
+            )
+            .AllowAnyHeader()
+            .AllowAnyMethod()
+            .AllowCredentials(); // 🔥 bắt buộc cho SignalR
+    });
+});
 var app = builder.Build();
 // Configure the HTTP request pipeline.
-
+app.UseHostFiltering();
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
@@ -89,21 +102,21 @@ app.UseSwaggerUI(c =>
     //c.RoutePrefix = "DocumentAPI";
 
 });
-app.UseCors(builder =>
-{
-    builder
-    .AllowAnyOrigin()
-    .AllowAnyMethod()
-    .AllowAnyHeader();
-});
+
 ConfigurationHelper.Initialize(builder.Configuration);
 app.UseHttpsRedirection();
 //Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MDAxQDMxMzkyZTM0MmUzMGp6WDJ5ZGZrekFQY3huQkxTYkVmdS9jUERCbUVRUlhDb2lwc1FzQWxCVHM9");
 //var valid = Syncfusion.Licensing.SyncfusionLicenseProvider.ValidateLicense(Syncfusion.Licensing.Platform.ASPNETCore);
 app.UseRouting();
+app.UseCors("AllowAngular");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+// Trong Program.cs
+app.MapHub<PaymentHub>("/paymentHub", options =>
+{
+    options.Transports = Microsoft.AspNetCore.Http.Connections.HttpTransportType.WebSockets;
+});
 app.Run();
 
 IEdmModel GetEdmModel()

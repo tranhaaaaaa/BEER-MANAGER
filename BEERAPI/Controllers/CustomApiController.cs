@@ -1,8 +1,15 @@
+using BEERAPI.HubTransactions;
 using BEERAPI.Models;
+using BEERAPI.Models.Transaction;
 using BEERAPI.Services;
 using BEERAPI.Services.Impl;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
+using System.Globalization;
+using System.Text.RegularExpressions;
 
 namespace BEERAPI.Controllers
 {
@@ -12,9 +19,11 @@ namespace BEERAPI.Controllers
     {
         private readonly ICreateOrderService _service;
         private readonly EcommerceDbContext _context;
-        public CustomApiController(ICreateOrderService service, EcommerceDbContext context)
+        private readonly IHubContext<PaymentHub> _hubContext;
+        public CustomApiController(ICreateOrderService service, EcommerceDbContext context, IHubContext<PaymentHub> hubContext)
         {
             _service = service;
+            _hubContext = hubContext;
             _context = context;
         }
 
@@ -112,6 +121,119 @@ namespace BEERAPI.Controllers
                 Data = user,
                 Message = "Create user success"
             });
+        }
+        private Guid? ExtractOrderId(string content)
+        {
+            if (string.IsNullOrEmpty(content)) return null;
+
+            var match = Regex.Match(content, @"\b[a-fA-F0-9]{32}\b");
+
+            if (match.Success)
+            {
+                var clean = match.Value;
+
+                var formatted = $"{clean.Substring(0, 8)}-" +
+                                $"{clean.Substring(8, 4)}-" +
+                                $"{clean.Substring(12, 4)}-" +
+                                $"{clean.Substring(16, 4)}-" +
+                                $"{clean.Substring(20, 12)}";
+
+                if (Guid.TryParse(formatted, out Guid result))
+                {
+                    return result;
+                }
+            }
+
+            return null;
+        }
+        [HttpPost("test")]
+        public async Task<IActionResult> TestHub()
+        {
+            await _hubContext.Clients.All.SendAsync("payment_success", new
+            {
+                orderId = "40F3BC1C-1C3F-4306-A854-F32B2109403C",
+                amount = 100,
+                content = "Test payment from API"
+            });
+
+            return Ok("Sent test message");
+        }
+        [HttpPost("webhook")]
+        public async Task<IActionResult> ReceiveWebhook([FromBody] SePayWebhookModel model)
+        {
+            try
+            {
+                Console.WriteLine($"Nhận giao dịch: {model.Id} - {model.TransferAmount}");
+
+                var existed = await _context.BankTransactions
+                    .FirstOrDefaultAsync(x => x.Id == model.Id);
+
+                if (existed != null)
+                {
+                    return Ok(new { status = "duplicate" });
+                }
+
+                Guid? orderCode = ExtractOrderId(model.Content);
+
+                var transaction = new BankTransaction
+                {
+                    Id = model.Id,
+                    Gateway = model.Gateway,
+                    TransactionDate = DateTime.TryParseExact(
+                            model.TransactionDate,
+                            "yyyy-MM-dd HH:mm:ss",
+                            CultureInfo.InvariantCulture,
+                            DateTimeStyles.None,
+                            out var dt
+                        ) ? dt : DateTime.Now,
+                    AccountNumber = model.AccountNumber,
+                    SubAccount = model.SubAccount,
+                    TransferType = model.TransferType,
+                    TransferAmount = model.TransferAmount,
+                    Content = model.Content,
+                    Description = model.Description,
+                    ReferenceCode = model.ReferenceCode,
+                    Accumulated = model.Accumulated,
+                    RawJson = JsonConvert.SerializeObject(model),
+                    Status = 0,
+                    ExtractedOrderCode = orderCode.ToString(),
+                    CreatedAt = DateTime.Now
+                };
+                if (model.TransferType == "in" && orderCode != null)
+                {
+                    var order = await _context.Orders
+                        .FirstOrDefaultAsync(x => x.OrderUid == orderCode);
+
+                    if (order != null)
+                    {
+                        transaction.OrderId = order.OrderUid;
+                        transaction.Status = 1;
+                        order.Status = 1;
+
+                        Console.WriteLine($"Match thành công Order: {orderCode}");
+                        await _hubContext.Clients.All.SendAsync("payment_success", new
+                        {
+                            orderId = "40F3BC1C-1C3F-4306-A854-F32B2109403C",
+                            amount = 100,
+                            content = "Test payment from API"
+                        });
+                    }
+                    else
+                    {
+                        transaction.Status = -1;
+                    }
+                }
+
+                _context.BankTransactions.Add(transaction);
+                await _context.SaveChangesAsync();
+
+                return Ok(new { status = "success" });
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return BadRequest(new { status = "error" });
+            }
         }
     }
 }
