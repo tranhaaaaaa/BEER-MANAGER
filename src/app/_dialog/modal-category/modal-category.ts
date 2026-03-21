@@ -56,9 +56,7 @@ export class ModalCategory {
   }
 
   save() {
-
     if (!this.form.Name) return;
-    console.log("this",this.form)
     if(this.form.Id){
       this.categoryService.UpdateCategories(this.form,this.form.Id) .subscribe(() => {
         this.toastService.success("Cập nhật danh mục thành công!")

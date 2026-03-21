@@ -71,4 +71,4 @@
 
 </c-modal>
 </div>
-<app-modal-qr></app-modal-qr>
+<app-modal-qr [amount]="Amount" [ORDER_ID]="ORDER_ID"  (paymentSuccess)="onPaymentSuccess($event)"></app-modal-qr>

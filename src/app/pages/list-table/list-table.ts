@@ -38,9 +38,11 @@ export class ListTable implements OnInit {
     this.modal.open();
   }
   onGetTable() {
+    const today = new Date().toDateString();
     this.orderService.getAllOrder().subscribe((data) => {
-      this.listOrder = data.value;
+      this.listOrder = data.value.filter((x: Order) => x.Status == 0);
         this.filteredOrders = this.listOrder; 
+        this.filterTable(null);
     });
     this.categoryService.getAllCategories().subscribe((data) => {
       this.categories = data.value.filter((x: Category) => x.Type == 1);
@@ -50,6 +52,9 @@ export class ListTable implements OnInit {
     this.orderId = value;
     this.modalPayment.openModal();
   }
+  onPaymentSuccess(data: any) {
+  this.onGetTable();
+}
   editTable(index: number) {
     const table = this.tables[index];
 

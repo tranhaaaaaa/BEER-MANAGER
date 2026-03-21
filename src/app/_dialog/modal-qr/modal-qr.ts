@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { ButtonModule, ModalModule } from '@coreui/angular';
+import { SignalRService } from '../../_services/signal-r.service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-modal-qr',
@@ -10,15 +12,28 @@ import { ButtonModule, ModalModule } from '@coreui/angular';
   templateUrl: './modal-qr.html',
   styleUrl: './modal-qr.css',
 })
-export class ModalQr {
+export class ModalQr implements OnInit{
    visible = false;
-bankCode = "970436";
-accountNumber = "9945051936";
+bankCode = "VPB";
+accountNumber = "762530102002";
 accountName = "TRAN QUANG HA";
+@Input() ORDER_ID : any;
 @Input() amount: any;
+@Output() paymentSuccess = new EventEmitter<any>();
+constructor(private signalRService: SignalRService){}
+
+ngOnInit(): void {
+  this.signalRService.payment$
+    .subscribe((data) => {
+      if (!data) return;
+      this.closeModal();
+      
+      this.paymentSuccess.emit(data);
+    });
+}
 generateQR() {
 
-  const content = `Thanh toan`;
+  const content = "ODR"+this.ORDER_ID;
 
   return `https://img.vietqr.io/image/${this.bankCode}-${this.accountNumber}-print.png?amount=${this.amount}&addInfo=${encodeURIComponent(content)}&accountName=${encodeURIComponent(this.accountName)}`;
 }

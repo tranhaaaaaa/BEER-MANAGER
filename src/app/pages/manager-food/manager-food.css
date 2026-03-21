@@ -40,6 +40,13 @@
   width:100%;
   object-fit:cover;
 }
+/* @media(max-width:992px){
+  .food-img{
+  height:55px;
+  width:100%;
+  object-fit:cover;
+}
+} */
 .food-body{
   padding:10px;
 }

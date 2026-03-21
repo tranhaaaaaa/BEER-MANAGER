@@ -363,7 +363,57 @@ export class OrderItem {
     ProductU: Product = undefined as any;
 
 }
+@JsonObject('Transaction')
+export class Transaction {
 
+    @JsonProperty('Id', Number, true)
+    Id: number = undefined as any;
+
+    @JsonProperty('Gateway', StringConverter, true)
+    Gateway: string = undefined as any;
+
+    @JsonProperty('TransactionDate', DateTimeConverter, true)
+    TransactionDate: Date = undefined as any;
+
+    @JsonProperty('AccountNumber', StringConverter, true)
+    AccountNumber: string = undefined as any;
+
+    @JsonProperty('SubAccount', StringConverter, true)
+    SubAccount: string = undefined as any;
+
+    @JsonProperty('TransferType', StringConverter, true)
+    TransferType: string = undefined as any;
+
+    @JsonProperty('TransferAmount', NumberConverter, true)
+    TransferAmount: number = undefined as any;
+
+    @JsonProperty('Content', StringConverter, true)
+    Content: string = undefined as any;
+
+    @JsonProperty('Description', StringConverter, true)
+    Description: string = undefined as any;
+
+    @JsonProperty('ReferenceCode', StringConverter, true)
+    ReferenceCode: string = undefined as any;
+
+    @JsonProperty('Accumulated', NumberConverter, true)
+    Accumulated: number = undefined as any;
+
+    @JsonProperty('RawJson', StringConverter, true)
+    RawJson: string = undefined as any;
+
+    @JsonProperty('Status', Number, true)
+    Status: number = undefined as any;
+
+    @JsonProperty('OrderId', StringConverter, true)
+    OrderId: string = undefined as any; // Guid => string
+
+    @JsonProperty('ExtractedOrderCode', StringConverter, true)
+    ExtractedOrderCode: string = undefined as any;
+
+    @JsonProperty('CreatedAt', DateTimeConverter, true)
+    CreatedAt: Date = undefined as any;
+}
 @JsonObject('Logging')
 export class Logging {
 

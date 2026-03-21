@@ -2,7 +2,8 @@ import { ChangeDetectorRef, Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
 import { API_SERVICE, environment } from '../../environments/environment.development';
 import { JsonConvert } from 'json2typescript';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { UserLogged } from '../_helper/userLogged';
 @Injectable({
   providedIn: 'root',
 })
@@ -16,6 +17,17 @@ export class Api {
   private formatErrors(error: any) {
     return throwError(() => error);
   }
+  protected getHeaders(): { [header: string]: string } {
+    const headers: any = {
+      'Accept': 'application/json',
+    };
+
+    const userLogged = new UserLogged();
+    if (userLogged.isLogged()) {
+      headers['Authorization'] = 'Bearer ' + userLogged.getToken();
+    }
+    return headers;
+  }
 
   //Post
   protected post(
@@ -28,11 +40,13 @@ export class Api {
     return this.http.post(API_SERVICE.BASE_URL + url, body, options);
   }
   //Get
-  public get(url: any, params: any = null): Observable<Object> {
+  protected get(url: string, params: any = null): Observable<Object> {
     params = params || {};
-    const options: any = {
+    const options = {
       params,
     };
+    // @ts-ignore
+     options['headers'] = this.getHeaders();
     return this.http.get(API_SERVICE.BASE_URL + url, options);
   }
   protected postFile(url: string, body: any): Observable<any> {
@@ -47,6 +61,7 @@ export class Api {
     contentType: string = 'application/json'
   ) {
     const options: any = {};
+    options['headers'] = this.getHeaders()
     options['headers']['Content-Type'] = contentType;
     return this.http.patch(API_SERVICE.BASE_URL + url, body, options);
   }
@@ -63,12 +78,14 @@ export class Api {
     id: number,
     body: Object = {}
   ): Observable<any> {
+    const options: any = {};;
     const headers: any = {
       Accept: 'application/json',
       'Content-Type': 'application/x-www-form-urlencoded',
     };
+     options['headers'] = this.getHeaders()
     return this.http
-      .put(`${API_SERVICE.BASE_URL}${entitySet}/${id}`, body, headers)
+      .put(`${API_SERVICE.BASE_URL}${entitySet}/${id}`, body, options)
       .pipe(catchError(this.formatErrors));
   }
   protected patchEntity(
@@ -76,12 +93,14 @@ export class Api {
     id: number,
     body: Object = {}
   ): Observable<any> {
+     const options: any = {};
+    options['headers'] = this.getHeaders();
     let header: any = {
       Accept: 'application/json',
       'Content-Type': 'application/x-www-form-urlencoded',
     };
     return this.http
-      .patch(`${API_SERVICE.BASE_URL}${entitySet}/${id}`, body, header)
+      .patch(`${API_SERVICE.BASE_URL}${entitySet}/${id}`, body, options)
       .pipe(catchError(this.formatErrors));
   }
   protected deleteEntity(entitySet: string, id: number): Observable<any> {

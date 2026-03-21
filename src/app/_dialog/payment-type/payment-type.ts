@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { ButtonModule, ModalModule } from '@coreui/angular';
 import { ModalQr } from "../modal-qr/modal-qr";
 
@@ -14,26 +14,30 @@ import { ModalQr } from "../modal-qr/modal-qr";
 export class PaymentType {
   visible = false;
 @Input() ORDER_ID :any; 
+@Input() Amount : any;
 @ViewChild(ModalQr) modal! : ModalQr;
+@Output() paymentSuccess = new EventEmitter<any>();
   paymentType: string | null = null;
 
   openModal(){
+    console.log("tien vaoo",this.Amount)
     this.visible = true;
   }
 
   closeModal(){
     this.visible = false;
   }
-
+onPaymentSuccess(data: any) {
+  this.paymentSuccess.emit(data);
+  this.closeModal();
+}
   select(type:string){
     this.paymentType = type;
-    console.log("Payment:", type);
 
     this.visible = false;
   }
 selectPayment(type: string){
   if(type === 'cash'){
-    console.log("Thanh toán tiền mặt");
   }
 
   if(type === 'bank'){

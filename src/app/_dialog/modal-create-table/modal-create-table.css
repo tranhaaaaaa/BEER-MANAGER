@@ -17,7 +17,13 @@
   align-items: center;
   gap: 10px;
 }
-
+ /* @media(max-width:992px){
+  .food-img{
+  height:55px;
+  width:100%;
+  object-fit:cover;
+}
+} */
 .food-name {
   flex: 1;
   min-width: 140px;
@@ -49,6 +55,11 @@
   object-fit:cover;
 }
 @media (max-width: 992px) {
+    .food-img{
+  height:55px;
+  width:100%;
+  object-fit:cover;
+}
   .food-name {
     min-width: 75px;
     font-size: 14px;

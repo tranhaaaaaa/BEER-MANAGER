@@ -26,7 +26,6 @@ export class Login {
       Password: ['', Validators.required]
     });
   }
-
   close(){
     this.visible = false;
     this.form.reset();
@@ -37,16 +36,30 @@ export class Login {
   login(){
 
     if(this.form.invalid){
-      this.form.markAllAsTouched();
+      this.form.markAllAsTouched(); 
+      this.toastService.error("Thông tin tài khoản hoặc mật khẩu không chính xác!");
       return;
     }
-    this.authService.Login(this.form.value).subscribe((data : any) => {
-        this.toastService.success("Dang nhap thanh cong")
-          let userLogged: UserLogged = new UserLogged();
-          userLogged.setCurrentUser(data.token,data.username,data.shopId);
-           window.location.href = '/';
-           console.log("Login data", this.form.value);
-    })
+    this.authService.Login(this.form.value).subscribe({
+  next: (res: any) => {
+
+    if (!res.IsSuccess) {
+      this.toastService.error(res?.Message);
+      return;
+    }
+    this.toastService.success("Đăng nhập thành công");
+    let userLogged: UserLogged = new UserLogged();
+    userLogged.setCurrentUser(
+      res.Data.token,
+      res.Data.username,
+      res.Data.shopId
+    );
+  },
+  error: (err) => {
+    this.toastService.error(err.error?.message || "Đăng nhập thất bại");
+
+  }
+});
     
 
   }

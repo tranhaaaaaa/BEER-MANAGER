@@ -39,5 +39,5 @@
     </div>
   </div>
 </div>
-<app-modal-create-table [ORDER_ID]="orderId"></app-modal-create-table>
+<app-modal-create-table [ORDER_ID]="orderId" (paymentSuccess)="onPaymentSuccess($event)"></app-modal-create-table>
 <app-payment-type></app-payment-type>

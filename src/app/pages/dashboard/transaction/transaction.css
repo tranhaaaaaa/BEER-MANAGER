@@ -1,0 +1,23 @@
+table {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+th {
+  font-size: 14px;
+  text-transform: uppercase;
+}
+
+td {
+  font-size: 14px;
+}
+
+.badge {
+  padding: 6px 10px;
+  font-size: 12px;
+}
+@media (max-width: 768px) {
+  .hide-mobile {
+    display: none;
+  }
+}
