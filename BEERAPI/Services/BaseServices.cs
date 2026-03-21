@@ -1,6 +1,11 @@
-﻿using BEERAPI.Models;
+﻿using BEERAPI.Controllers;
+using BEERAPI.Models;
+using BEERAPI.Services.Helper;
+using Microsoft.AspNetCore.OData.Deltas;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.Blazor;
+using System.Linq.Expressions;
 using System.Reflection;
 
 namespace BEERAPI.Services
@@ -16,18 +21,29 @@ namespace BEERAPI.Services
             _cache = cache;
             this.configuration = configuration;
         }
-       public virtual async Task<int> CreateAsync(T entity)
+
+        public virtual async Task<T> CreateAsync(T entity)
         {
             _context.Set<T>().Add(entity);
             var result = await _context.SaveChangesAsync();
-            return result;
+            return entity;
         }
 
-        public virtual Task<int> DeleteAsync(T entity)
+
+        public virtual async ValueTask<T?> GetObjectAsync(Guid id)
         {
-            _context.Set<T>().Remove(entity);
+            return await _context.Set<T>().FindAsync(id);
+        }
+
+        public virtual async Task<bool> DeleteAsync(Guid id)
+        {
+            var original = await GetObjectAsync(id);
+            if (original == null) return false;
+
+
+            _context.Set<T>().Remove(original);
             var result = _context.SaveChangesAsync();
-            return result;
+            return true;
         }
 
         public void Dispose()
@@ -45,27 +61,51 @@ namespace BEERAPI.Services
             return _context.Set<T>();
         }
 
-        public virtual ValueTask<T> GetObjectAsync(Guid id)
+
+        public virtual IQueryable<T> GetSingleAsync(Guid id)
         {
-            return _context.Set<T>().FindAsync(id);
-            // throw new NotImplementedException();
+            return _context.Set<T>()
+                .Where(x => EF.Property<Guid>(x, "Id") == id);
+
+            //return Task.FromResult(query);
         }
 
-        public virtual Task<IQueryable<T>> GetSingleAsync(Guid id)
+        public async Task<T> GetObjectAsync(Guid id, params Expression<Func<T, object>>[] includes)
         {
-            throw new NotImplementedException();
+            IQueryable<T> query = _context.Set<T>();
+
+            foreach (var include in includes)
+            {
+                query = query.Include(include);
+            }
+
+            return await query.FirstOrDefaultAsync(x =>
+                EF.Property<Guid>(x, "Id") == id);
         }
 
-     
-        public virtual Task<int> UpdateAsync(T entity)
+        public virtual async Task<T> UpdateAsync(Guid id, Delta<T> entity)
         {
-            if (entity == null)
-                throw new ArgumentNullException(nameof(entity));
-            _context.Entry(entity).State = EntityState.Modified;
-            var result = _context.SaveChangesAsync();
-            return result;
-        }
-     
+            if(entity == null)
+                return null;
 
+            var original = await GetObjectAsync(id);
+            if (original == null) return null;
+
+            entity.Put(original);
+
+            await _context.SaveChangesAsync();
+            return original;
+        }
+
+        public virtual async Task<T?> PatchAsync(Guid id, Delta<T> delta)
+        {
+            var original = await GetObjectAsync(id);
+            if (original == null) return null;
+
+            delta.Patch(original);
+
+            await _context.SaveChangesAsync();
+            return original;
+        }
     }
 }

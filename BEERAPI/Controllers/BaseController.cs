@@ -1,4 +1,5 @@
-﻿using BEERAPI.Services;
+﻿using BEERAPI.Models;
+using BEERAPI.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Deltas;
@@ -17,113 +18,55 @@ namespace BEERAPI.Controllers
         {
             _service = service;
         }
+
         [HttpGet]
         [EnableQuery(PageSize = 100)]
         public async Task<IActionResult> Get()
         {
-            var query = await Task.FromResult(_service.GetAll());
-
-            return Ok(new ApiResponse<object>
-            {
-                Status = 200,
-                IsSuccess = true,
-                Data = query
-            });
+            return Ok(_service.GetAll());
         }
 
         [HttpGet]
         [EnableQuery]
         public async Task<IActionResult> Get([FromODataUri] Guid key)
         {
-            var query = await _service.GetSingleAsync(key);
-
-            return Ok(new ApiResponse<object>
+            var response = await _service.GetObjectAsync(key);
+            if(response == null)
             {
-                Status = 200,
-                IsSuccess = true,
-                Data = SingleResult.Create(query)
-            });
+                return Content("Not found");
+            }
+            return Ok(response);
         }
 
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] T entity)
         {
-            await _service.CreateAsync(entity);
+            var response = await _service.CreateAsync(entity);
 
-            return Ok(new ApiResponse<T>
-            {
-                Status = 201,
-                IsSuccess = true,
-                Data = entity
-            });
+            return Ok(response);
         }
 
         [HttpPut]
         public async Task<IActionResult> Put([FromODataUri] Guid key, [FromBody] Delta<T> entity)
         {
-            var original = await _service.GetObjectAsync(key);
-            if (original == null)
-                return NotFound(new ApiResponse<object>
-                {
-                    Status = 404,
-                    IsSuccess = false,
-                    Data = null
-                });
+            var response = await _service.UpdateAsync(key, entity);
 
-            entity.Put(original);
-            await _service.UpdateAsync(original);
-
-            return Ok(new ApiResponse<T>
-            {
-                Status = 200,
-                IsSuccess = true,
-                Data = original
-            });
+            return Ok(response);
         }
 
         [HttpPatch]
         public async Task<IActionResult> Patch([FromODataUri] Guid key, [FromBody] Delta<T> entity)
         {
-            var original = await _service.GetObjectAsync(key);
+            var response = await _service.PatchAsync(key, entity);
 
-            if (original == null)
-                return NotFound(new ApiResponse<object>
-                {
-                    Status = 404,
-                    IsSuccess = false
-                });
-
-            entity.Patch(original);
-            await _service.UpdateAsync(original);
-
-            return Ok(new ApiResponse<T>
-            {
-                Status = 200,
-                IsSuccess = true,
-                Data = original
-            });
+            return Ok(response);
         }
         [HttpDelete]
         public async Task<IActionResult> Delete([FromODataUri] Guid key)
         {
-            var original = await _service.GetObjectAsync(key);
+            var response = await _service.DeleteAsync(key);
 
-            if (original == null)
-                return NotFound(new ApiResponse<object>
-                {
-                    Status = 404,
-                    IsSuccess = false
-                });
-
-            await _service.DeleteAsync(original);
-
-            return Ok(new ApiResponse<object>
-            {
-                Status = 200,
-                IsSuccess = true
-            });
+            return Ok(response);
         }
     }
-
-
 }
