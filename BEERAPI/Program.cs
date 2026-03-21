@@ -72,6 +72,7 @@ services.AddTransient<ICreateOrderService, CreateOrderService>();
 services.AddTransient<ICategoryService, CategoryService>();
 services.AddTransient<IAuthenService, AuthenService>();
 services.AddTransient<ITransactionService, TransactionService>();
+services.AddTransient<IReportService, ReportService>();
 
 
 services.AddSwaggerGen(c =>
@@ -87,7 +88,7 @@ builder.Services.AddCors(options =>
         policy
             .SetIsOriginAllowed(origin =>
                 origin == "http://localhost:4200" ||
-                origin.StartsWith("https://0f83-171-229-218-238.ngrok-free.app") // thêm URL ngrok
+                origin.StartsWith("https://nightless-enthrallingly-samira.ngrok-free.dev") // thêm URL ngrok
             )
             .AllowAnyHeader()
             .AllowAnyMethod()

@@ -16,7 +16,6 @@ namespace BEERAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
     public class CustomApiController : ControllerBase
     {
         private readonly ICreateOrderService _service;

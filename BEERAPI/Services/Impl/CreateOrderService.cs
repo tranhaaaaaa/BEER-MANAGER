@@ -29,7 +29,7 @@ namespace BEERAPI.Services.Impl
                     TotalAmount = 0,
                     Status = 0,
                     PaymentType = 0,
-                    ShopUid = Guid.Parse("B9D44344-AFA5-4B76-A84D-2730FF637644")
+                    ShopUid = dto.ShopUid.Value,
                     //UserUid = Guid.Parse("A98795B9-0A05-480C-9D0E-29145F34E0FF")
                 };
 

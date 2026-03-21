@@ -49,7 +49,7 @@ namespace BEERAPI.Services.Impl
             var claims = new[]
             {
         new Claim("UserName", shop.Username),
-        new Claim("Id", shop.ShopUid.ToString())
+        new Claim("Id", shop.ShopUid.ToString()),
     };
 
             var token = new JwtSecurityToken(
