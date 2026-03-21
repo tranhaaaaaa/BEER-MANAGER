@@ -18,6 +18,6 @@ export class ODataResponse {
   @JsonProperty('@odata.count', Number, true)
   count: number = undefined as any;
 
-  @JsonProperty('Data', Any, true)
+  @JsonProperty('value', Any, true)
   value: any = undefined;
 }

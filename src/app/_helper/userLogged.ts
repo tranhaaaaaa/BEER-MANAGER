@@ -10,6 +10,7 @@ export class UserLogged {
       this.UserNameKey = 'userName';
     }
     getToken(): string {
+      console.log("TOKENKEY",this.getCookie(this.TOKENKEY))
       return this.getCookie(this.TOKENKEY);
     }
     getCurrentUser(): any {

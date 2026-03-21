@@ -37,6 +37,7 @@ export class Api {
   ) {
     const options: any = {};
     options['headers']['Content-Type'] = contentType;
+      options['headers'] = this.getHeaders();
     return this.http.post(API_SERVICE.BASE_URL + url, body, options);
   }
   //Get
@@ -68,6 +69,7 @@ export class Api {
   //post
   protected postEntity(entitySet: string, body: Object = {}): Observable<any> {
     const options: any = {};
+      options['headers'] = this.getHeaders();
     return this.http
       .post(`${API_SERVICE.BASE_URL}${entitySet}`, body, options)
       .pipe(catchError(this.formatErrors));

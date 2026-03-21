@@ -28,6 +28,7 @@ import { OrderItemService } from '../../_services/order-item.service';
 import { ToastrService } from 'ngx-toastr';
 import { CategoryService } from '../../_services/category.service';
 import { ModalDebt } from '../modal-debt/modal-debt';
+import { UserLogged } from '../../_helper/userLogged';
 @Component({
   selector: 'app-modal-create-table',
   imports: [
@@ -56,6 +57,7 @@ export class ModalCreateTable implements OnInit, OnChanges {
   order: any;
   orders: any[] = [];
   public listCategory: Category[] = [];
+  userLogged = new UserLogged();
   @Output() paymentSuccess = new EventEmitter<any>();
   @ViewChild(ModalDebt) modalDebt!: ModalDebt;
   @ViewChild(PaymentType) modal!: PaymentType;
@@ -71,6 +73,7 @@ export class ModalCreateTable implements OnInit, OnChanges {
     this.form = this.fb.group({
       Name: ['', Validators.required],
       Type: ['', Validators.required],
+      ShopUid: [this.userLogged.getCurrentUser().userId],
       ProductInfoDTOs: this.fb.array([]),
     });
   }

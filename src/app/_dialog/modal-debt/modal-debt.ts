@@ -9,6 +9,7 @@ import {
   FormModule
 } from '@coreui/angular';
 import { CommonModule } from '@angular/common';
+import { UserLogged } from '../../_helper/userLogged';
 
 @Component({
   selector: 'app-modal-debt',
@@ -27,7 +28,7 @@ import { CommonModule } from '@angular/common';
 export class ModalDebt implements OnInit {
 
   visible = false;
-
+  userlogged = new UserLogged();
   listUser: User[] = [];
 
   showCreateUser = false;
@@ -47,7 +48,7 @@ export class ModalDebt implements OnInit {
       Name: ['', Validators.required],
       Phone: ['', Validators.required],
       Address: [''],
-      ShopUid: ['B9D44344-AFA5-4B76-A84D-2730FF637644']
+      ShopUid: [this.userlogged.getCurrentUser().userId]
     });
 
     this.onGetData();

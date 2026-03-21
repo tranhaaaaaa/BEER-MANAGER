@@ -6,6 +6,7 @@ import { CategoryService } from '../../_services/category.service';
 import { Products } from '../../_services/products';
 import { ToastrService } from 'ngx-toastr';
 import { MoneyFormatDirective } from '../../_directives/money-format.directive';
+import { UserLogged } from '../../_helper/userLogged';
 @Component({
   selector: 'app-modal-food',
   imports: [ReactiveFormsModule,FormsModule,CommonModule,MoneyFormatDirective],
@@ -18,7 +19,7 @@ export class ModalFood implements OnInit{
   @Output() saveFood = new EventEmitter<any>();
 
   visible = false;
-
+userlogged = new UserLogged();
   foodForm!: FormGroup;
 
   constructor(private fb: FormBuilder,
@@ -31,7 +32,7 @@ export class ModalFood implements OnInit{
       ProductName: ['', Validators.required],
       Img: [''],
        CreatedAt: [null],
-       ShopUid:['B9D44344-AFA5-4B76-A84D-2730FF637644'],
+       ShopUid:[this.userlogged.getCurrentUser().userId],
       Price: [ , [Validators.required, Validators.min(1000)]]
     });
   }

@@ -10,7 +10,7 @@ export class SignalRService {
   private connection!: HubConnection;
   private paymentSubject: BehaviorSubject<any> = new BehaviorSubject(null);
 
-  private hubUrl = 'https://0f83-171-229-218-238.ngrok-free.app/paymentHub';
+  private hubUrl = 'https://nightless-enthrallingly-samira.ngrok-free.dev/paymentHub';
   private isConnected: boolean = false;
   private pendingGroups: string[] = []; 
 
