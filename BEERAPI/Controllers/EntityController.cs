@@ -70,6 +70,12 @@ namespace BEERAPI.Controllers
 
         }
     }
+    public class TransactionsController : BaseController<BankTransaction>
+    {
+        public TransactionsController(ITransactionService service) : base(service)
+        {
+        }
+    }
     public class CustomController : Controller
     {
         private IUserService userService;
@@ -83,9 +89,28 @@ namespace BEERAPI.Controllers
         [AllowAnonymous]
         [HttpPost]
         [Route("Authentication/Login")]
-        public ActionResult Login([FromBody] UserLogin userLogin)
+        public ActionResult<ApiResponse<object>> Login([FromBody] UserLogin userLogin)
         {
-            return Ok(authenticationService.Login(userLogin.Username, userLogin.Password));
+            var result = authenticationService.Login(userLogin.Username, userLogin.Password);
+
+            if (result == null)
+            {
+                return Ok(new ApiResponse<object>
+                {
+                    Status = 400,
+                    IsSuccess = false,
+                    Message = "Sai tài khoản hoặc mật khẩu",
+                    Data = null
+                });
+            }
+
+            return Ok(new ApiResponse<object>
+            {
+                Status = 200,
+                IsSuccess = true,
+                Message = "Đăng nhập thành công",
+                Data = result
+            });
         }
         [HttpPost("register")]
         public IActionResult Register([FromBody] UserLogin req)

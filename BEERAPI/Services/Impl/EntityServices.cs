@@ -57,6 +57,12 @@ namespace BEERAPI.Services.Impl
         public CategoryService(EcommerceDbContext context, IMemoryCache cache, IConfiguration configuration) : base(context, cache, configuration)
         {
         }
-    } 
-   
+    }
+    public class TransactionService : BaseServices<BankTransaction>, ITransactionService
+    {
+        public TransactionService(EcommerceDbContext context, IMemoryCache cache, IConfiguration configuration) : base(context, cache, configuration)
+        {
+        }
+    }
+
 }

@@ -1,13 +1,15 @@
 ﻿using BEERAPI.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Reflection;
 using Microsoft.AspNetCore.OData.Deltas;
 using Microsoft.AspNetCore.OData.Formatter;
 using Microsoft.AspNetCore.OData.Query;
 using Microsoft.AspNetCore.OData.Results;
 using Microsoft.AspNetCore.OData.Routing.Controllers;
+using System.Reflection;
 namespace BEERAPI.Controllers
 {
+    //[Authorize]
     public class BaseController<T> : ODataController where T : class
     {
         private IServices<T> _service;

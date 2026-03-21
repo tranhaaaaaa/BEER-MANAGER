@@ -3,6 +3,7 @@ using BEERAPI.Models;
 using BEERAPI.Models.Transaction;
 using BEERAPI.Services;
 using BEERAPI.Services.Impl;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +16,7 @@ namespace BEERAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class CustomApiController : ControllerBase
     {
         private readonly ICreateOrderService _service;
@@ -124,25 +126,28 @@ namespace BEERAPI.Controllers
         }
         private Guid? ExtractOrderId(string content)
         {
-            if (string.IsNullOrEmpty(content)) return null;
+            if (string.IsNullOrWhiteSpace(content))
+                return null;
 
-            var match = Regex.Match(content, @"\b[a-fA-F0-9]{32}\b");
+            var index = content.IndexOf("ODR", StringComparison.OrdinalIgnoreCase);
+            if (index == -1) return null;
 
-            if (match.Success)
-            {
-                var clean = match.Value;
+            var rawPart = content.Substring(index + 3);
 
-                var formatted = $"{clean.Substring(0, 8)}-" +
-                                $"{clean.Substring(8, 4)}-" +
-                                $"{clean.Substring(12, 4)}-" +
-                                $"{clean.Substring(16, 4)}-" +
-                                $"{clean.Substring(20, 12)}";
+            var clean = Regex.Replace(rawPart, @"[^0-9a-fA-F]", "");
 
-                if (Guid.TryParse(formatted, out Guid result))
-                {
-                    return result;
-                }
-            }
+            if (clean.Length < 32) return null;
+
+            var hex = clean.Substring(0, 32);
+
+            var formatted = $"{hex.Substring(0, 8)}-" +
+                            $"{hex.Substring(8, 4)}-" +
+                            $"{hex.Substring(12, 4)}-" +
+                            $"{hex.Substring(16, 4)}-" +
+                            $"{hex.Substring(20, 12)}";
+
+            if (Guid.TryParse(formatted, out Guid result))
+                return result;
 
             return null;
         }
@@ -213,8 +218,8 @@ namespace BEERAPI.Controllers
                         Console.WriteLine($"Match thành công Order: {orderCode}");
                         await _hubContext.Clients.All.SendAsync("payment_success", new
                         {
-                            orderId = "40F3BC1C-1C3F-4306-A854-F32B2109403C",
-                            amount = 100,
+                            orderId = orderCode.ToString(),
+                            amount = model.TransferAmount,
                             content = "Test payment from API"
                         });
                     }

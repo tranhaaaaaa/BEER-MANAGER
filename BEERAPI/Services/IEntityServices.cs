@@ -25,5 +25,6 @@ namespace BEERAPI.Services
         public interface ITableService : IServices<Table>
         {
         }
+        public interface ITransactionService : IServices<BankTransaction> { }
     }
 }

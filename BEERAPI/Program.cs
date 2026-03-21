@@ -71,6 +71,8 @@ services.AddTransient<ITableService, TableService>();
 services.AddTransient<ICreateOrderService, CreateOrderService>();
 services.AddTransient<ICategoryService, CategoryService>();
 services.AddTransient<IAuthenService, AuthenService>();
+services.AddTransient<ITransactionService, TransactionService>();
+
 
 services.AddSwaggerGen(c =>
 {
@@ -130,6 +132,7 @@ IEdmModel GetEdmModel()
     odataBuilder.EntitySet<Logging>("Logs").EntityType.HasKey(x => x.LogUid).Expand(5).Count().Page(100, 100);
     odataBuilder.EntitySet<Category>("Categories").EntityType.HasKey(x => x.Id).Expand(5).Count().Page(100, 100);
     odataBuilder.EntitySet<BEERAPI.Models.Table>("Tables").EntityType.HasKey(x => x.TableId).Expand(5).Count().Page(100, 100);
+    odataBuilder.EntitySet<BankTransaction>("Transactions").EntityType.HasKey(x => x.Id).Expand(5).Count().Page(100, 100);
 
     return odataBuilder.GetEdmModel();
 }                                              
