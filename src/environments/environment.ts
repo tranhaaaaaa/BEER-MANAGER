@@ -3,5 +3,5 @@ export const environment = {
 };
 
 export const API_SERVICE = {
-     BASE_URL: 'https://localhost:44373',
+     BASE_URL: 'http://localhost:5180',
 }
