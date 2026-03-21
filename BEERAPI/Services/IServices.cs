@@ -1,4 +1,8 @@
-﻿namespace BEERAPI.Services
+﻿using System.Linq.Expressions;
+using Microsoft.AspNetCore.OData.Deltas;
+using BEERAPI.Controllers;
+
+namespace BEERAPI.Services
 {
     public interface IServices<T> : IDisposable, IAsyncDisposable where T : class
     {
@@ -6,12 +10,16 @@
 
         ValueTask<T> GetObjectAsync(Guid id);
 
-        Task<int> CreateAsync(T entity);
+        Task<T> GetObjectAsync(Guid id, params Expression<Func<T, object>>[] includes);
 
-        Task<int> UpdateAsync(T entity);
+        Task<T> CreateAsync(T entity);
 
-        Task<int> DeleteAsync(T entity);
+        Task<T> UpdateAsync(Guid id, Delta<T> entity);
 
-        Task<IQueryable<T>> GetSingleAsync(Guid id);
+        Task<T> PatchAsync(Guid id, Delta<T> entity);
+
+        Task<bool> DeleteAsync(Guid id);
+
+        IQueryable<T> GetSingleAsync(Guid id);
     }
 }
