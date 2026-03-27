@@ -28,7 +28,7 @@ namespace BEERAPI.Services.Impl
                     OrderDate = DateTime.Now,
                     TotalAmount = 0,
                     Status = 0,
-                    PaymentType = 0,
+                    PaymentType = 2, // Ký nợ trước hết các order
                     ShopUid = dto.ShopUid.Value,
                     //UserUid = Guid.Parse("A98795B9-0A05-480C-9D0E-29145F34E0FF")
                 };

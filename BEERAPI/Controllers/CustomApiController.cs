@@ -165,6 +165,8 @@ namespace BEERAPI.Controllers
         [HttpPost("webhook")]
         public async Task<IActionResult> ReceiveWebhook([FromBody] SePayWebhookModel model)
         {
+            using var transactionDb = await _context.Database.BeginTransactionAsync();
+
             try
             {
                 Console.WriteLine($"Nhận giao dịch: {model.Id} - {model.TransferAmount}");
@@ -213,6 +215,7 @@ namespace BEERAPI.Controllers
                         transaction.OrderId = order.OrderUid;
                         transaction.Status = 1;
                         order.Status = 1;
+                        order.PaymentType = 0;
 
                         Console.WriteLine($"Match thành công Order: {orderCode}");
                         await _hubContext.Clients.All.SendAsync("payment_success", new
@@ -230,11 +233,108 @@ namespace BEERAPI.Controllers
 
                 _context.BankTransactions.Add(transaction);
                 await _context.SaveChangesAsync();
+                await transactionDb.CommitAsync();
+                if (model.TransferType == "in" && orderCode != null && transaction.Status == 1)
+                {
+                    await _hubContext.Clients.All.SendAsync("payment_success", new
+                    {
+                        orderId = orderCode.ToString(),
+                        amount = model.TransferAmount,
+                        content = "Test payment from API"
+                    });
+                }
 
                 return Ok(new { status = "success" });
             }
             catch (Exception ex)
             {
+                await transactionDb.RollbackAsync();
+                Console.WriteLine(ex.Message);
+                return BadRequest(new { status = "error" });
+            }
+        }
+
+        [HttpPost("cash-payment")]
+        public async Task<IActionResult> CashPayment(Guid orderId)
+        {
+            using var transactionDb = await _context.Database.BeginTransactionAsync();
+
+            try
+            {
+                var order = await _context.Orders
+                    .FirstOrDefaultAsync(x => x.OrderUid == orderId);
+
+                if (order == null)
+                {
+                    return NotFound(new { status = "order_not_found" });
+                }
+
+                if (order.Status == 1)
+                {
+                    return Ok(new { status = "already_paid" });
+                }
+
+                order.Status = 1;
+                order.PaymentType = 1;
+
+                await _context.SaveChangesAsync();
+                await transactionDb.CommitAsync();
+
+                await _hubContext.Clients.All.SendAsync("payment_success", new
+                {
+                    orderId = orderId.ToString(),
+                    amount = order.TotalAmount,
+                    content = "Thanh toán tiền mặt"
+                });
+
+                return Ok(new { status = "success" });
+            }
+            catch (Exception ex)
+            {
+                await transactionDb.RollbackAsync();
+                Console.WriteLine(ex.Message);
+                return BadRequest(new { status = "error" });
+            }
+        }
+
+        [HttpPost("save-debt")]
+        public async Task<IActionResult> SaveDebtPayment(Guid orderId)
+        {
+            using var transactionDb = await _context.Database.BeginTransactionAsync();
+
+            try
+            {
+                var order = await _context.Orders
+                    .FirstOrDefaultAsync(x => x.OrderUid == orderId);
+
+                if (order == null)
+                {
+                    return NotFound(new { status = "order_not_found" });
+                }
+
+                if (order.Status == 1)
+                {
+                    return Ok(new { status = "already_paid" });
+                }
+
+                order.Status = 0;
+                order.PaymentType = 2;
+
+                await _context.SaveChangesAsync();
+                await transactionDb.CommitAsync();
+
+                await _hubContext.Clients.All.SendAsync("payment_debt", new
+                {
+                    orderId = orderId.ToString(),
+                    amount = order.TotalAmount,
+                    content = "Ký nợ"
+                });
+
+                return Ok(new { status = "success" });
+            }
+            catch (Exception ex)
+            {
+                await transactionDb.RollbackAsync();
                 Console.WriteLine(ex.Message);
                 return BadRequest(new { status = "error" });
             }

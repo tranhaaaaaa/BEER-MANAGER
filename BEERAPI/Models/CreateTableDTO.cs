@@ -3,7 +3,6 @@ public class CreateTableDTO{
     public List<ProductInfoDTO> ProductInfoDTOs { get; set; }
     public Guid? Type {  get; set; }
     public Guid? ShopUid { get; set; }
-
 }
 public class ProductInfoDTO{
   public Guid id {get ; set;}
