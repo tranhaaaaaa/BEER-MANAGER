@@ -67,5 +67,48 @@ export class UserLogged {
       }
       return '';
     }
+    
+  // refreshToken() {
+  //   let header: any;
+  //   header = new HttpHeaders({ 'token': this.currentUserValue.tokenKey, 'refresh-token': this.currentUserValue.refreshToken });
+  //   if (!this.currentUserValue.refreshToken) {
+  //     this.logout();
+  //   }
+  //   let lastTime: number = localStorage.getItem('refresh_' + this.currentUserValue.UserId) ? Number(localStorage.getItem('refresh_' + this.currentUserValue.UserId)) : 0;
+  //   if (lastTime == 0 || (new Date().getTime() - lastTime > 5 * 60 * 1000)) {
+  //     this.http.post<any>(AppSettings.API_REFRESH_TOKEN_DEVICE, {}, { headers: header }).subscribe((res: any) => {
+  //       if (res.error) {
+  //         this.logout();
+  //       } else {
+  //         const data = res.data;
+  //         if (data) {
+  //           let old_currenUser = this.currentUserValue;
+  //           const currentUser = {
+  //             "tokenKey": data['token'],
+  //             "tokenSso": old_currenUser['tokenSso'],
+  //             "Role": old_currenUser['Role'],
+  //             "UserId": old_currenUser['UserId'],
+  //             "Partner": old_currenUser['Partner'],
+  //             "refreshToken": data['refreshToken']
+  //           };
+  //           this.saveData(currentUser);
+  //           let infor = localStorage.getItem('inforUser') ? JSON.parse(localStorage.getItem('inforUser')) : [];
+  //           if (infor && Object.keys(infor).length) {
+  //             infor = infor.filter((el: any) => el.userId && (el.userId !== data['UserId']));
+  //           }
+  //           infor.push({ userName: data['UserName'], userId: data['UserId'], tokenVTP: data['TokenKey'], tokenSSO: old_currenUser['tokenSso'] });
+  //           localStorage.setItem('inforUser', JSON.stringify(infor));
+  //           localStorage.setItem('refresh_' + this.currentUserValue.UserId, JSON.stringify(new Date().getTime()));
+  //           window.location.reload();
+  //         } else {
+  //           this.logout()
+  //         }
+  //       }
+  //     })
+  //   } else {
+  //     this.logout();
+  //   }
+
+  // }
   }
   
