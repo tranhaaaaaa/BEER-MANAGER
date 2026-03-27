@@ -21,7 +21,7 @@
             }
         }
         public int PaymentType { get; set; }
-        public string PaymentMethod
+        public string PaymentTypeName
         {
             get
             {
