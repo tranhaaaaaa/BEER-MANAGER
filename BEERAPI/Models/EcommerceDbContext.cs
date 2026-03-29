@@ -1,41 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace BEERAPI.Models;
 
 public partial class EcommerceDbContext : DbContext
 {
-    public EcommerceDbContext()
-    {
-    }
-
     public EcommerceDbContext(DbContextOptions<EcommerceDbContext> options)
         : base(options)
     {
     }
 
     public virtual DbSet<BankTransaction> BankTransactions { get; set; }
-
     public virtual DbSet<Category> Categories { get; set; }
-
     public virtual DbSet<Logging> Loggings { get; set; }
-
     public virtual DbSet<Order> Orders { get; set; }
-
     public virtual DbSet<OrderItem> OrderItems { get; set; }
-
     public virtual DbSet<Product> Products { get; set; }
-
     public virtual DbSet<Shop> Shops { get; set; }
-
     public virtual DbSet<Table> Tables { get; set; }
-
     public virtual DbSet<User> Users { get; set; }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("server=haverse.database.windows.net;database=ECommerceDB;user=haverse;password=@Dmin4123;TrustServerCertificate=true");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -143,6 +125,10 @@ public partial class EcommerceDbContext : DbContext
                 .HasForeignKey(d => d.OrderUid)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__OrderItem__Order__6A30C649");
+
+            entity.HasOne(d => d.ProductU).WithMany(p => p.OrderItems)
+                .HasForeignKey(d => d.ProductUid)
+                .OnDelete(DeleteBehavior.ClientSetNull);
         });
 
         modelBuilder.Entity<Product>(entity =>
@@ -158,9 +144,11 @@ public partial class EcommerceDbContext : DbContext
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
             entity.Property(e => e.Description).HasMaxLength(500);
+
             entity.Property(e => e.Img)
-                .HasMaxLength(1000)
-                .IsFixedLength();
+                .HasMaxLength(1000);
+            // Nếu DB thật là char/nchar thì thêm lại .IsFixedLength()
+
             entity.Property(e => e.Price).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.PriceConfig).HasColumnType("decimal(18, 2)");
             entity.Property(e => e.ProductName).HasMaxLength(150);
@@ -172,6 +160,10 @@ public partial class EcommerceDbContext : DbContext
                 .HasForeignKey(d => d.ShopUid)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK__Product__ShopUID__5FB337D6");
+
+            entity.HasOne(d => d.CategoryNavigation).WithMany(p => p.Products)
+                .HasForeignKey(d => d.Category)
+                .HasConstraintName("FK_Product_Category");
         });
 
         modelBuilder.Entity<Shop>(entity =>

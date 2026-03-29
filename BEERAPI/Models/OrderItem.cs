@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace BEERAPI.Models;
+﻿namespace BEERAPI.Models;
 
 public partial class OrderItem
 {
@@ -18,4 +15,6 @@ public partial class OrderItem
     public string? Name { get; set; }
 
     public virtual Order OrderU { get; set; } = null!;
+
+    public virtual Product ProductU { get; set; } = null!;
 }

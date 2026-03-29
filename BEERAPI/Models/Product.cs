@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace BEERAPI.Models;
+﻿namespace BEERAPI.Models;
 
 public partial class Product
 {
@@ -28,4 +25,8 @@ public partial class Product
     public Guid? Category { get; set; }
 
     public virtual Shop ShopU { get; set; } = null!;
+
+    public virtual Category? CategoryNavigation { get; set; }
+
+    public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 }

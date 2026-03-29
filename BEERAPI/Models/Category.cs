@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace BEERAPI.Models;
+﻿namespace BEERAPI.Models;
 
 public partial class Category
 {
@@ -12,4 +9,6 @@ public partial class Category
     public int Type { get; set; }
 
     public string? Description { get; set; }
+
+    public virtual ICollection<Product> Products { get; set; } = new List<Product>();
 }
