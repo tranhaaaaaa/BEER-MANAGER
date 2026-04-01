@@ -36,11 +36,11 @@ builder.WebHost.ConfigureKestrel(serverOptions =>
 {
     serverOptions.Limits.MaxRequestBodySize = int.MaxValue;
 });
-var connectionString = builder.Configuration.GetConnectionString("value");
-
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+    ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<EcommerceDbContext>(options =>
 {
-    options.UseSqlServer(connectionString);
+    options.UseNpgsql(connectionString);
     //options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 });
 

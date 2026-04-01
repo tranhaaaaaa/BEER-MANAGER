@@ -64,7 +64,7 @@ namespace BEERAPI.Services.Impl
         }
         private Shop GetUser(string username, string password)
             {
-                var hashPassword = Unity.Md5Hash(password);
+            var hashPassword = password;//Unity.Md5Hash(password);
                 return _context.Shops.Where(c => c.Username.ToLower() == username.ToLower() && c.Password == hashPassword).FirstOrDefault();
             }
             public object Register(string username, string password)
@@ -85,7 +85,7 @@ namespace BEERAPI.Services.Impl
                 {
                     ShopUid = Guid.NewGuid(),
                     Username = username,
-                    Password = Unity.Md5Hash(password),
+                    Password = password, //Unity.Md5Hash(password),
                     CreatedAt = DateTime.Now,
                     ShopName = username,
                 };

@@ -3,8 +3,8 @@ using System;
 using BEERAPI.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
@@ -18,389 +18,442 @@ namespace BEERAPI.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "8.0.25")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("BEERAPI.Models.BankTransaction", b =>
                 {
                     b.Property<long>("Id")
-                        .HasColumnType("bigint");
+                        .HasColumnType("bigint")
+                        .HasColumnName("id");
 
                     b.Property<string>("AccountNumber")
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("account_number");
 
                     b.Property<decimal?>("Accumulated")
-                        .HasColumnType("decimal(18, 2)");
+                        .HasColumnType("numeric(18,2)")
+                        .HasColumnName("accumulated");
 
                     b.Property<string>("Content")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text")
+                        .HasColumnName("content");
 
                     b.Property<DateTime?>("CreatedAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime")
-                        .HasDefaultValueSql("(getdate())");
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("created_at")
+                        .HasDefaultValueSql("now()");
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text")
+                        .HasColumnName("description");
 
                     b.Property<string>("ExtractedOrderCode")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("extracted_order_code");
 
                     b.Property<string>("Gateway")
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("gateway");
 
                     b.Property<Guid?>("OrderId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("OrderID");
+                        .HasColumnType("uuid")
+                        .HasColumnName("order_id");
 
                     b.Property<string>("RawJson")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text")
+                        .HasColumnName("raw_json");
 
                     b.Property<string>("ReferenceCode")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("reference_code");
 
                     b.Property<int?>("Status")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(0);
+                        .HasColumnType("integer")
+                        .HasDefaultValue(0)
+                        .HasColumnName("status");
 
                     b.Property<string>("SubAccount")
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                        .HasColumnType("character varying(50)")
+                        .HasColumnName("sub_account");
 
                     b.Property<DateTime?>("TransactionDate")
-                        .HasColumnType("datetime");
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("transaction_date");
 
                     b.Property<decimal?>("TransferAmount")
-                        .HasColumnType("decimal(18, 2)");
+                        .HasColumnType("numeric(18,2)")
+                        .HasColumnName("transfer_amount");
 
                     b.Property<string>("TransferType")
                         .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
+                        .HasColumnType("character varying(10)")
+                        .HasColumnName("transfer_type");
 
                     b.HasKey("Id")
-                        .HasName("PK__BankTran__3214EC078A315079");
+                        .HasName("banktransaction_pkey");
 
-                    b.ToTable("BankTransaction", (string)null);
+                    b.ToTable("bank_transaction", (string)null);
                 });
 
             modelBuilder.Entity("BEERAPI.Models.Category", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("(newid())");
+                        .HasColumnType("uuid")
+                        .HasColumnName("id")
+                        .HasDefaultValueSql("gen_random_uuid()");
 
                     b.Property<string>("Description")
                         .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasColumnType("character varying(500)")
+                        .HasColumnName("description");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("character varying(255)")
+                        .HasColumnName("name");
 
                     b.Property<int>("Type")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("type");
 
                     b.HasKey("Id")
-                        .HasName("PK__Category__3214EC07C123412E");
+                        .HasName("category_pkey");
 
-                    b.ToTable("Category", (string)null);
+                    b.ToTable("category", (string)null);
                 });
 
             modelBuilder.Entity("BEERAPI.Models.Logging", b =>
                 {
                     b.Property<Guid>("LogUid")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("LogUID")
-                        .HasDefaultValueSql("(newid())");
+                        .HasColumnType("uuid")
+                        .HasColumnName("log_uid")
+                        .HasDefaultValueSql("gen_random_uuid()");
 
                     b.Property<string>("Action")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("action");
 
                     b.Property<DateTime?>("CreatedAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime")
-                        .HasDefaultValueSql("(getdate())");
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("created_at")
+                        .HasDefaultValueSql("now()");
 
                     b.Property<string>("Level")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("level");
 
                     b.Property<string>("Message")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text")
+                        .HasColumnName("message");
 
                     b.Property<Guid?>("RecordUid")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("RecordUID");
+                        .HasColumnType("uuid")
+                        .HasColumnName("record_uid");
 
                     b.Property<string>("TableName")
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("table_name");
 
                     b.Property<Guid?>("UserUid")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("UserUID");
+                        .HasColumnType("uuid")
+                        .HasColumnName("user_uid");
 
                     b.HasKey("LogUid")
-                        .HasName("PK__Logging__D12CCB367042FDA1");
+                        .HasName("logging_pkey");
 
                     b.HasIndex("UserUid");
 
-                    b.ToTable("Logging", (string)null);
+                    b.ToTable("logging", (string)null);
                 });
 
             modelBuilder.Entity("BEERAPI.Models.Order", b =>
                 {
                     b.Property<Guid>("OrderUid")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("OrderUID")
-                        .HasDefaultValueSql("(newid())");
+                        .HasColumnType("uuid")
+                        .HasColumnName("order_uid")
+                        .HasDefaultValueSql("gen_random_uuid()");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("character varying(255)")
+                        .HasColumnName("name");
 
                     b.Property<DateTime?>("OrderDate")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime")
-                        .HasDefaultValueSql("(getdate())");
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("order_date")
+                        .HasDefaultValueSql("now()");
 
                     b.Property<int>("PaymentType")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("payment_type");
 
                     b.Property<Guid>("ShopUid")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("ShopUID");
+                        .HasColumnType("uuid")
+                        .HasColumnName("shop_uid");
 
                     b.Property<int>("Status")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("status");
 
                     b.Property<decimal?>("TotalAmount")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("decimal(18, 2)")
-                        .HasDefaultValue(0m);
+                        .HasColumnType("numeric(18,2)")
+                        .HasDefaultValue(0m)
+                        .HasColumnName("total_amount");
 
                     b.Property<Guid?>("Type")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid")
+                        .HasColumnName("type");
 
                     b.Property<Guid?>("UserUid")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("UserUID");
+                        .HasColumnType("uuid")
+                        .HasColumnName("user_uid");
 
                     b.HasKey("OrderUid")
-                        .HasName("PK__Order__EF45ED22EF65FC3F");
+                        .HasName("order_pkey");
 
                     b.HasIndex("ShopUid");
 
                     b.HasIndex("UserUid");
 
-                    b.ToTable("Order", (string)null);
+                    b.ToTable("order", (string)null);
                 });
 
             modelBuilder.Entity("BEERAPI.Models.OrderItem", b =>
                 {
                     b.Property<Guid>("OrderItemUid")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("OrderItemUID")
-                        .HasDefaultValueSql("(newid())");
+                        .HasColumnType("uuid")
+                        .HasColumnName("order_item_uid")
+                        .HasDefaultValueSql("gen_random_uuid()");
 
                     b.Property<string>("Name")
                         .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)");
+                        .HasColumnType("character varying(255)")
+                        .HasColumnName("name");
 
                     b.Property<Guid>("OrderUid")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("OrderUID");
+                        .HasColumnType("uuid")
+                        .HasColumnName("order_uid");
 
                     b.Property<Guid>("ProductUid")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("ProductUID");
+                        .HasColumnType("uuid")
+                        .HasColumnName("product_uid");
 
                     b.Property<int>("Quantity")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("quantity");
 
                     b.Property<decimal>("UnitPrice")
-                        .HasColumnType("decimal(18, 2)");
+                        .HasColumnType("numeric(18,2)")
+                        .HasColumnName("unit_price");
 
                     b.HasKey("OrderItemUid")
-                        .HasName("PK__OrderIte__7A70AEA3A156B1BD");
+                        .HasName("order_item_pkey");
 
                     b.HasIndex("OrderUid");
 
                     b.HasIndex("ProductUid");
 
-                    b.ToTable("OrderItem", (string)null);
+                    b.ToTable("order_item", (string)null);
                 });
 
             modelBuilder.Entity("BEERAPI.Models.Product", b =>
                 {
                     b.Property<Guid>("ProductUid")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("ProductUID")
-                        .HasDefaultValueSql("(newid())");
+                        .HasColumnType("uuid")
+                        .HasColumnName("product_uid")
+                        .HasDefaultValueSql("gen_random_uuid()");
 
                     b.Property<Guid?>("Category")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid")
+                        .HasColumnName("category");
 
                     b.Property<DateTime?>("CreatedAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime")
-                        .HasDefaultValueSql("(getdate())");
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("created_at")
+                        .HasDefaultValueSql("now()");
 
                     b.Property<string>("Description")
                         .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
+                        .HasColumnType("character varying(500)")
+                        .HasColumnName("description");
 
                     b.Property<string>("Img")
                         .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
+                        .HasColumnType("character varying(1000)")
+                        .HasColumnName("img");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18, 2)");
+                        .HasColumnType("numeric(18,2)")
+                        .HasColumnName("price");
 
                     b.Property<decimal?>("PriceConfig")
-                        .HasColumnType("decimal(18, 2)");
+                        .HasColumnType("numeric(18,2)")
+                        .HasColumnName("price_config");
 
                     b.Property<string>("ProductName")
                         .IsRequired()
                         .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasColumnType("character varying(150)")
+                        .HasColumnName("product_name");
 
                     b.Property<Guid>("ShopUid")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("ShopUID");
+                        .HasColumnType("uuid")
+                        .HasColumnName("shop_uid");
 
                     b.Property<int?>("Stock")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(0);
+                        .HasColumnType("integer")
+                        .HasDefaultValue(0)
+                        .HasColumnName("stock");
 
                     b.Property<int?>("Type")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasDefaultValue(0);
+                        .HasColumnType("integer")
+                        .HasDefaultValue(0)
+                        .HasColumnName("type");
 
                     b.HasKey("ProductUid")
-                        .HasName("PK__Product__ADC6EB5B72584E7C");
+                        .HasName("product_pkey");
 
                     b.HasIndex("Category");
 
                     b.HasIndex("ShopUid");
 
-                    b.ToTable("Product", (string)null);
+                    b.ToTable("product", (string)null);
                 });
 
             modelBuilder.Entity("BEERAPI.Models.Shop", b =>
                 {
                     b.Property<Guid>("ShopUid")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("ShopUID")
-                        .HasDefaultValueSql("(newid())");
+                        .HasColumnType("uuid")
+                        .HasColumnName("shop_uid")
+                        .HasDefaultValueSql("gen_random_uuid()");
 
                     b.Property<DateTime?>("CreatedAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime")
-                        .HasDefaultValueSql("(getdate())");
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("created_at")
+                        .HasDefaultValueSql("now()");
 
                     b.Property<string>("Img")
                         .HasMaxLength(2000)
-                        .HasColumnType("nvarchar(2000)");
+                        .HasColumnType("character varying(2000)")
+                        .HasColumnName("img");
 
                     b.Property<string>("Password")
                         .HasMaxLength(2000)
-                        .HasColumnType("nvarchar(2000)");
+                        .HasColumnType("character varying(2000)")
+                        .HasColumnName("password");
 
                     b.Property<string>("ShopName")
                         .IsRequired()
                         .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                        .HasColumnType("character varying(150)")
+                        .HasColumnName("shop_name");
 
                     b.Property<string>("Username")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)")
+                        .HasColumnName("username");
 
                     b.HasKey("ShopUid")
-                        .HasName("PK__Shop__5DD995CC9AA24EB6");
+                        .HasName("shop_pkey");
 
-                    b.ToTable("Shop", (string)null);
+                    b.ToTable("shop", (string)null);
                 });
 
             modelBuilder.Entity("BEERAPI.Models.Table", b =>
                 {
                     b.Property<Guid>("TableId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("TableID")
-                        .HasDefaultValueSql("(newid())");
+                        .HasColumnType("uuid")
+                        .HasColumnName("table_id")
+                        .HasDefaultValueSql("gen_random_uuid()");
 
                     b.Property<string>("Name")
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)")
+                        .HasColumnName("name");
 
                     b.Property<Guid?>("OrderId")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("OrderID");
+                        .HasColumnType("uuid")
+                        .HasColumnName("order_id");
 
                     b.Property<int?>("Status")
-                        .HasColumnType("int");
+                        .HasColumnType("integer")
+                        .HasColumnName("status");
 
                     b.HasKey("TableId")
-                        .HasName("PK__Table__7D5F018E1216FD52");
+                        .HasName("table_pkey");
 
-                    b.ToTable("Table", (string)null);
+                    b.ToTable("table_info", (string)null);
                 });
 
             modelBuilder.Entity("BEERAPI.Models.User", b =>
                 {
                     b.Property<Guid>("Uid")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("UID")
-                        .HasDefaultValueSql("(newid())");
+                        .HasColumnType("uuid")
+                        .HasColumnName("uid")
+                        .HasDefaultValueSql("gen_random_uuid()");
 
                     b.Property<string>("Address")
                         .HasMaxLength(2000)
-                        .HasColumnType("nvarchar(2000)");
+                        .HasColumnType("character varying(2000)")
+                        .HasColumnName("address");
 
                     b.Property<DateTime?>("CreatedAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime")
-                        .HasDefaultValueSql("(getdate())");
+                        .HasColumnType("timestamp without time zone")
+                        .HasColumnName("created_at")
+                        .HasDefaultValueSql("now()");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("character varying(100)")
+                        .HasColumnName("name");
 
                     b.Property<string>("Phone")
                         .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("character varying(20)")
+                        .HasColumnName("phone");
 
                     b.Property<Guid>("ShopUid")
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("ShopUID");
+                        .HasColumnType("uuid")
+                        .HasColumnName("shop_uid");
 
                     b.HasKey("Uid")
-                        .HasName("PK__User__C5B1960282B28074");
+                        .HasName("user_pkey");
 
                     b.HasIndex("ShopUid");
 
-                    b.ToTable("User", (string)null);
+                    b.ToTable("user_account", (string)null);
                 });
 
             modelBuilder.Entity("BEERAPI.Models.Logging", b =>
@@ -408,7 +461,7 @@ namespace BEERAPI.Migrations
                     b.HasOne("BEERAPI.Models.User", "UserU")
                         .WithMany("Loggings")
                         .HasForeignKey("UserUid")
-                        .HasConstraintName("FK__Logging__UserUID__71D1E811");
+                        .HasConstraintName("fk_logging_user_uid");
 
                     b.Navigation("UserU");
                 });
@@ -419,12 +472,12 @@ namespace BEERAPI.Migrations
                         .WithMany("Orders")
                         .HasForeignKey("ShopUid")
                         .IsRequired()
-                        .HasConstraintName("FK__Order__ShopUID__656C112C");
+                        .HasConstraintName("fk_order_shop_uid");
 
                     b.HasOne("BEERAPI.Models.User", "UserU")
                         .WithMany("Orders")
                         .HasForeignKey("UserUid")
-                        .HasConstraintName("FK__Order__UserUID__66603565");
+                        .HasConstraintName("fk_order_user_uid");
 
                     b.Navigation("ShopU");
 
@@ -437,12 +490,13 @@ namespace BEERAPI.Migrations
                         .WithMany("OrderItems")
                         .HasForeignKey("OrderUid")
                         .IsRequired()
-                        .HasConstraintName("FK__OrderItem__Order__6A30C649");
+                        .HasConstraintName("fk_order_item_order_uid");
 
                     b.HasOne("BEERAPI.Models.Product", "ProductU")
                         .WithMany("OrderItems")
                         .HasForeignKey("ProductUid")
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("fk_order_item_product_uid");
 
                     b.Navigation("OrderU");
 
@@ -454,13 +508,13 @@ namespace BEERAPI.Migrations
                     b.HasOne("BEERAPI.Models.Category", "CategoryNavigation")
                         .WithMany("Products")
                         .HasForeignKey("Category")
-                        .HasConstraintName("FK_Product_Category");
+                        .HasConstraintName("fk_product_category");
 
                     b.HasOne("BEERAPI.Models.Shop", "ShopU")
                         .WithMany("Products")
                         .HasForeignKey("ShopUid")
                         .IsRequired()
-                        .HasConstraintName("FK__Product__ShopUID__5FB337D6");
+                        .HasConstraintName("fk_product_shop_uid");
 
                     b.Navigation("CategoryNavigation");
 
@@ -473,7 +527,7 @@ namespace BEERAPI.Migrations
                         .WithMany("Users")
                         .HasForeignKey("ShopUid")
                         .IsRequired()
-                        .HasConstraintName("FK__User__ShopUID__534D60F1");
+                        .HasConstraintName("fk_user_shop_uid");
 
                     b.Navigation("ShopU");
                 });

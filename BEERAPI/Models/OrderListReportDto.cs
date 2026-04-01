@@ -27,9 +27,9 @@
             {
                 return PaymentType switch
                 {
+                    -1 => "Ký nợ",
                     0 => "Chuyển khoản",
                     1 => "Tiền mặt",
-                    2 => "Ký nợ",
                     _ => "Không xác định"
                 };
             }

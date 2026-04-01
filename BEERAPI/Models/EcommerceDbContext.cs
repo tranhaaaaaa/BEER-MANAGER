@@ -23,201 +23,376 @@ public partial class EcommerceDbContext : DbContext
     {
         modelBuilder.Entity<BankTransaction>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__BankTran__3214EC078A315079");
+            entity.HasKey(e => e.Id).HasName("banktransaction_pkey");
 
-            entity.ToTable("BankTransaction");
+            entity.ToTable("bank_transaction");
 
-            entity.Property(e => e.Id).ValueGeneratedNever();
-            entity.Property(e => e.AccountNumber).HasMaxLength(50);
-            entity.Property(e => e.Accumulated).HasColumnType("decimal(18, 2)");
+            entity.Property(e => e.Id)
+                .HasColumnName("id")
+                .ValueGeneratedNever(); // nếu muốn auto tăng thì đổi sang UseIdentityByDefaultColumn()
+
+            entity.Property(e => e.AccountNumber)
+                .HasColumnName("account_number")
+                .HasMaxLength(50);
+
+            entity.Property(e => e.Accumulated)
+                .HasColumnName("accumulated")
+                .HasColumnType("numeric(18,2)");
+
+            entity.Property(e => e.Content)
+                .HasColumnName("content");
+
             entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
-            entity.Property(e => e.ExtractedOrderCode).HasMaxLength(100);
-            entity.Property(e => e.Gateway).HasMaxLength(50);
-            entity.Property(e => e.OrderId).HasColumnName("OrderID");
-            entity.Property(e => e.ReferenceCode).HasMaxLength(100);
-            entity.Property(e => e.Status).HasDefaultValue(0);
-            entity.Property(e => e.SubAccount).HasMaxLength(50);
-            entity.Property(e => e.TransactionDate).HasColumnType("datetime");
-            entity.Property(e => e.TransferAmount).HasColumnType("decimal(18, 2)");
-            entity.Property(e => e.TransferType).HasMaxLength(10);
+                .HasColumnName("created_at")
+                .HasColumnType("timestamp without time zone")
+                .HasDefaultValueSql("now()");
+
+            entity.Property(e => e.Description)
+                .HasColumnName("description");
+
+            entity.Property(e => e.ExtractedOrderCode)
+                .HasColumnName("extracted_order_code")
+                .HasMaxLength(100);
+
+            entity.Property(e => e.Gateway)
+                .HasColumnName("gateway")
+                .HasMaxLength(50);
+
+            entity.Property(e => e.OrderId)
+                .HasColumnName("order_id");
+
+            entity.Property(e => e.RawJson)
+                .HasColumnName("raw_json");
+
+            entity.Property(e => e.ReferenceCode)
+                .HasColumnName("reference_code")
+                .HasMaxLength(100);
+
+            entity.Property(e => e.Status)
+                .HasColumnName("status")
+                .HasDefaultValue(0);
+
+            entity.Property(e => e.SubAccount)
+                .HasColumnName("sub_account")
+                .HasMaxLength(50);
+
+            entity.Property(e => e.TransactionDate)
+                .HasColumnName("transaction_date")
+                .HasColumnType("timestamp without time zone");
+
+            entity.Property(e => e.TransferAmount)
+                .HasColumnName("transfer_amount")
+                .HasColumnType("numeric(18,2)");
+
+            entity.Property(e => e.TransferType)
+                .HasColumnName("transfer_type")
+                .HasMaxLength(10);
         });
 
         modelBuilder.Entity<Category>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Category__3214EC07C123412E");
+            entity.HasKey(e => e.Id).HasName("category_pkey");
 
-            entity.ToTable("Category");
+            entity.ToTable("category");
 
-            entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
-            entity.Property(e => e.Description).HasMaxLength(500);
-            entity.Property(e => e.Name).HasMaxLength(255);
+            entity.Property(e => e.Id)
+                .HasColumnName("id")
+                .HasDefaultValueSql("gen_random_uuid()");
+
+            entity.Property(e => e.Description)
+                .HasColumnName("description")
+                .HasMaxLength(500);
+
+            entity.Property(e => e.Name)
+                .HasColumnName("name")
+                .HasMaxLength(255);
+
+            entity.Property(e => e.Type)
+                .HasColumnName("type");
         });
 
         modelBuilder.Entity<Logging>(entity =>
         {
-            entity.HasKey(e => e.LogUid).HasName("PK__Logging__D12CCB367042FDA1");
+            entity.HasKey(e => e.LogUid).HasName("logging_pkey");
 
-            entity.ToTable("Logging");
+            entity.ToTable("logging");
 
             entity.Property(e => e.LogUid)
-                .HasDefaultValueSql("(newid())")
-                .HasColumnName("LogUID");
-            entity.Property(e => e.Action).HasMaxLength(100);
-            entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
-            entity.Property(e => e.Level).HasMaxLength(100);
-            entity.Property(e => e.RecordUid).HasColumnName("RecordUID");
-            entity.Property(e => e.TableName).HasMaxLength(100);
-            entity.Property(e => e.UserUid).HasColumnName("UserUID");
+                .HasColumnName("log_uid")
+                .HasDefaultValueSql("gen_random_uuid()");
 
-            entity.HasOne(d => d.UserU).WithMany(p => p.Loggings)
+            entity.Property(e => e.Action)
+                .HasColumnName("action")
+                .HasMaxLength(100);
+
+            entity.Property(e => e.CreatedAt)
+                .HasColumnName("created_at")
+                .HasColumnType("timestamp without time zone")
+                .HasDefaultValueSql("now()");
+
+            entity.Property(e => e.Level)
+                .HasColumnName("level")
+                .HasMaxLength(100);
+
+            entity.Property(e => e.Message)
+                .HasColumnName("message");
+
+            entity.Property(e => e.RecordUid)
+                .HasColumnName("record_uid");
+
+            entity.Property(e => e.TableName)
+                .HasColumnName("table_name")
+                .HasMaxLength(100);
+
+            entity.Property(e => e.UserUid)
+                .HasColumnName("user_uid");
+
+            entity.HasOne(d => d.UserU)
+                .WithMany(p => p.Loggings)
                 .HasForeignKey(d => d.UserUid)
-                .HasConstraintName("FK__Logging__UserUID__71D1E811");
+                .HasConstraintName("fk_logging_user_uid");
         });
 
         modelBuilder.Entity<Order>(entity =>
         {
-            entity.HasKey(e => e.OrderUid).HasName("PK__Order__EF45ED22EF65FC3F");
+            entity.HasKey(e => e.OrderUid).HasName("order_pkey");
 
-            entity.ToTable("Order");
+            entity.ToTable("order");
 
             entity.Property(e => e.OrderUid)
-                .HasDefaultValueSql("(newid())")
-                .HasColumnName("OrderUID");
-            entity.Property(e => e.Name).HasMaxLength(255);
-            entity.Property(e => e.OrderDate)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
-            entity.Property(e => e.ShopUid).HasColumnName("ShopUID");
-            entity.Property(e => e.TotalAmount)
-                .HasDefaultValue(0m)
-                .HasColumnType("decimal(18, 2)");
-            entity.Property(e => e.UserUid).HasColumnName("UserUID");
+                .HasColumnName("order_uid")
+                .HasDefaultValueSql("gen_random_uuid()");
 
-            entity.HasOne(d => d.ShopU).WithMany(p => p.Orders)
+            entity.Property(e => e.Name)
+                .HasColumnName("name")
+                .HasMaxLength(255);
+
+            entity.Property(e => e.OrderDate)
+                .HasColumnName("order_date")
+                .HasColumnType("timestamp without time zone")
+                .HasDefaultValueSql("now()");
+
+            entity.Property(e => e.PaymentType)
+                .HasColumnName("payment_type");
+
+            entity.Property(e => e.ShopUid)
+                .HasColumnName("shop_uid");
+
+            entity.Property(e => e.Status)
+                .HasColumnName("status");
+
+            entity.Property(e => e.TotalAmount)
+                .HasColumnName("total_amount")
+                .HasColumnType("numeric(18,2)")
+                .HasDefaultValue(0m);
+
+            entity.Property(e => e.Type)
+                .HasColumnName("type");
+
+            entity.Property(e => e.UserUid)
+                .HasColumnName("user_uid");
+
+            entity.HasOne(d => d.ShopU)
+                .WithMany(p => p.Orders)
                 .HasForeignKey(d => d.ShopUid)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Order__ShopUID__656C112C");
+                .HasConstraintName("fk_order_shop_uid");
 
-            entity.HasOne(d => d.UserU).WithMany(p => p.Orders)
+            entity.HasOne(d => d.UserU)
+                .WithMany(p => p.Orders)
                 .HasForeignKey(d => d.UserUid)
-                .HasConstraintName("FK__Order__UserUID__66603565");
+                .HasConstraintName("fk_order_user_uid");
         });
 
         modelBuilder.Entity<OrderItem>(entity =>
         {
-            entity.HasKey(e => e.OrderItemUid).HasName("PK__OrderIte__7A70AEA3A156B1BD");
+            entity.HasKey(e => e.OrderItemUid).HasName("order_item_pkey");
 
-            entity.ToTable("OrderItem");
+            entity.ToTable("order_item");
 
             entity.Property(e => e.OrderItemUid)
-                .HasDefaultValueSql("(newid())")
-                .HasColumnName("OrderItemUID");
-            entity.Property(e => e.Name).HasMaxLength(255);
-            entity.Property(e => e.OrderUid).HasColumnName("OrderUID");
-            entity.Property(e => e.ProductUid).HasColumnName("ProductUID");
-            entity.Property(e => e.UnitPrice).HasColumnType("decimal(18, 2)");
+                .HasColumnName("order_item_uid")
+                .HasDefaultValueSql("gen_random_uuid()");
 
-            entity.HasOne(d => d.OrderU).WithMany(p => p.OrderItems)
+            entity.Property(e => e.Name)
+                .HasColumnName("name")
+                .HasMaxLength(255);
+
+            entity.Property(e => e.OrderUid)
+                .HasColumnName("order_uid");
+
+            entity.Property(e => e.ProductUid)
+                .HasColumnName("product_uid");
+
+            entity.Property(e => e.Quantity)
+                .HasColumnName("quantity");
+
+            entity.Property(e => e.UnitPrice)
+                .HasColumnName("unit_price")
+                .HasColumnType("numeric(18,2)");
+
+            entity.HasOne(d => d.OrderU)
+                .WithMany(p => p.OrderItems)
                 .HasForeignKey(d => d.OrderUid)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__OrderItem__Order__6A30C649");
+                .HasConstraintName("fk_order_item_order_uid");
 
-            entity.HasOne(d => d.ProductU).WithMany(p => p.OrderItems)
+            entity.HasOne(d => d.ProductU)
+                .WithMany(p => p.OrderItems)
                 .HasForeignKey(d => d.ProductUid)
-                .OnDelete(DeleteBehavior.ClientSetNull);
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("fk_order_item_product_uid");
         });
 
         modelBuilder.Entity<Product>(entity =>
         {
-            entity.HasKey(e => e.ProductUid).HasName("PK__Product__ADC6EB5B72584E7C");
+            entity.HasKey(e => e.ProductUid).HasName("product_pkey");
 
-            entity.ToTable("Product");
+            entity.ToTable("product");
 
             entity.Property(e => e.ProductUid)
-                .HasDefaultValueSql("(newid())")
-                .HasColumnName("ProductUID");
+                .HasColumnName("product_uid")
+                .HasDefaultValueSql("gen_random_uuid()");
+
+            entity.Property(e => e.Category)
+                .HasColumnName("category");
+
             entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
-            entity.Property(e => e.Description).HasMaxLength(500);
+                .HasColumnName("created_at")
+                .HasColumnType("timestamp without time zone")
+                .HasDefaultValueSql("now()");
+
+            entity.Property(e => e.Description)
+                .HasColumnName("description")
+                .HasMaxLength(500);
 
             entity.Property(e => e.Img)
+                .HasColumnName("img")
                 .HasMaxLength(1000);
-            // Nếu DB thật là char/nchar thì thêm lại .IsFixedLength()
 
-            entity.Property(e => e.Price).HasColumnType("decimal(18, 2)");
-            entity.Property(e => e.PriceConfig).HasColumnType("decimal(18, 2)");
-            entity.Property(e => e.ProductName).HasMaxLength(150);
-            entity.Property(e => e.ShopUid).HasColumnName("ShopUID");
-            entity.Property(e => e.Stock).HasDefaultValue(0);
-            entity.Property(e => e.Type).HasDefaultValue(0);
+            entity.Property(e => e.Price)
+                .HasColumnName("price")
+                .HasColumnType("numeric(18,2)");
 
-            entity.HasOne(d => d.ShopU).WithMany(p => p.Products)
+            entity.Property(e => e.PriceConfig)
+                .HasColumnName("price_config")
+                .HasColumnType("numeric(18,2)");
+
+            entity.Property(e => e.ProductName)
+                .HasColumnName("product_name")
+                .HasMaxLength(150);
+
+            entity.Property(e => e.ShopUid)
+                .HasColumnName("shop_uid");
+
+            entity.Property(e => e.Stock)
+                .HasColumnName("stock")
+                .HasDefaultValue(0);
+
+            entity.Property(e => e.Type)
+                .HasColumnName("type")
+                .HasDefaultValue(0);
+
+            entity.HasOne(d => d.ShopU)
+                .WithMany(p => p.Products)
                 .HasForeignKey(d => d.ShopUid)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Product__ShopUID__5FB337D6");
+                .HasConstraintName("fk_product_shop_uid");
 
-            entity.HasOne(d => d.CategoryNavigation).WithMany(p => p.Products)
+            entity.HasOne(d => d.CategoryNavigation)
+                .WithMany(p => p.Products)
                 .HasForeignKey(d => d.Category)
-                .HasConstraintName("FK_Product_Category");
+                .HasConstraintName("fk_product_category");
         });
 
         modelBuilder.Entity<Shop>(entity =>
         {
-            entity.HasKey(e => e.ShopUid).HasName("PK__Shop__5DD995CC9AA24EB6");
+            entity.HasKey(e => e.ShopUid).HasName("shop_pkey");
 
-            entity.ToTable("Shop");
+            entity.ToTable("shop");
 
             entity.Property(e => e.ShopUid)
-                .HasDefaultValueSql("(newid())")
-                .HasColumnName("ShopUID");
+                .HasColumnName("shop_uid")
+                .HasDefaultValueSql("gen_random_uuid()");
+
             entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
-            entity.Property(e => e.Img).HasMaxLength(2000);
-            entity.Property(e => e.Password).HasMaxLength(2000);
-            entity.Property(e => e.ShopName).HasMaxLength(150);
-            entity.Property(e => e.Username).HasMaxLength(200);
+                .HasColumnName("created_at")
+                .HasColumnType("timestamp without time zone")
+                .HasDefaultValueSql("now()");
+
+            entity.Property(e => e.Img)
+                .HasColumnName("img")
+                .HasMaxLength(2000);
+
+            entity.Property(e => e.Password)
+                .HasColumnName("password")
+                .HasMaxLength(2000);
+
+            entity.Property(e => e.ShopName)
+                .HasColumnName("shop_name")
+                .HasMaxLength(150);
+
+            entity.Property(e => e.Username)
+                .HasColumnName("username")
+                .HasMaxLength(200);
         });
 
         modelBuilder.Entity<Table>(entity =>
         {
-            entity.HasKey(e => e.TableId).HasName("PK__Table__7D5F018E1216FD52");
+            entity.HasKey(e => e.TableId).HasName("table_pkey");
 
-            entity.ToTable("Table");
+            entity.ToTable("table_info"); // tránh đụng từ khóa dễ gây khó chịu
 
             entity.Property(e => e.TableId)
-                .HasDefaultValueSql("(newid())")
-                .HasColumnName("TableID");
-            entity.Property(e => e.Name).HasMaxLength(200);
-            entity.Property(e => e.OrderId).HasColumnName("OrderID");
+                .HasColumnName("table_id")
+                .HasDefaultValueSql("gen_random_uuid()");
+
+            entity.Property(e => e.Name)
+                .HasColumnName("name")
+                .HasMaxLength(200);
+
+            entity.Property(e => e.OrderId)
+                .HasColumnName("order_id");
+
+            entity.Property(e => e.Status)
+                .HasColumnName("status");
         });
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.Uid).HasName("PK__User__C5B1960282B28074");
+            entity.HasKey(e => e.Uid).HasName("user_pkey");
 
-            entity.ToTable("User");
+            entity.ToTable("user_account"); // tránh "user" là keyword nhạy cảm trong PostgreSQL
 
             entity.Property(e => e.Uid)
-                .HasDefaultValueSql("(newid())")
-                .HasColumnName("UID");
-            entity.Property(e => e.Address).HasMaxLength(2000);
-            entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
-            entity.Property(e => e.Name).HasMaxLength(100);
-            entity.Property(e => e.Phone).HasMaxLength(20);
-            entity.Property(e => e.ShopUid).HasColumnName("ShopUID");
+                .HasColumnName("uid")
+                .HasDefaultValueSql("gen_random_uuid()");
 
-            entity.HasOne(d => d.ShopU).WithMany(p => p.Users)
+            entity.Property(e => e.Address)
+                .HasColumnName("address")
+                .HasMaxLength(2000);
+
+            entity.Property(e => e.CreatedAt)
+                .HasColumnName("created_at")
+                .HasColumnType("timestamp without time zone")
+                .HasDefaultValueSql("now()");
+
+            entity.Property(e => e.Name)
+                .HasColumnName("name")
+                .HasMaxLength(100);
+
+            entity.Property(e => e.Phone)
+                .HasColumnName("phone")
+                .HasMaxLength(20);
+
+            entity.Property(e => e.ShopUid)
+                .HasColumnName("shop_uid");
+
+            entity.HasOne(d => d.ShopU)
+                .WithMany(p => p.Users)
                 .HasForeignKey(d => d.ShopUid)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__User__ShopUID__534D60F1");
+                .HasConstraintName("fk_user_shop_uid");
         });
 
         OnModelCreatingPartial(modelBuilder);

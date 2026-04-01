@@ -318,7 +318,7 @@ namespace BEERAPI.Controllers
                 }
 
                 order.Status = 0;
-                order.PaymentType = 2;
+                order.PaymentType = -1;
 
                 await _context.SaveChangesAsync();
                 await transactionDb.CommitAsync();
