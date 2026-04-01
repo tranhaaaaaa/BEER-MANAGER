@@ -1,8 +1,12 @@
+using BEERAPI.Models;
+
 public class CreateTableDTO{
     public string Name { get; set; }
     public List<ProductInfoDTO> ProductInfoDTOs { get; set; }
     public Guid? Type {  get; set; }
     public Guid? ShopUid { get; set; }
+    public Guid? UserUid { get; set; }
+    public CreateUserDTO? UserDTO { get; set; }
 }
 public class ProductInfoDTO{
   public Guid id {get ; set;}

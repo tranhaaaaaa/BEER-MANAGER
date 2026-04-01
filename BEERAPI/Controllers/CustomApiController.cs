@@ -108,7 +108,7 @@ namespace BEERAPI.Controllers
                 Name = dto.Name,
                 Phone = dto.Phone,
                 Address = dto.Address,
-                ShopUid = dto.ShopUID,
+                ShopUid = dto.ShopUID.Value,
                 CreatedAt = DateTime.Now
             };
 

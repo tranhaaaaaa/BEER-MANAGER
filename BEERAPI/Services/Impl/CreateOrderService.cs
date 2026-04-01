@@ -21,6 +21,32 @@ namespace BEERAPI.Services.Impl
 
             try
             {
+                Guid? userUid = dto.UserUid;
+
+                if (userUid != null)
+                {
+                    var user = await _context.Users.FirstOrDefaultAsync(x => x.Uid == userUid);
+                    if (user == null)
+                    {
+                        userUid = null;
+                    }
+                }
+
+                if (userUid == null && dto.UserDTO != null)
+                {
+                    var newUser = new User
+                    {
+                        Uid = Guid.NewGuid(),
+                        Name = dto.UserDTO.Name,
+                        Address = dto.UserDTO.Address,
+                        Phone = dto.UserDTO.Phone
+                    };
+
+                    _context.Users.Add(newUser);
+                    await _context.SaveChangesAsync();
+                    userUid = newUser.Uid;
+                }
+
                 var order = new Order
                 {
                     OrderUid = Guid.NewGuid(),
@@ -30,6 +56,7 @@ namespace BEERAPI.Services.Impl
                     Status = 0,
                     PaymentType = 2, // Ký nợ trước hết các order
                     ShopUid = dto.ShopUid.Value,
+                    UserUid = dto.UserUid
                     //UserUid = Guid.Parse("A98795B9-0A05-480C-9D0E-29145F34E0FF")
                 };
 
