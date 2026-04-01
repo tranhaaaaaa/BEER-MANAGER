@@ -63,6 +63,7 @@ userlogged = new UserLogged();
   };
    this.productService.CreateProduct(data).subscribe((data) => {
     this.toastService.success("Thêm món ăn thành công!")
+     this.saveFood.emit(data);
    })
 
     this.close();

@@ -1,0 +1,63 @@
+<div class="auth-wrapper">
+  <div class="auth-container">
+
+    <!-- LEFT PANEL (optional branding) -->
+    <div class="auth-left">
+      <div class="brand-box">
+        <h2>Welcome Back 👋</h2>
+        <p>
+          Đăng nhập để tiếp tục sử dụng hệ thống quản lý của bạn
+        </p>
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL (FORM) -->
+    <div class="auth-right">
+
+      <div class="auth-card">
+
+        <h3 class="title">Sign in</h3>
+
+        <button class="google-btn">
+          <img
+            src="//www.gstatic.com/images/branding/googleg_gradient/1x/googleg_gradient_standard_40dp.png"
+          />
+          Continue with Google
+        </button>
+
+        <div class="divider">
+          <span>Or</span>
+        </div>
+
+        <form [formGroup]="form">
+
+          <label>Tài khoản</label>
+          <input
+            type="text"
+            placeholder="Nhập tên tài khoản"
+            formControlName="Username"
+          />
+
+          <label>Mật khẩu</label>
+          <input
+            type="password"
+            placeholder="Nhập mật khẩu"
+            formControlName="Password"
+          />
+
+          <button
+            class="signup-btn"
+            type="submit"
+            (click)="login()"
+          >
+            Đăng nhập
+          </button>
+
+        </form>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>

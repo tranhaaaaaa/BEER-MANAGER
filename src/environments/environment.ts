@@ -3,5 +3,5 @@ export const environment = {
 };
 
 export const API_SERVICE = {
-     BASE_URL: 'http://localhost:5180',
+     BASE_URL: 'https://expense-tribes-hope-favor.trycloudflare.com',
 }

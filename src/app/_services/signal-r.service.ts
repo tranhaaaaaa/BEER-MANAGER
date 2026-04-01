@@ -10,15 +10,13 @@ export class SignalRService {
   private connection!: HubConnection;
   private paymentSubject: BehaviorSubject<any> = new BehaviorSubject(null);
 
-  private hubUrl = 'https://nightless-enthrallingly-samira.ngrok-free.dev/paymentHub';
+  private hubUrl = 'https://localhost:44373/paymentHub';
   private isConnected: boolean = false;
   private pendingGroups: string[] = []; 
 
   constructor() {
     this.connection = this.createConnection();
     this.connection.on('payment_success', (data) => {
-      
-      console.log('🔥 Payment success received:', data);
       this.paymentSubject.next(data);
     });
 

@@ -1,37 +1,32 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ModalModule } from '@coreui/angular';
+import { Component, OnInit } from '@angular/core';
 import { AuthenService } from '../../_services/authen.service';
+import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { UserLogged } from '../../_helper/userLogged';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-login',
-    imports: [CommonModule, ModalModule, ReactiveFormsModule],
-  templateUrl: './login.html',
-  styleUrl: './login.css',
+  selector: 'app-login-page',
+  imports: [CommonModule,FormsModule,ReactiveFormsModule],
+  templateUrl: './login-page.html',
+  styleUrl: './login-page.css',
 })
-export class Login {
- visible = false;
-
-  form!: FormGroup;
+export class LoginPage implements OnInit{
+ form!: FormGroup;
 
   constructor(private fb: FormBuilder,
     private authService : AuthenService,
-    private toastService : ToastrService
+    private toastService : ToastrService,
+    private router: Router
   ) {
     this.form = this.fb.group({
       Username: ['', Validators.required],
       Password: ['', Validators.required]
     });
   }
-  close(){
-    this.visible = false;
-    this.form.reset();
-  }
-  open(){
-    this.visible = true;
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
   }
   login(){
 
@@ -54,7 +49,7 @@ export class Login {
       res.Data.username,
       res.Data.shopId
     );
-    this.close();
+    this.router.navigate(['/dashboard']);
   },
   error: (err) => {
     this.toastService.error(err.error?.message || "Đăng nhập thất bại");

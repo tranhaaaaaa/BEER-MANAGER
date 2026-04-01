@@ -146,7 +146,6 @@ export class ModalCreateTable implements OnInit, OnChanges {
   }
   open() {
     this.visible = true;
-    console.log('ordersInput', this.ORDER_ID);
     if (this.ordersInput?.length) {
       this.loadOrders();
     }
@@ -227,7 +226,6 @@ export class ModalCreateTable implements OnInit, OnChanges {
     }
   }
   checkout() {
-    console.log('Thanh toán', this.total);
   }
   submit() {
     if (!this.table.name) return;

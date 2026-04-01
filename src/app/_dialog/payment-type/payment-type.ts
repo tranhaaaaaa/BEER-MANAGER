@@ -20,7 +20,6 @@ export class PaymentType {
   paymentType: string | null = null;
 
   openModal(){
-    console.log("tien vaoo",this.Amount)
     this.visible = true;
   }
 

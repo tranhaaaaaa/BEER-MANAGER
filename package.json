@@ -2,11 +2,13 @@
   "name": "base-vtp",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+      "ng": "ng",
+  "start": "ng serve",
+  "start:prod": "ng serve --configuration production",
+  "build": "ng build",
+  "build:prod": "ng build --configuration production",
+  "watch": "ng build --watch --configuration development",
+  "test": "ng test"
   },
   "prettier": {
     "printWidth": 100,
@@ -34,7 +36,9 @@
     "@coreui/icons-angular": "^5.5.2",
     "@microsoft/signalr": "^10.0.0",
     "bootstrap": "^5.3.8",
+    "dayjs": "^1.11.20",
     "json2typescript": "^1.6.1",
+    "ngx-daterangepicker-material": "^6.0.4",
     "ngx-toastr": "^20.0.5",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",

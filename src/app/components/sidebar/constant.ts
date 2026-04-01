@@ -11,6 +11,7 @@ export const menuItems = [
     title: 'Trang chủ',
     icon: 'bi bi-geo-alt',
     badge: '',
+    link:'/dashboard'
   },
   {
     title: 'Danh sách món ăn',

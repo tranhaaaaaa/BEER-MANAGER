@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Injectable } from '@angular/core';
 import { catchError, Observable, throwError } from 'rxjs';
-import { API_SERVICE, environment } from '../../environments/environment.development';
+import { API_SERVICE, environment } from '../../environments/environment';
 import { JsonConvert } from 'json2typescript';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UserLogged } from '../_helper/userLogged';

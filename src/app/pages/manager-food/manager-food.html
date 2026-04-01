@@ -70,7 +70,7 @@
       </div>
 
       <div class="order-actions">
-        <button class="btn-create w-100" (click)="createOrder()">Tạo đơn</button>
+        <button class="btn-create w-100" [disabled]="!orderItems.length" (click)="createOrder()">Tạo đơn</button>
 
         <!-- <button class="btn-pay" (click)="onOpen()">Thanh toán</button> -->
       </div>
@@ -106,7 +106,7 @@
       </div>
 
       <div class="order-actions">
-        <button class="btn-create w-100" (click)="createOrder()">Tạo đơn</button>
+        <button class="btn-create w-100" [disabled]="!orderItems.length" (click)="createOrder()">Tạo đơn</button>
 
         <!-- <button class="btn-pay" (click)="onOpen()">Thanh toán</button> -->
       </div>
@@ -124,4 +124,4 @@
 </div>
 <app-payment-type></app-payment-type>
 <app-modal-create-table [ordersInput]="orderItems"></app-modal-create-table>
-<app-modal-food></app-modal-food>
+<app-modal-food (saveFood)="onRefresh()"></app-modal-food>
