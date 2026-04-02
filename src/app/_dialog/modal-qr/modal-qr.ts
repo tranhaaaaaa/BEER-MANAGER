@@ -1,49 +1,181 @@
-import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { ButtonModule, ModalModule } from '@coreui/angular';
-import { SignalRService } from '../../_services/signal-r.service';
-import { Subject, takeUntil } from 'rxjs';
+import { Injectable } from '@angular/core';
+import * as signalR from '@microsoft/signalr';
+import { HubConnection, HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
+import { BehaviorSubject } from 'rxjs';
 
-@Component({
-  selector: 'app-modal-qr',
-  imports: [ CommonModule,
-    ModalModule,
-    ButtonModule],
-  templateUrl: './modal-qr.html',
-  styleUrl: './modal-qr.css',
+@Injectable({
+  providedIn: 'root',
 })
-export class ModalQr implements OnInit{
-   visible = false;
-bankCode = "VPB";
-accountNumber = "762530102002";
-accountName = "TRAN QUANG HA";
-@Input() ORDER_ID : any;
-@Input() amount: any;
-@Output() paymentSuccess = new EventEmitter<any>();
-constructor(private signalRService: SignalRService){}
+export class SignalRService {
 
-ngOnInit(): void {
-  this.signalRService.payment$
-    .subscribe((data) => {
-      console.log('🔔 Payment Success modal:', data);
-      if (!data) return;
-      this.closeModal();
-      
-      this.paymentSuccess.emit(data);
-    });
-}
-generateQR() {
+  private connection!: HubConnection;
 
-  const content = "ODR"+this.ORDER_ID;
+  private hubUrl =
+    'https://authorized-williams-kenneth-exploring.trycloudflare.com/paymentHub';
 
-  return `https://img.vietqr.io/image/${this.bankCode}-${this.accountNumber}-print.png?amount=${this.amount}&addInfo=${encodeURIComponent(content)}&accountName=${encodeURIComponent(this.accountName)}`;
-}
- openModal(){
-    this.visible = true;
+  private isConnected = false;
+
+  // lưu danh sách group đang join
+  private joinedGroups: Set<string> = new Set();
+
+  // queue khi chưa connect
+  private pendingGroups: Set<string> = new Set();
+
+  private paymentSubject = new BehaviorSubject<any>(null);
+
+  payment$ = this.paymentSubject.asObservable();
+
+
+  constructor() {
+    this.createConnection();
+    this.startConnection();
   }
 
-  closeModal(){
-    this.visible = false;
+
+  private createConnection() {
+
+    this.connection = new HubConnectionBuilder()
+      .withUrl(this.hubUrl, {
+        withCredentials: false
+      })
+      .configureLogging(LogLevel.Information)
+
+      // reconnect strategy realtime payment chuẩn
+      .withAutomaticReconnect([0, 2000, 5000, 10000])
+      .build();
+
+
+    // tăng timeout tránh Cloudflare drop connection
+    this.connection.serverTimeoutInMilliseconds = 300000;
+    this.connection.keepAliveIntervalInMilliseconds = 15000;
+
+
+    this.registerEvents();
+  }
+
+
+  private registerEvents() {
+
+    // nhận event payment
+    this.connection.on('payment_success', (data) => {
+
+      console.log('💰 Payment success received:', data);
+
+      this.paymentSubject.next(data);
+    });
+
+
+    this.connection.onclose((err) => {
+
+      console.warn('⚠️ SignalR disconnected', err);
+
+      this.isConnected = false;
+    });
+
+
+    this.connection.onreconnecting(() => {
+
+      console.warn('🔄 SignalR reconnecting...');
+    });
+
+
+    this.connection.onreconnected(() => {
+
+      console.log('✅ SignalR reconnected');
+
+      this.isConnected = true;
+
+      this.rejoinAllGroups();
+    });
+
+  }
+
+
+  private async startConnection() {
+
+    try {
+
+      await this.connection.start();
+
+      console.log('✅ SignalR connected');
+
+      this.isConnected = true;
+
+      this.processPendingGroups();
+
+    } catch (err) {
+
+      console.error('❌ SignalR start error', err);
+
+      setTimeout(() => this.startConnection(), 3000);
+    }
+
+  }
+
+
+  joinOrder(orderId: string) {
+
+    if (!orderId) return;
+
+
+    if (!this.isConnected) {
+
+      console.log('⏳ queue group:', orderId);
+
+      this.pendingGroups.add(orderId);
+
+      return;
+    }
+
+
+    this.connection
+      .invoke('JoinGroup', orderId)
+      .then(() => {
+
+        console.log('✅ joined group:', orderId);
+
+        this.joinedGroups.add(orderId);
+
+      })
+      .catch(err => {
+
+        console.error('❌ join group error:', err);
+      });
+  }
+
+
+  private processPendingGroups() {
+
+    this.pendingGroups.forEach(orderId => {
+
+      this.joinOrder(orderId);
+    });
+
+    this.pendingGroups.clear();
+  }
+
+
+  private rejoinAllGroups() {
+
+    console.log('🔁 rejoining groups...');
+
+    this.joinedGroups.forEach(orderId => {
+
+      this.connection.invoke('JoinGroup', orderId);
+    });
+
+  }
+
+
+  stopConnection() {
+
+    if (!this.connection) return;
+
+    this.connection.stop();
+
+    this.isConnected = false;
+
+    console.log('⏹️ SignalR stopped');
   }
 
 }
