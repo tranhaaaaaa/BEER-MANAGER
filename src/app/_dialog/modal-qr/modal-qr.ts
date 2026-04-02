@@ -25,6 +25,7 @@ constructor(private signalRService: SignalRService){}
 ngOnInit(): void {
   this.signalRService.payment$
     .subscribe((data) => {
+      console.log('🔔 Payment Success modal:', data);
       if (!data) return;
       this.closeModal();
       
