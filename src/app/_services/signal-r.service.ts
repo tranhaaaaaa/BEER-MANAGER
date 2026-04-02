@@ -43,7 +43,6 @@ export class SignalRService {
     return new HubConnectionBuilder()
       .configureLogging(LogLevel.Debug)
       .withUrl(this.hubUrl, {
-        transport: signalR.HttpTransportType.WebSockets,
         withCredentials: false 
       })
       .withAutomaticReconnect()
