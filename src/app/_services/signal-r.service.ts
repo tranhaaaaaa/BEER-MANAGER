@@ -45,8 +45,6 @@ export class SignalRService {
       .withUrl(this.hubUrl, {
         transport: signalR.HttpTransportType.WebSockets,
         
-        skipNegotiation: true, 
-        
         headers: {
           "ngrok-skip-browser-warning": "true"
         },
