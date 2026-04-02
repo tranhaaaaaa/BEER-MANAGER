@@ -19,7 +19,7 @@ export class App implements OnInit{
    this.signalRService.payment$
     .subscribe((data) => {
       if (!data) return;
-
+      console.log('🔔 Payment Success:', data);
       const text = `Bạn đã nhận được ${this.numberToText(data?.amount)} đồng`;
 
       const speech = new SpeechSynthesisUtterance(text);
