@@ -44,11 +44,7 @@ export class SignalRService {
       .configureLogging(LogLevel.Debug)
       .withUrl(this.hubUrl, {
         transport: signalR.HttpTransportType.WebSockets,
-        
-        headers: {
-          "ngrok-skip-browser-warning": "true"
-        },
-        withCredentials: true 
+        withCredentials: false 
       })
       .withAutomaticReconnect()
       .build();
