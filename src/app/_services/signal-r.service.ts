@@ -10,7 +10,7 @@ export class SignalRService {
   private connection!: HubConnection;
   private paymentSubject: BehaviorSubject<any> = new BehaviorSubject(null);
 
-  private hubUrl = 'https://localhost:44373/paymentHub';
+  private hubUrl = 'https://expense-tribes-hope-favor.trycloudflare.com/paymentHub';
   private isConnected: boolean = false;
   private pendingGroups: string[] = []; 
 
