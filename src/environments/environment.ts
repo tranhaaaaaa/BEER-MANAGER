@@ -3,5 +3,5 @@ export const environment = {
 };
 
 export const API_SERVICE = {
-     BASE_URL: 'https://expense-tribes-hope-favor.trycloudflare.com',
+     BASE_URL: ' https://authorized-williams-kenneth-exploring.trycloudflare.com',
 }
