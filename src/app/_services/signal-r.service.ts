@@ -27,6 +27,7 @@ export class SignalRService {
 
 
   constructor() {
+    console.log('📡 Initializing SignalRService...');
     this.createConnection();
     this.startConnection();
   }
@@ -92,7 +93,7 @@ export class SignalRService {
 
 
   private async startConnection() {
-
+    console.log('🚀 Starting SignalR connection...');
     try {
 
       await this.connection.start();
