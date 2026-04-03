@@ -33,26 +33,22 @@ export class SignalRService {
   }
 
 
-  private createConnection() {
+private createConnection() {
 
-    this.connection = new HubConnectionBuilder()
-      .withUrl(this.hubUrl, {
-        withCredentials: false
-      })
-      .configureLogging(LogLevel.Information)
+  this.connection = new HubConnectionBuilder()
+    .withUrl(this.hubUrl, {
+      withCredentials: false,
+      transport: signalR.HttpTransportType.LongPolling
+    })
+    .configureLogging(LogLevel.Information)
+    .withAutomaticReconnect([0, 2000, 5000, 10000])
+    .build();
 
-      // reconnect strategy realtime payment chuẩn
-      .withAutomaticReconnect([0, 2000, 5000, 10000])
-      .build();
+  this.connection.serverTimeoutInMilliseconds = 600000;
+  this.connection.keepAliveIntervalInMilliseconds = 10000;
 
-
-    // tăng timeout tránh Cloudflare drop connection
-    this.connection.serverTimeoutInMilliseconds = 300000;
-    this.connection.keepAliveIntervalInMilliseconds = 15000;
-
-
-    this.registerEvents();
-  }
+  this.registerEvents();
+}
 
 
   private registerEvents() {
