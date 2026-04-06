@@ -8,3 +8,7 @@
 /.vs/BEER-MANAGER/v17
 /BEERAPI/bin/Debug/net8.0
 /BEERAPI/obj
+/BEERAPI/.vs/ProjectEvaluation
+/BEERAPI/bin/Release/net8.0
+/BEERAPI/Properties/PublishProfiles
+/BEERAPI/dotnet-tools.json

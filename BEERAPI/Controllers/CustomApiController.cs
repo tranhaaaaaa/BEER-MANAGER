@@ -339,5 +339,90 @@ namespace BEERAPI.Controllers
                 return BadRequest(new { status = "error" });
             }
         }
+
+        [HttpPost("table-orders")]
+        public async Task<IActionResult> GetTableOrders([FromBody] TableOrderFilterDTO filter)
+        {
+            try
+            {
+                // fallback default nếu frontend gửi sai
+                var page = filter.Page <= 0 ? 1 : filter.Page;
+                var pageSize = filter.PageSize <= 0 ? 10 : filter.PageSize;
+
+                var query = _context.Orders.AsQueryable();
+
+                if (filter.Status != null)
+                {
+                    query = query.Where(x => x.Status == filter.Status);
+                }
+
+                if (filter.Today == true)
+                {
+                    var start = DateTime.SpecifyKind(DateTime.Today, DateTimeKind.Unspecified);
+                    var end = start.AddDays(1);
+
+                    query = query.Where(x =>
+                        x.OrderDate >= start &&
+                        x.OrderDate < end
+                    );
+                }
+
+                if (filter.FromDate != null)
+                {
+                    var fromDate = DateTime.SpecifyKind(
+                        filter.FromDate.Value,
+                        DateTimeKind.Unspecified
+                    );
+
+                    query = query.Where(x => x.OrderDate >= fromDate);
+                }
+
+                if (filter.ToDate != null)
+                {
+                    var toDate = DateTime.SpecifyKind(
+                        filter.ToDate.Value,
+                        DateTimeKind.Unspecified
+                    );
+
+                    query = query.Where(x => x.OrderDate <= toDate);
+                }
+
+                var totalItems = await query.CountAsync();
+
+                var data = await query
+                    .OrderByDescending(x => x.OrderDate)
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .Select(x => new
+                    {
+                        orderId = x.OrderUid,
+                        tableName = x.Name,
+                        totalAmount = x.TotalAmount,
+                        status = x.Status,
+                        paymentType = x.PaymentType,
+                        orderDate = x.OrderDate
+                    })
+                    .ToListAsync();
+
+                return Ok(new
+                {
+                    page,
+                    pageSize,
+                    totalItems,
+                    totalPages = totalItems == 0
+                        ? 0
+                        : (int)Math.Ceiling((double)totalItems / pageSize),
+                    data
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    message = "Get table orders failed",
+                    error = ex.Message
+                });
+            }
+        }
     }
 }

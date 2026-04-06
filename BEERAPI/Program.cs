@@ -83,18 +83,17 @@ services.AddSwaggerGen(c =>
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAngular", policy =>
-    {
-        policy
-            .SetIsOriginAllowed(origin =>
-                origin == "http://localhost:4200" ||
-                origin.StartsWith("https://nightless-enthrallingly-samira.ngrok-free.dev") // thêm URL ngrok
-            )
-            .AllowAnyHeader()
-            .AllowAnyMethod()
-            .AllowCredentials(); // 🔥 bắt buộc cho SignalR
-    });
+    options.AddPolicy("AllowAll",
+        policy =>
+        {
+            policy
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .AllowCredentials()
+                .SetIsOriginAllowed(_ => true);
+        });
 });
+
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 app.UseHostFiltering();
@@ -111,15 +110,20 @@ app.UseHttpsRedirection();
 //Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MDAxQDMxMzkyZTM0MmUzMGp6WDJ5ZGZrekFQY3huQkxTYkVmdS9jUERCbUVRUlhDb2lwc1FzQWxCVHM9");
 //var valid = Syncfusion.Licensing.SyncfusionLicenseProvider.ValidateLicense(Syncfusion.Licensing.Platform.ASPNETCore);
 app.UseRouting();
-app.UseCors("AllowAngular");
+app.UseCors("AllowAll");
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
 // Trong Program.cs
 app.MapHub<PaymentHub>("/paymentHub", options =>
 {
-    options.Transports = Microsoft.AspNetCore.Http.Connections.HttpTransportType.WebSockets;
+    options.Transports =
+        Microsoft.AspNetCore.Http.Connections.HttpTransportType.LongPolling;
 });
+//app.MapHub<PaymentHub>("/paymentHub", options =>
+//{
+//    options.Transports = Microsoft.AspNetCore.Http.Connections.HttpTransportType.WebSockets;
+//});
 app.Run();
 
 IEdmModel GetEdmModel()
