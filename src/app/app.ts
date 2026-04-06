@@ -6,29 +6,74 @@ import { SignalRService } from './_services/signal-r.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet,CommonModule],
+  imports: [RouterOutlet, CommonModule],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App implements OnInit{
+export class App implements OnInit {
+
   protected readonly title = signal('base-vtp');
-  constructor(public loadingService: LoadingService,
-    private signalRService : SignalRService
+
+  private speechReady = false;
+
+  constructor(
+    public loadingService: LoadingService,
+    private signalRService: SignalRService
   ) {}
+
   ngOnInit(): void {
-   this.signalRService.payment$
-    .subscribe((data) => {
-      if (!data) return;
-      console.log('🔔 Payment Success:', data);
-      const text = `Bạn đã nhận được ${this.numberToText(data?.amount)} đồng`;
 
-      const speech = new SpeechSynthesisUtterance(text);
-      speech.lang = 'vi-VN';
+    // 👇 iPad + Android bắt buộc phải interaction trước
+    document.addEventListener('click', () => {
+      this.initSpeechEngine();
+    }, { once: true });
 
-      window.speechSynthesis.speak(speech);
-    });
   }
+
+
+  initSpeechEngine() {
+
+    // load voices trước
+    speechSynthesis.getVoices();
+
+    speechSynthesis.onvoiceschanged = () => {
+      this.speechReady = true;
+    };
+
+    // subscribe sau khi engine sẵn sàng
+    this.signalRService.payment$
+      .subscribe((data) => {
+
+        if (!data || !this.speechReady) return;
+
+        this.speakMoney(data.amount);
+
+      });
+
+  }
+
+
+  speakMoney(amount: number) {
+
+    const text = `Bạn đã nhận được ${this.numberToText(amount)} đồng`;
+
+    const speech = new SpeechSynthesisUtterance(text);
+
+    speech.lang = 'vi-VN';
+
+    // 👇 fix lỗi iPad Safari suspend engine
+    window.speechSynthesis.resume();
+
+    // clear queue cũ
+    window.speechSynthesis.cancel();
+
+    window.speechSynthesis.speak(speech);
+
+  }
+
+
   numberToText(num: number): string {
-  return num.toLocaleString('vi-VN'); // 2.222
-}
+    return num.toLocaleString('vi-VN');
+  }
+
 }

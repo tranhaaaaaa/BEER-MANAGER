@@ -7,10 +7,11 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 import utc from 'dayjs/plugin/utc';
+import { OrderHistory } from '../order-history/order-history';
 dayjs.extend(utc);
 @Component({
   selector: 'app-dashboard',
-  imports: [TransactionComponent, FormsModule, CommonModule, ReportCost, NgxDaterangepickerMd, ReactiveFormsModule],
+  imports: [TransactionComponent, FormsModule, CommonModule, OrderHistory, NgxDaterangepickerMd, ReactiveFormsModule,],
   templateUrl: './dashboard.html',
   styleUrl: './dashboard.css',
 })
@@ -31,5 +32,13 @@ ngOnInit(): void {
         }
       ]
     });
+      this.form.get('range')?.valueChanges.subscribe((value) => {
+    console.log('Range changed:', value.startDate, value.endDate);
+
+    const startDate = value.startDate.format('YYYY-MM-DD');
+    const endDate = value.endDate.format('YYYY-MM-DD');
+
+    console.log('Formatted:', startDate, endDate);
+  });
 }
 }

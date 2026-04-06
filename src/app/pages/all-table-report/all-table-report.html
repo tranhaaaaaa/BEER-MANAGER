@@ -1,0 +1,96 @@
+<div class="restaurant-dashboard">
+  <!-- Header thông tin + tổng doanh thu -->
+  <div class="dashboard-header">
+    <div class="header-left">
+      <div class="icon-wrapper">
+        <svg cIcon name="cilRestaurant"></svg>
+      </div>
+      <div>
+        <h1 class="dashboard-title">Danh sách bàn</h1>
+        <p class="dashboard-subtitle">Theo dõi trạng thái & doanh thu</p>
+      </div>
+    </div>
+    <div class="header-right">
+      <div class="total-revenue-card">
+        <span class="revenue-label">Tổng doanh thu</span>
+        <span class="revenue-amount">{{ totalRevenue | number }} <small>VNĐ</small></span>
+      </div>
+      <div class="table-count-badge">
+        <svg cIcon name="cilTable"></svg>
+        <span>{{ tableOrders.length }} bàn</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Thanh bộ lọc -->
+  <div class="filters-bar">
+    <!-- Lọc theo khoảng ngày -->
+    <div class="filter-group">
+      <label class="filter-label">Khoảng ngày</label>
+      <form [formGroup]="dateRangeForm">
+        <input
+          type="text"
+          ngxDaterangepickerMd
+          [readonly]="true"
+          [ranges]="ranges"
+          [alwaysShowCalendars]="true"
+          formControlName="ranges"
+          class="form-control date-range-input"
+          placeholder="Chọn khoảng ngày"
+        />
+      </form>
+    </div>
+    <div class="filter-group">
+      <label class="filter-label">Trạng thái bàn</label>
+      <select class="form-select status-select" [(ngModel)]="filterStatus" (change)="resetAndReload()">
+        <option [ngValue]="null">Tất cả</option>
+        <option [ngValue]="0">Đang phục vụ</option>
+        <option [ngValue]="1">Đã thanh toán</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Khu vực danh sách bàn với infinite scroll -->
+  <div
+    class="tables-grid-wrapper"
+    infiniteScroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="200"
+    (scrolled)="onScroll()"
+  >
+    <div class="tables-grid">
+      <div *ngFor="let table of tableOrders" class="table-card" [class.paid]="table.status === 1">
+        <div class="card-header">
+          <div class="table-name">
+            <svg cIcon name="cilRestaurant" class="table-icon"></svg>
+            <span>{{ table.tableName }}</span>
+          </div>
+          <div class="table-status">
+            <span *ngIf="table.status === 0" class="status-badge serving">
+              <svg cIcon name="cilClock"></svg> Đang phục vụ
+            </span>
+            <span *ngIf="table.status === 1" class="status-badge paid">
+              <svg cIcon name="cilCheckCircle"></svg> Đã thanh toán
+            </span>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="revenue-info">
+            <span class="revenue-label">Doanh thu</span>
+            <span class="revenue-value">{{ table.totalAmount | number }} <small>VNĐ</small></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Trạng thái tải thêm / hết dữ liệu -->
+    <div class="load-more-status" *ngIf="loading">
+      <svg cIcon name="cilLoopCircular" class="spin"></svg>
+      Đang tải thêm bàn...
+    </div>
+    <div class="load-more-status" *ngIf="!hasMore && tableOrders.length > 0">
+      <svg cIcon name="cilCheckAlt"></svg>
+      Đã hiển thị toàn bộ {{ tableOrders.length }} bàn
+    </div>
+  </div>
+</div>

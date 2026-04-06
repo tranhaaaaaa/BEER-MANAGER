@@ -18,12 +18,12 @@
  </form>
 </div>
  </div>
-  <div class="card-body row">
-    <div class="col-xxl-6 col-12">
-      <app-transaction></app-transaction>
+  <div class="card-body row align-items-stretch">
+    <div class="col-xxl-6 col-12 mb-3 d-flex">
+      <app-transaction class="w-100" [startDate]="form.get('range')?.value.startDate.format('YYYY-MM-DD')" [endDate]="form.get('range')?.value.endDate.format('YYYY-MM-DD')"></app-transaction>
     </div>
-    <div class="col-xxl-6 col-12">
-        <app-report-cost></app-report-cost>
+    <div class="col-xxl-6 col-12 d-flex mb-3">
+        <app-order-history class="w-100" [startDate]="form.get('range')?.value.startDate.format('YYYY-MM-DD')" [endDate]="form.get('range')?.value.endDate.format('YYYY-MM-DD')"></app-order-history>
     </div>
   </div>
 </div>

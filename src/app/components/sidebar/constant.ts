@@ -41,5 +41,14 @@ export const menuItems = [
     //   { title: 'Tạo đơn sử dụng địa chỉ ID', link: '/create-id' },
     //   { title: 'Tạo đơn sử dụng địa chỉ chi tiết', link: '/create-detail' }
     // ]
-  }
+  }, {
+    title: 'Lịch sử bán hàng',
+    icon: 'bi bi-box',
+    badge: '',
+    link: '/all-table-report'
+    // children: [
+    //   { title: 'Báo cáo doanh thu', link: '/revenue-report' },
+    //   { title: 'Báo cáo đơn hàng', link: '/order-report' }
+    // ]
+  },
 ];

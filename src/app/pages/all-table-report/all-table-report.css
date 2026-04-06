@@ -1,0 +1,415 @@
+/* --- RESET & FONTS --- */
+.restaurant-dashboard {
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, sans-serif;
+  background: #f1f5f9;
+  min-height: 100vh;
+  padding: 1.5rem;
+}
+
+/* --- HEADER HIỆN ĐẠI --- */
+.dashboard-header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  background: white;
+  border-radius: 24px;
+  padding: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.icon-wrapper {
+  width: 52px;
+  height: 52px;
+  background: linear-gradient(145deg, #f97316, #ea580c);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  box-shadow: 0 8px 16px -6px rgba(234, 88, 12, 0.2);
+}
+
+.icon-wrapper svg {
+  width: 28px;
+  height: 28px;
+}
+
+.dashboard-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 4px 0;
+  color: #0f172a;
+  letter-spacing: -0.3px;
+}
+
+.dashboard-subtitle {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin: 0;
+  font-weight: 500;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.total-revenue-card {
+  background: #f0fdf4;
+  border-radius: 20px;
+  padding: 0.5rem 1.2rem;
+  text-align: right;
+  border: 1px solid #bbf7d0;
+}
+
+.revenue-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #15803d;
+  display: block;
+  letter-spacing: 0.5px;
+}
+
+.revenue-amount {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #16a34a;
+  line-height: 1.2;
+}
+
+.revenue-amount small {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #4ade80;
+}
+
+.table-count-badge {
+  background: #f1f5f9;
+  border-radius: 40px;
+  padding: 0.5rem 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  color: #1e293b;
+  font-size: 0.9rem;
+  border: 1px solid #e2e8f0;
+}
+
+.table-count-badge svg {
+  width: 18px;
+  color: #f97316;
+}
+
+/* --- GRID CUỘN VÔ HẠN --- */
+.tables-grid-wrapper {
+  height: calc(100vh - 160px);
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.tables-grid-wrapper::-webkit-scrollbar {
+  width: 6px;
+}
+
+.tables-grid-wrapper::-webkit-scrollbar-track {
+  background: #e2e8f0;
+  border-radius: 10px;
+}
+
+.tables-grid-wrapper::-webkit-scrollbar-thumb {
+  background: #f97316;
+  border-radius: 10px;
+}
+
+.tables-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+/* --- THẺ BÀN ĐẸP MẮT --- */
+.table-card {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
+  border: 1px solid #eef2ff;
+  overflow: hidden;
+}
+
+.table-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 20px 25px -12px rgba(0, 0, 0, 0.1);
+  border-color: #fed7aa;
+}
+
+.card-header {
+  padding: 1rem 1.2rem 0.6rem 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.table-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: #0f172a;
+}
+
+.table-icon {
+  width: 22px;
+  color: #f97316;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 40px;
+  background: #f1f5f9;
+  color: #334155;
+}
+
+.status-badge.serving {
+  background: #fffbeb;
+  color: #d97706;
+  border: 1px solid #fde68a;
+}
+
+.status-badge.paid {
+  background: #ecfdf5;
+  color: #059669;
+  border: 1px solid #a7f3d0;
+}
+
+.status-badge svg {
+  width: 12px;
+}
+
+.card-body {
+  padding: 1rem 1.2rem 1.2rem 1.2rem;
+}
+
+.revenue-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.revenue-info .revenue-label {
+  font-size: 0.75rem;
+  color: #64748b;
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  background: none;
+  padding: 0;
+  border: none;
+  color: #64748b;
+}
+
+.revenue-value {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #16a34a;
+}
+
+.revenue-value small {
+  font-size: 0.7rem;
+  font-weight: 500;
+  color: #86efac;
+}
+
+/* Bàn đã thanh toán có thể làm mờ nhẹ để phân biệt */
+.table-card.paid .card-header {
+  background: #fefce8;
+}
+.table-card.paid .revenue-value {
+  color: #94a3b8;
+}
+.table-card.paid .revenue-info .revenue-label {
+  color: #94a3b8;
+}
+
+.load-more-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 20px;
+  margin: 20px auto 10px auto;
+  width: fit-content;
+  min-width: 200px;
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  border-radius: 60px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #1e293b;
+  border: 1px solid #e2e8f0;
+  transition: all 0.2s ease;
+}
+
+/* Icon chung trong status */
+.load-more-status svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Icon khi đang tải (xoay) */
+.load-more-status .spin {
+  animation: spin 0.8s linear infinite;
+  color: #f97316;
+}
+
+/* Icon khi hoàn thành (dấu tick) */
+.load-more-status svg:not(.spin) {
+  color: #10b981;
+}
+
+/* Hiệu ứng nhẹ khi hover (tùy chọn) */
+.load-more-status:hover {
+  background: white;
+  border-color: #fed7aa;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Responsive: trên mobile thu nhỏ padding */
+@media (max-width: 640px) {
+  .load-more-status {
+    padding: 10px 16px;
+    font-size: 0.75rem;
+    gap: 8px;
+    width: auto;
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+  
+  .load-more-status svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+/* Vòng quay spin (giữ nguyên keyframe nếu chưa có) */
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+
+.spin {
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 640px) {
+  .restaurant-dashboard {
+    padding: 1rem;
+  }
+
+  .dashboard-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .header-right {
+    justify-content: space-between;
+  }
+
+  .tables-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .total-revenue-card {
+    text-align: center;
+    flex: 1;
+  }
+
+  .revenue-amount {
+    font-size: 1.2rem;
+  }
+}
+/* Thanh bộ lọc */
+.filters-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  background: white;
+  border-radius: 20px;
+  padding: 0.8rem 1.2rem;
+  margin-bottom: 1.2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+  align-items: flex-end;
+}
+
+.filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  min-width: 160px;
+}
+
+.filter-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #64748b;
+  letter-spacing: 0.5px;
+}
+
+.date-range-input,
+.status-select,
+.sort-select {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.85rem;
+  background-color: #fefefe;
+  transition: 0.2s;
+}
+
+.date-range-input:focus,
+.status-select:focus,
+.sort-select:focus {
+  outline: none;
+  border-color: #f97316;
+  box-shadow: 0 0 0 2px rgba(249, 115, 22, 0.2);
+}
+
+@media (max-width: 640px) {
+  .filters-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .filter-group {
+    min-width: auto;
+  }
+}

@@ -29,7 +29,10 @@ export const routes: Routes = [
         path: 'category',
         loadChildren: () => import('./pages/category/routes').then((m) => m.routes),
       },
-      
+       {
+        path: 'all-table-report',
+        loadChildren: () => import('./pages/all-table-report/routes').then((m) => m.routes),
+      },
     ],
   },
   {

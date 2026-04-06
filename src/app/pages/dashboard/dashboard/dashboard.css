@@ -1,0 +1,10 @@
+app-transaction,
+app-order-history {
+  display: grid;
+  width: 100%;
+}
+
+app-transaction c-card,
+app-order-history c-card {
+  flex: 1;
+}
