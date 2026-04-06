@@ -380,11 +380,11 @@ namespace BEERAPI.Controllers
                 if (filter.ToDate != null)
                 {
                     var toDate = DateTime.SpecifyKind(
-                        filter.ToDate.Value,
+                        filter.ToDate.Value.Date.AddDays(1),
                         DateTimeKind.Unspecified
                     );
 
-                    query = query.Where(x => x.OrderDate <= toDate);
+                    query = query.Where(x => x.OrderDate < toDate);
                 }
 
                 var totalItems = await query.CountAsync();
