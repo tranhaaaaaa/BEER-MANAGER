@@ -255,14 +255,14 @@ namespace BEERAPI.Controllers
         }
 
         [HttpPost("cash-payment")]
-        public async Task<IActionResult> CashPayment(Guid orderId)
+        public async Task<IActionResult> CashPayment([FromBody] OrderPaymentRequestDto request)
         {
             using var transactionDb = await _context.Database.BeginTransactionAsync();
 
             try
             {
                 var order = await _context.Orders
-                    .FirstOrDefaultAsync(x => x.OrderUid == orderId);
+                    .FirstOrDefaultAsync(x => x.OrderUid == request.OrderId);
 
                 if (order == null)
                 {
@@ -282,7 +282,7 @@ namespace BEERAPI.Controllers
 
                 await _hubContext.Clients.All.SendAsync("payment_success", new
                 {
-                    orderId = orderId.ToString(),
+                    orderId = request.OrderId.ToString(),
                     amount = order.TotalAmount,
                     content = "Thanh toán tiền mặt"
                 });
@@ -298,14 +298,14 @@ namespace BEERAPI.Controllers
         }
 
         [HttpPost("save-debt")]
-        public async Task<IActionResult> SaveDebtPayment(Guid orderId)
+        public async Task<IActionResult> SaveDebtPayment([FromBody] OrderPaymentRequestDto request)
         {
             using var transactionDb = await _context.Database.BeginTransactionAsync();
 
             try
             {
                 var order = await _context.Orders
-                    .FirstOrDefaultAsync(x => x.OrderUid == orderId);
+                    .FirstOrDefaultAsync(x => x.OrderUid == request.OrderId);
 
                 if (order == null)
                 {
@@ -325,7 +325,7 @@ namespace BEERAPI.Controllers
 
                 await _hubContext.Clients.All.SendAsync("payment_debt", new
                 {
-                    orderId = orderId.ToString(),
+                    orderId = request.OrderId.ToString(),
                     amount = order.TotalAmount,
                     content = "Ký nợ"
                 });
