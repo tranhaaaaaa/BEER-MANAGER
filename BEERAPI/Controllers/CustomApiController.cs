@@ -62,6 +62,7 @@ namespace BEERAPI.Controllers
                     OrderName = o.Name,
                     Type = o.Type,
                     TotalAmount = o.TotalAmount,
+                    Status=o.Status,
                     Items = o.OrderItems.ToList()
                 })
                 .FirstOrDefault();
