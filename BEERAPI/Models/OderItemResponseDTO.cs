@@ -6,6 +6,7 @@
         public Guid? Type { get; set; }
         public int? Status { get; set; }
         public string OrderName { get; set; }
+        public DateTime? CreatedDate { get; set; }
         public decimal? TotalAmount { get; set; }
         public List<OrderItem> Items { get; set; }
     }

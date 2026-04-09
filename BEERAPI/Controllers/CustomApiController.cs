@@ -63,6 +63,7 @@ namespace BEERAPI.Controllers
                     Type = o.Type,
                     TotalAmount = o.TotalAmount,
                     Status=o.Status,
+                    CreatedDate = o.OrderDate,
                     Items = o.OrderItems.ToList()
                 })
                 .FirstOrDefault();
@@ -364,7 +365,7 @@ namespace BEERAPI.Controllers
 
                     query = query.Where(x =>
                         x.OrderDate >= start &&
-                        x.OrderDate < end
+                        x.OrderDate <= end
                     );
                 }
 
@@ -377,11 +378,10 @@ namespace BEERAPI.Controllers
 
                     query = query.Where(x => x.OrderDate >= fromDate);
                 }
-
                 if (filter.ToDate != null)
                 {
                     var toDate = DateTime.SpecifyKind(
-                        filter.ToDate.Value,
+                        filter.ToDate.Value.Date.AddDays(1).AddTicks(-1),
                         DateTimeKind.Unspecified
                     );
 
