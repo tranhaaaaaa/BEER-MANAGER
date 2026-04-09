@@ -1,5 +1,15 @@
 <div class="pos-container">
   <div class="table-panel">
+    <div class="panel-header">
+      <h2 class="panel-title">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+        </svg>
+        Danh sách bàn
+        <span class="date-sub">Ngày {{ currentDate | date: 'dd/MM/yyyy' }}</span>
+      </h2>
+    </div>
+
     <div class="table-filter">
       <button class="filter-btn" [class.active]="!currentCategory" (click)="filterTable()">
         Tất cả
@@ -13,31 +23,51 @@
         {{ cate.Name }}
       </button>
     </div>
+
     <div class="table-grid">
       <div class="table-box" *ngFor="let table of filteredOrders" (click)="openAdd(table.OrderUid)">
-        <div class="table-card" [class.busy]="table.TotalAmount > 0">
-           <p class="status-badge-custom status-created mb-1 mt-1">{{table.OrderDate | date: 'dd/MM/yyyy HH:mm:ss'}}</p>
+        
+        <div class="table-card" [ngClass]="{'is-busy': table.TotalAmount > 0, 'is-empty': !table.TotalAmount || table.TotalAmount === 0}">
+          
+          <div class="card-header">
             <span class="status-badge"
-        [ngClass]="{
-          'status-unpaid': table.Status == 0,
-          'status-debt': table.Status == -1,
-          'status-paid': table.Status == 1
-        }">
-
-    {{ table.Status == 0 ? 'Chưa thanh toán' :
-       table.Status == -1 ? 'Ký nợ' :
-       table.Status == 1 ? 'Đã thanh toán' : '' }}
-
-  </span>
- 
-          <div class="table-number">
-            {{ table.Name }}
+              [ngClass]="{
+                'status-unpaid': table.Status == 0,
+                'status-debt': table.Status == -1,
+                'status-paid': table.Status == 1,
+                'status-none': table.Status == null || table.Status == undefined
+              }">
+              {{ table.Status == 0 ? 'Chưa TT' :
+                 table.Status == -1 ? 'Ký nợ' :
+                 table.Status == 1 ? 'Đã TT' : 'Trống' }}
+            </span>
+            <span class="time-badge" *ngIf="table.OrderDate">
+              {{ table.OrderDate | date: 'HH:mm' }}
+            </span>
           </div>
-          <div class="table-price">{{ table.TotalAmount | number }} đ</div>
+
+          <div class="card-body">
+            <div class="table-number">
+              {{ table.Name }}
+            </div>
+            <div class="table-area" *ngIf="table.AreaName">{{ table.AreaName }}</div>
+          </div>
+
+          <div class="card-footer">
+            <div class="table-price" *ngIf="table.TotalAmount > 0">
+              {{ table.TotalAmount | number }} <span class="currency">đ</span>
+            </div>
+            <div class="table-price empty-price" *ngIf="!table.TotalAmount || table.TotalAmount === 0">
+              0 <span class="currency">đ</span>
+            </div>
+          </div>
+
         </div>
+
       </div>
     </div>
   </div>
 </div>
+
 <app-modal-create-table [ORDER_ID]="orderId" (paymentSuccess)="onPaymentSuccess($event)"></app-modal-create-table>
 <app-payment-type></app-payment-type>

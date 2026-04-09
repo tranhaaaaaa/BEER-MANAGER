@@ -1,0 +1,41 @@
+
+
+.payment-header {
+  border-bottom: none;
+}
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  .payment-modal,
+  .payment-modal * {
+    visibility: visible;
+  }
+  .payment-modal {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+
+}
+.invoice-wrapper {
+  position: relative;
+}
+.watermark {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-30deg);
+  font-size: 55px;
+  font-weight: bold;
+  opacity: 0.12;
+  pointer-events: none;
+  white-space: nowrap;
+}
+.watermark.unpaid {
+  color: red;
+}
+.watermark.paid {
+  color: green;
+}

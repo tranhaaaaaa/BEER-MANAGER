@@ -1,0 +1,32 @@
+<div class="modal-overlay" *ngIf="visible">
+  <c-modal
+    alignment="center"
+    [visible]="visible"
+    (visibleChange)="visible = $event"
+    class="payment-modal"
+  >
+    <c-modal-header class="payment-header">
+      <h5 cModalTitle>Thanh toán tiền mặt</h5>
+      <button cButtonClose (click)="closeModal()"></button>
+    </c-modal-header>
+
+    <c-modal-body *ngIf="orderData">
+      <div class="order-title">🧾 Đơn: {{ orderData.OrderName }}</div>
+      <div class="item-list">
+        <div class="item-row" *ngFor="let item of orderData.Items">
+          <div class="item-name">
+            {{ item.Name }}
+          </div>
+          <div class="item-qty">x{{ item.Quantity }}</div>
+          <div class="item-price">{{ item.UnitPrice | number }} đ</div>
+        </div>
+      </div>
+      <div class="total-box">
+        Tổng tiền:
+
+        <span class="total-price"> {{ orderData.TotalAmount | number }} đ </span>
+      </div>
+      <button class="confirm-btn" (click)="confirmPayment()">Xác nhận thanh toán</button>
+    </c-modal-body>
+  </c-modal>
+</div>

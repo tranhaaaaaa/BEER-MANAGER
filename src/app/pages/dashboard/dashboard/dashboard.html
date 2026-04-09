@@ -26,4 +26,55 @@
         <app-order-history class="w-100" [startDate]="form.get('range')?.value.startDate.format('YYYY-MM-DD')" [endDate]="form.get('range')?.value.endDate.format('YYYY-MM-DD')"></app-order-history>
     </div>
   </div>
+ 
+  <div class="card-body row align-items-stretch">
+
+    <div class="col-xxl-6 col-12 mb-3">
+
+      <form [formGroup]="monthYearForm" class="col-12 mb-3 d-flex">
+
+        <div class="col-5">
+          <select class="form-control" formControlName="month">
+            <option *ngFor="let m of months" [value]="m">
+              Tháng {{ m }}
+            </option>
+          </select>
+        </div>
+        <div class="col-2"></div>
+        <div class="col-5">
+          <select class="form-control" formControlName="year">
+            <option *ngFor="let y of years" [value]="y">
+              Năm {{ y }}
+            </option>
+          </select>
+        </div>
+
+      </form>
+      <app-report-for-day
+        [month]="monthYearForm.value.month"
+        [year]="monthYearForm.value.year">
+        </app-report-for-day>
+    </div>
+
+
+    <!-- Bảng bên phải: filter năm -->
+    <div class="col-xxl-6 col-12 mb-3 d-flex">
+
+      <form [formGroup]="yearForm" class="mb-3">
+
+        <select class="form-control" formControlName="year">
+          <option *ngFor="let y of years" [value]="y">
+            Năm {{ y }}
+          </option>
+        </select>
+
+      </form>
+
+      <!-- <app-statistics-year
+        [year]="yearForm.value.year">
+      </app-statistics-year> -->
+
+    </div>
+
+  </div>
 </div>

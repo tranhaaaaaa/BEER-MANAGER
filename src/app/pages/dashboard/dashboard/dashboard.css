@@ -8,3 +8,7 @@ app-transaction c-card,
 app-order-history c-card {
   flex: 1;
 }
+app-report-for-day {
+  display: grid;
+  width: 100%;
+}

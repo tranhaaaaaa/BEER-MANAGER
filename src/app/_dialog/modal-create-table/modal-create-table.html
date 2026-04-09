@@ -50,11 +50,11 @@
                                 {{ item.value.price | number }} đ
                               </div>
                               <div class="qty-control d-flex align-items-center">
-                                <button type="button" class="btn btn-sm btn-outline-secondary" (click)="decreaseQty(i)">
+                                <button [disabled]="order?.Status != 0" type="button" class="btn btn-sm btn-outline-secondary" (click)="decreaseQty(i)">
                                   -
                                 </button>
-                                <input type="number" class="form-control mx-2 qty-input" formControlName="qty" />
-                                <button type="button" class="btn btn-sm btn-outline-secondary" (click)="increaseQty(i)">
+                                <input [readonly]="order?.Status != 0" type="text" onlyNumber class="form-control mx-2 qty-input" formControlName="qty" />
+                                <button [disabled]="order?.Status != 0" type="button" class="btn btn-sm btn-outline-secondary" (click)="increaseQty(i)">
                                   +
                                 </button>
                               </div>
@@ -95,13 +95,14 @@
                       <button type="button" class="btn btn-secondary me-2" (click)="close()">
                         Hủy
                       </button>
-                      <button type="button" class="btn btn-warning me-2" (click)="save()">
+                      <button type="button" *ngIf="!ORDER_ID || order?.Status == 0" class="btn btn-warning me-2" (click)="save()">
                         Lưu
                       </button>
-                      <button type="button" *ngIf="ORDER_ID" class="btn btn-success me-2" (click)="onOpenModal()">
+                      <!-- //kiemtra logic -->
+                      <button type="button" *ngIf="ORDER_ID && order?.Status == 0" class="btn btn-success me-2" (click)="onOpenModal()">
                         Thanh toán
                       </button>
-                      <button type="button" class="btn btn-danger" *ngIf="ORDER_ID" (click)="debtOrder()">Ký nợ</button>
+                      <!-- <button type="button" class="btn btn-danger" *ngIf="ORDER_ID && order?.Status == 0" (click)="debtOrder()">Ký nợ</button> -->
                     </div>
                   </c-modal-footer>
                 </form>

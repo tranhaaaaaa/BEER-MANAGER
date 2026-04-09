@@ -413,3 +413,29 @@
     min-width: auto;
   }
 }
+.table-actions {
+  margin-top: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.detail-btn {
+  border-radius: 8px;
+  padding: 4px 10px;
+}
+.order-time {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  margin-bottom: 6px;
+  color: #6c757d;
+}
+
+.time-label {
+  font-weight: 500;
+}
+
+.time-value {
+  font-weight: 600;
+  color: #2c3e50;
+}

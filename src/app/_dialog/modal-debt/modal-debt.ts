@@ -47,7 +47,7 @@ export class ModalDebt implements OnInit {
     this.userForm = this.fb.group({
       Name: ['', Validators.required],
       Phone: ['', Validators.required],
-      Address: [''],
+      // Address: [''],
       ShopUid: [this.userlogged.getCurrentUser().userId]
     });
 

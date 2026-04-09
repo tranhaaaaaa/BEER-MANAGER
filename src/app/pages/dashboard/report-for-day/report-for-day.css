@@ -1,0 +1,194 @@
+/* ===== CARD ===== */
+
+.card {
+
+  width: 100%;
+
+}
+
+/* ===== SUMMARY AREA ===== */
+
+.summary {
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 10px;
+
+  justify-content: space-between;
+
+  font-size: 14px;
+
+}
+.summary {
+
+  position: sticky;
+
+  top: 0;
+
+  background: white;
+
+  z-index: 5;
+
+}
+/* ===== CHART CONTAINER ===== */
+
+.chart-container {
+
+  display: flex;
+
+  align-items: flex-end;
+
+  height: 260px;
+
+  gap: 6px;
+
+  overflow-x: auto;
+
+  overflow-y: hidden;
+
+  padding-bottom: 25px;
+
+  width: 100%;
+
+}
+
+/* scrollbar đẹp hơn */
+
+.chart-container::-webkit-scrollbar {
+
+  height: 6px;
+
+}
+
+.chart-container::-webkit-scrollbar-thumb {
+
+  background: #ccc;
+
+  border-radius: 10px;
+
+}
+
+/* ===== BAR STYLE ===== */
+
+.bar {
+
+  min-width: 22px;
+
+  max-width: 28px;
+
+  flex-shrink: 0;
+
+  background: linear-gradient(180deg,#4facfe,#00f2fe);
+
+  border-radius: 4px 4px 0 0;
+
+  position: relative;
+
+  transition: 0.2s;
+
+}
+
+.bar:hover {
+
+  background: #0d6efd;
+
+}
+
+/* ===== LABEL ===== */
+
+.label {
+
+  position: absolute;
+
+  bottom: -20px;
+
+  font-size: 10px;
+
+  width: 100%;
+
+  text-align: center;
+
+}
+
+
+/* ============================= */
+/* RESPONSIVE BREAKPOINTS */
+/* ============================= */
+
+
+/* MOBILE */
+
+@media (max-width: 576px) {
+
+  .chart-container {
+
+    height: 200px;
+
+  }
+
+  .bar {
+
+    min-width: 16px;
+
+  }
+
+  .label {
+
+    font-size: 8px;
+
+  }
+
+}
+
+
+/* TABLET */
+
+@media (min-width: 577px) and (max-width: 992px) {
+
+  .chart-container {
+
+    height: 230px;
+
+  }
+
+  .bar {
+
+    min-width: 20px;
+
+  }
+
+}
+
+
+/* LAPTOP */
+
+@media (min-width: 993px) and (max-width: 1400px) {
+
+  .chart-container {
+
+    height: 260px;
+
+  }
+
+}
+
+
+/* LARGE DESKTOP */
+
+@media (min-width: 1401px) {
+
+  .chart-container {
+
+    height: 320px;
+
+  }
+
+  .bar {
+
+    min-width: 26px;
+
+  }
+
+}

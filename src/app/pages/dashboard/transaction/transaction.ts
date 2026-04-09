@@ -17,7 +17,7 @@ export class TransactionComponent implements OnInit,OnChanges{
   @Input() startDate: string = '';
   @Input() endDate: string = '';
   currentPage: number = 1;
-pageSize: number = 5;
+pageSize: number = 10;
   constructor(private service: TransactionService,
     private httpService : HttpService
   ){}

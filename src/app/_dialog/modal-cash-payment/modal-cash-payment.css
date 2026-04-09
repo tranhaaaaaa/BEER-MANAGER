@@ -1,0 +1,99 @@
+/* .payment-modal {
+
+  max-width: 820px;
+
+} */
+
+
+.order-title {
+
+  font-size: 18px;
+
+  font-weight: 600;
+
+  margin-bottom: 12px;
+
+}
+
+
+.item-list {
+
+  border-top: 1px solid #eee;
+
+  border-bottom: 1px solid #eee;
+
+  padding: 8px 0;
+
+  margin-bottom: 12px;
+
+}
+
+
+.item-row {
+
+  display: flex;
+
+  justify-content: space-between;
+
+  padding: 6px 0;
+
+}
+
+
+.total-box {
+
+  font-size: 18px;
+
+  font-weight: bold;
+
+  display: flex;
+
+  justify-content: space-between;
+
+  margin-bottom: 12px;
+
+}
+
+
+.total-price {
+
+  color: red;
+
+}
+
+
+.money-input {
+
+  margin-bottom: 12px;
+
+}
+
+
+.change-box {
+
+  font-size: 16px;
+
+  color: green;
+
+  margin-bottom: 12px;
+
+}
+
+
+.confirm-btn {
+
+  width: 100%;
+
+  padding: 12px;
+
+  font-size: 16px;
+
+  background: #2ecc71;
+
+  border: none;
+
+  color: white;
+
+  border-radius: 8px;
+
+}

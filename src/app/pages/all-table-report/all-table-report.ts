@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpService } from '../../_services/http.service';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { CommonModule } from '@angular/common';
@@ -15,6 +15,7 @@ import {
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 import moment from 'moment';
 import dayjs from 'dayjs';
+import { ModalInvoiceDisplay } from '../../_dialog/modal-invoice-display/modal-invoice-display';
 
 @Component({
   selector: 'app-all-table-report',
@@ -30,6 +31,7 @@ import dayjs from 'dayjs';
     FormsModule,
     ReactiveFormsModule,
     NgxDaterangepickerMd,
+    ModalInvoiceDisplay
   ],
   templateUrl: './all-table-report.html',
   styleUrl: './all-table-report.css',
@@ -41,6 +43,8 @@ export class AllTableReport implements OnInit {
   pageSize = 10;
   loading = false;
   hasMore = true;
+  ORDERID: any;
+  @ViewChild(ModalInvoiceDisplay) modalInvoiceDisplay!: ModalInvoiceDisplay;
   filterStatus: number | null = null;
   sortOrder: 'asc' | 'desc' = 'desc';
   dateRangeForm: FormGroup;
@@ -70,6 +74,11 @@ export class AllTableReport implements OnInit {
       ],
     });
   }
+  viewDetail(table: any) {
+    this.ORDERID = table.orderId;
+    this.modalInvoiceDisplay.openModal();
+  
+}
   ngOnInit(): void {
     const todayRange = {
       startDate: moment().subtract(6, 'days').startOf('day'),

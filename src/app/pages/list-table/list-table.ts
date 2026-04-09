@@ -15,6 +15,7 @@ import { CategoryService } from '../../_services/category.service';
 })
 export class ListTable implements OnInit {
   orderId: any;
+  currentDate: Date = new Date();
   @ViewChild(ModalCreateTable) modal!: ModalCreateTable;
   @ViewChild(PaymentType) modalPayment!: PaymentType;
   tables = [
@@ -38,12 +39,33 @@ export class ListTable implements OnInit {
     this.modal.open();
   }
   onGetTable() {
-    const today = new Date().toDateString();
-    this.orderService.getAllOrder().subscribe((data) => {
-      this.listOrder = data.value.filter((x: Order) => x.Status == 0);
-        this.filteredOrders = this.listOrder; 
-        this.filterTable(null);
-    });
+   const today = new Date();
+
+const start = new Date(
+  today.getFullYear(),
+  today.getMonth(),
+  today.getDate(),
+  0, 0, 0, 0
+);
+
+const end = new Date(
+  today.getFullYear(),
+  today.getMonth(),
+  today.getDate(),
+  23, 59, 59, 999
+);
+
+this.orderService.getAllOrder().subscribe((data) => {
+  console.log("data:", data);
+
+  this.listOrder = data.value.filter((x: Order) =>
+    new Date(x.OrderDate) >= start &&
+    new Date(x.OrderDate) <= end
+  );
+
+  this.filteredOrders = this.listOrder;
+  this.filterTable(null);
+});
     this.categoryService.getAllCategories().subscribe((data) => {
       this.categories = data.value.filter((x: Category) => x.Type == 1);
     });

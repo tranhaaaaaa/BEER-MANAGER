@@ -1,0 +1,52 @@
+<div class="card shadow-sm">
+
+  <div class="card-header">
+    📊 Doanh thu tháng {{ month }}/{{ year }}
+  </div>
+
+  <div class="card-body">
+
+    <!-- tổng doanh thu -->
+    <div class="summary mb-3">
+
+      <div>
+        💰 Tổng doanh thu:
+        <strong class="text-success">
+          {{ totalRevenue | number }} đ
+        </strong>
+      </div>
+
+      <div>
+        📈 Cao nhất ngày:
+        <strong>
+          {{ maxRevenueDay }}
+        </strong>
+      </div>
+
+      <div>
+        📉 Thấp nhất ngày:
+        <strong>
+          {{ minRevenueDay }}
+        </strong>
+      </div>
+
+    </div>
+
+    <!-- chart -->
+    <div class="chart-container">
+
+      <div
+        class="bar"
+        *ngFor="let item of chartData"
+        [style.height.%]="(item.value / maxValue) * 100"
+        [title]="item.value | number"
+      >
+        <span class="label">{{ item.day }}</span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

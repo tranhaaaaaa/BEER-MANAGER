@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ReportCost } from './report-cost';
+import { ModalInvoiceDisplay } from './modal-invoice-display';
 
-describe('ReportCost', () => {
-  let component: ReportCost;
-  let fixture: ComponentFixture<ReportCost>;
+describe('ModalInvoiceDisplay', () => {
+  let component: ModalInvoiceDisplay;
+  let fixture: ComponentFixture<ModalInvoiceDisplay>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ReportCost]
+      imports: [ModalInvoiceDisplay]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ReportCost);
+    fixture = TestBed.createComponent(ModalInvoiceDisplay);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

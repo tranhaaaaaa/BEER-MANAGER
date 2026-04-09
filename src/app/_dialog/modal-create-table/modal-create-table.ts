@@ -29,6 +29,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CategoryService } from '../../_services/category.service';
 import { ModalDebt } from '../modal-debt/modal-debt';
 import { UserLogged } from '../../_helper/userLogged';
+import { OnlyNumberDirective } from '../../_directives/only-number.directive';
 @Component({
   selector: 'app-modal-create-table',
   imports: [
@@ -39,6 +40,7 @@ import { UserLogged } from '../../_helper/userLogged';
     PaymentType,
     FormsModule,
     ModalDebt,
+    OnlyNumberDirective,
     CommonModule,
   ],
   templateUrl: './modal-create-table.html',
@@ -109,6 +111,7 @@ export class ModalCreateTable implements OnInit, OnChanges {
         .getOrderItemByQuery('/api/customapi/order-items/' + this.ORDER_ID)
         .subscribe((res) => {
           const order = res.Data;
+          this.order = order;
           this.form.patchValue({
             Name: order.OrderName,
             Type: order.Type || '',
@@ -163,7 +166,11 @@ export class ModalCreateTable implements OnInit, OnChanges {
     this.visible = false;
   }
   addFood(food: any) {
-    const index = this.listOrder.controls.findIndex((f: any) => f.value.name === food.ProductName);
+  if (this.order?.Status == 1) {
+    this.toastrService.warning('Đơn hàng đã được thanh toán, không thể thêm món ăn!');
+    return;
+  }else{
+      const index = this.listOrder.controls.findIndex((f: any) => f.value.name === food.ProductName);
 
     if (index > -1) {
       const item = this.listOrder.at(index);
@@ -181,6 +188,7 @@ export class ModalCreateTable implements OnInit, OnChanges {
         }),
       );
     }
+  }
   }
   increaseQty(index: number) {
     const item = this.listOrder.at(index);

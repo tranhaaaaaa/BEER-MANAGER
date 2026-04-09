@@ -1,0 +1,86 @@
+<div class="modal-overlay" *ngIf="visible">
+  <c-modal
+    alignment="center"
+    [visible]="visible"
+    (visibleChange)="visible = $event"
+    class="payment-modal"
+  >
+    <c-modal-header class="payment-header">
+      <button cButtonClose (click)="closeModal()"></button>
+    </c-modal-header>
+   <c-modal-body *ngIf="invoiceData" class="invoice-wrapper">
+
+  <!-- Watermark -->
+  <div
+    class="watermark"
+    [ngClass]="{
+      unpaid: invoiceData.Status === 0,
+      paid: invoiceData.Status === 1
+    }"
+  >
+    {{ invoiceData.Status === 0 ? 'CHƯA THANH TOÁN' : 'ĐÃ THANH TOÁN' }}
+  </div>
+
+
+  <!-- Header -->
+  <div class="text-center mb-3">
+    <h4 class="fw-bold">HÓA ĐƠN THANH TOÁN</h4>
+    <div>Tên đơn: <strong>{{ invoiceData.OrderName }}</strong></div>
+    <div>Mã đơn: {{ invoiceData.OrderUid }}</div>
+    <div>Ngày: {{ invoiceData.CreatedDate | date:'dd/MM/yyyy HH:mm' }}</div>
+  </div>
+
+
+  <!-- Table -->
+  <table class="table table-sm table-bordered text-center align-middle">
+    <thead class="table-light">
+      <tr>
+        <th>#</th>
+        <th>Sản phẩm</th>
+        <th>SL</th>
+        <th>Đơn giá</th>
+        <th>Thành tiền</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let item of invoiceData.Items; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ item.Name || item.ProductUid }}</td>
+        <td>{{ item.Quantity }}</td>
+        <td>{{ item.UnitPrice | number }}</td>
+        <td class="fw-semibold">
+          {{ item.Quantity * item.UnitPrice | number }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+
+  <!-- Tổng tiền -->
+  <div class="text-end mt-3">
+    <h5>
+      Tổng tiền:
+      <span class="text-danger fw-bold">
+        {{ invoiceData.TotalAmount | number }} VNĐ
+      </span>
+    </h5>
+  </div>
+
+
+  <!-- Footer -->
+  <div class="text-center mt-4">
+    <small>Cảm ơn quý khách đã sử dụng dịch vụ!</small>
+  </div>
+
+
+  <!-- Buttons -->
+  <div class="d-flex justify-content-end gap-2 mt-3">
+    <button class="btn btn-secondary" (click)="closeModal()">
+      Đóng
+    </button>
+  </div>
+
+</c-modal-body>
+  </c-modal>
+</div>

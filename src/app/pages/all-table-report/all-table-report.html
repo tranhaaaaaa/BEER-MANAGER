@@ -44,7 +44,7 @@
       <label class="filter-label">Trạng thái bàn</label>
       <select class="form-select status-select" [(ngModel)]="filterStatus" (change)="resetAndReload()">
         <option [ngValue]="null">Tất cả</option>
-        <option [ngValue]="0">Đang phục vụ</option>
+        <option [ngValue]="0">Chưa thanh toán</option>
         <option [ngValue]="1">Đã thanh toán</option>
       </select>
     </div>
@@ -67,19 +67,39 @@
           </div>
           <div class="table-status">
             <span *ngIf="table.status === 0" class="status-badge serving">
-              <svg cIcon name="cilClock"></svg> Đang phục vụ
+              <svg cIcon name="cilClock"></svg> Chưa thanh toán
             </span>
             <span *ngIf="table.status === 1" class="status-badge paid">
               <svg cIcon name="cilCheckCircle"></svg> Đã thanh toán
             </span>
           </div>
         </div>
-        <div class="card-body">
-          <div class="revenue-info">
-            <span class="revenue-label">Doanh thu</span>
-            <span class="revenue-value">{{ table.totalAmount | number }} <small>VNĐ</small></span>
-          </div>
-        </div>
+       <div class="card-body">
+
+  <div class="order-time">
+    <span class="time-label">Thời gian đặt</span>
+    <span class="time-value">
+      {{ table.orderDate | date:'dd/MM/yyyy HH:mm' }}
+    </span>
+  </div>
+
+  <div class="revenue-info">
+    <span class="revenue-label">Doanh thu</span>
+    <span class="revenue-value">
+      {{ table.totalAmount | number }} <small>VNĐ</small>
+    </span>
+  </div>
+
+  <div class="table-actions">
+    <button
+      class="btn btn-outline-primary btn-sm detail-btn"
+      (click)="viewDetail(table)"
+    >
+      Chi tiết
+    </button>
+  </div>
+
+</div>
       </div>
     </div>
 
@@ -94,3 +114,4 @@
     </div>
   </div>
 </div>
+<app-modal-invoice-display [ORDER_ID]="ORDERID"></app-modal-invoice-display>
