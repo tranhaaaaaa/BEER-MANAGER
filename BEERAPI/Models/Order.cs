@@ -28,4 +28,6 @@ public partial class Order
     public virtual Shop ShopU { get; set; } = null!;
 
     public virtual User? UserU { get; set; }
+
+    public DateTime? PaymentDate { get; set; }
 }

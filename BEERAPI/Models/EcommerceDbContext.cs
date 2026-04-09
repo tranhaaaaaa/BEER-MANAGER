@@ -202,6 +202,11 @@ public partial class EcommerceDbContext : DbContext
                 .WithMany(p => p.Orders)
                 .HasForeignKey(d => d.UserUid)
                 .HasConstraintName("fk_order_user_uid");
+
+            entity.Property(e => e.PaymentDate)
+                .HasColumnName("payment_date")
+                .HasColumnType("timestamp without time zone")
+                .HasDefaultValueSql("now()");
         });
 
         modelBuilder.Entity<OrderItem>(entity =>
