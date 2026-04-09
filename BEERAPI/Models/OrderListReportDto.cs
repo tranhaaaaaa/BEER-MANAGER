@@ -37,5 +37,6 @@
         public Guid ShopUid { get; set; }
         public Guid Type { get; set; }
         public string? TypeName { get; set; }
+        public DateTime? PaymentDate { get; set; }
     }
 }

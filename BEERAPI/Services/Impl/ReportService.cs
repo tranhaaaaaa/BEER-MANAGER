@@ -29,7 +29,8 @@ namespace BEERAPI.Services.Impl
                                         PaymentType = order.PaymentType,
                                         ShopUid = order.ShopUid,
                                         Type = order.Type.Value,
-                                        TypeName = category.Name
+                                        TypeName = category.Name,
+                                        PaymentDate = order.PaymentDate,
                                         //TableName = table.Name,
                                         //ProductName = product.Name,
                                         //Quantity = orderItem.Quantity,

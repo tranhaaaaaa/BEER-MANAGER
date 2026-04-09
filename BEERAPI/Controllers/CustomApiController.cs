@@ -218,6 +218,7 @@ namespace BEERAPI.Controllers
                         transaction.Status = 1;
                         order.Status = 1;
                         order.PaymentType = 0;
+                        order.PaymentDate = DateTime.Now;
 
                         Console.WriteLine($"Match thành công Order: {orderCode}");
                         await _hubContext.Clients.All.SendAsync("payment_success", new
@@ -278,6 +279,7 @@ namespace BEERAPI.Controllers
 
                 order.Status = 1;
                 order.PaymentType = 1;
+                order.PaymentDate = DateTime.Now;
 
                 await _context.SaveChangesAsync();
                 await transactionDb.CommitAsync();
