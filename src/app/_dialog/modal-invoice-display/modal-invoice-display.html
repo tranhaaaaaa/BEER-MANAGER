@@ -25,9 +25,10 @@
   <!-- Header -->
   <div class="text-center mb-3">
     <h4 class="fw-bold">HÓA ĐƠN THANH TOÁN</h4>
-    <div>Tên đơn: <strong>{{ invoiceData.OrderName }}</strong></div>
+    <div>Tên bàn: <strong>{{ invoiceData.OrderName }}</strong></div>
     <div>Mã đơn: {{ invoiceData.OrderUid }}</div>
     <div>Ngày: {{ invoiceData.CreatedDate | date:'dd/MM/yyyy HH:mm' }}</div>
+    <div *ngIf="invoiceData.Status === 1">Thời gian thanh toán: {{ invoiceData.PaymentDate | date:'dd/MM/yyyy HH:mm' }}</div>
   </div>
 
 

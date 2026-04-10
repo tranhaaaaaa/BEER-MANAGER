@@ -57,6 +57,10 @@ export class AllTableReport implements OnInit {
     '7 ngày qua': [moment().subtract(6, 'days').startOf('day'), moment().endOf('day')],
     '30 ngày qua': [moment().subtract(29, 'days').startOf('day'), moment().endOf('day')],
     'Tháng này': [moment().startOf('month'), moment().endOf('month')],
+      'Năm nay': [
+    moment().startOf('year'),
+    moment().endOf('year')
+  ]
   };
   selectedStartDate: string | null = null;
   selectedEndDate: string | null = null;
