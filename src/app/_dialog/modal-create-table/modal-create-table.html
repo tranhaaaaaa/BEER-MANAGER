@@ -67,8 +67,28 @@
                         </div>
                         <div class="col-md-6 p-3">
                           <h5>Danh sách món ăn</h5>
+                         <div class="mb-3 d-flex flex-nowrap overflow-auto gap-2">
+
+  <button
+    class="btn btn-sm"
+    [ngClass]="activeCategory === 'all' ? 'btn-primary' : 'btn-outline-primary'"
+    (click)="setCategory('all')"
+  >
+    Tất cả
+  </button>
+
+  <button
+    *ngFor="let cate of listCategory"
+    class="btn btn-sm"
+    [ngClass]="activeCategory === cate.Id ? 'btn-primary' : 'btn-outline-primary'"
+    (click)="setCategory(cate.Id)"
+  >
+    {{ cate.Name }}
+  </button>
+
+</div>
                           <div class="row">
-                            <div class="col-md-4 col-6 mb-3" *ngFor="let food of listProducts">
+                            <div class="col-md-4 col-6 mb-3" *ngFor="let food of filteredProducts">
                               <div class="card food-card h-100" (click)="addFood(food)">
                                 <img [src]="food.Img" class="card-img-top food-img" alt="{{ food.ProductName }}" />
                                 <div class="card-body text-center d-flex flex-column align-items-center">

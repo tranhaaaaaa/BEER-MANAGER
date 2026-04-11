@@ -123,5 +123,5 @@
   </div>
 </div>
 <app-payment-type></app-payment-type>
-<app-modal-create-table [ordersInput]="orderItems"></app-modal-create-table>
+<app-modal-create-table [ordersInput]="orderItems" (createTable)="onRefresh()"></app-modal-create-table>
 <app-modal-food (saveFood)="onRefresh()"></app-modal-food>

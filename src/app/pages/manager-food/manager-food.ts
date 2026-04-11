@@ -95,5 +95,7 @@ export class ManagerFood implements OnInit {
   }
   onRefresh(){
     this.onGetData();
+   this.showMobileOrder=false;
+   this.orderItems = [];
   }
 }

@@ -16,7 +16,6 @@ dayjs.extend(utc);
 @Component({
   selector: 'app-dashboard',
   imports: [
-    TransactionComponent,
     FormsModule,
     CommonModule,
     OrderHistory,

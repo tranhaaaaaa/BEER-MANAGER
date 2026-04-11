@@ -58,9 +58,12 @@ export class ModalCreateTable implements OnInit, OnChanges {
   };
   order: any;
   orders: any[] = [];
+  activeCategory: string | 'all' = 'all';
   public listCategory: Category[] = [];
   userLogged = new UserLogged();
   @Output() paymentSuccess = new EventEmitter<any>();
+  @Output() closeDialog = new EventEmitter<any>();
+
   @ViewChild(ModalDebt) modalDebt!: ModalDebt;
   @ViewChild(PaymentType) modal!: PaymentType;
   constructor(
@@ -87,7 +90,18 @@ export class ModalCreateTable implements OnInit, OnChanges {
   ngOnInit(): void {
     this.onGetData();
   }
+get filteredProducts(): Product[] {
+  if (this.activeCategory === 'all') {
+    return this.listProducts;
+  }
 
+  return this.listProducts.filter(
+    (p) => p.Category === this.activeCategory
+  );
+}
+setCategory(categoryId: string | 'all') {
+  this.activeCategory = categoryId;
+}
   foods = PRODUCT;
   @Output() createTable = new EventEmitter<any>();
   onGetData() {
@@ -95,7 +109,7 @@ export class ModalCreateTable implements OnInit, OnChanges {
       this.listProducts = data.value;
     });
     this.categoryService.getAllCategories().subscribe((data) => {
-      this.listCategory = data.value.filter((x: Category) => x.Type == 1);
+      this.listCategory = data.value.filter((x: Category) => x.Type == 2);
     });
   }
   onPaymentSuccess(data: any) {
@@ -225,6 +239,7 @@ export class ModalCreateTable implements OnInit, OnChanges {
     if (!this.ORDER_ID) {
       this.orderService.CreateOrder(this.form.value).subscribe((data) => {
         this.toastrService.success('Tạo đơn thành công!');
+        this.createTable.emit(data);
         this.close();
       });
     } else {
